@@ -52,7 +52,20 @@
 			"PistolIdle": {
 				"frames": 1,
 				"auto": false
-			}
+			},
+			"Crouch": {
+				"frames": 1,
+				"auto": false
+			},
+			"Sneak": {
+				"frames": 4,
+				"auto": false
+			},
+			"Idle": {
+				"frames": 1,
+				"auto": false
+			}			
+			
 		}
 	}
 	],
