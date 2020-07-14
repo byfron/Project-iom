@@ -1,0 +1,13 @@
+{
+	"world":
+	[
+	{
+		"level": 0,
+		"map_file": "level_0.aseprite"
+	},
+	{
+		"level": 1,
+		"map_file": "level_1.aseprite"
+	}
+	]
+}

@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://game/ui/overlay/Selector.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets_OLD/shaders/dashed_line.shader" type="Shader" id=2]
+[ext_resource path="res://game_assets/particles/dashed_line.png" type="Texture" id=3]
+[ext_resource path="res://game/scenes/world/OverlayLayer.gd" type="Script" id=5]
+[ext_resource path="res://resources/gui_tilemap.tres" type="TileSet" id=6]
+[ext_resource path="res://game/utils/SmoothPath.tscn" type="PackedScene" id=7]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+
+[node name="OverlayLayer" type="Node2D"]
+z_index = 10
+script = ExtResource( 5 )
+
+[node name="Cursor" parent="." instance=ExtResource( 1 )]
+light_mask = 2
+position = Vector2( 0.0549925, -0.0888828 )
+z_index = 2
+z_as_relative = false
+
+[node name="AimLine" type="Line2D" parent="."]
+visible = false
+material = SubResource( 1 )
+points = PoolVector2Array( 98.9718, 41.3338, 0, 0 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 3 )
+texture_mode = 1
+
+[node name="GUITilemap" type="TileMap" parent="."]
+self_modulate = Color( 1, 1, 1, 0.321569 )
+light_mask = 2
+z_index = 5
+z_as_relative = false
+tile_set = ExtResource( 6 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+occluder_light_mask = 2
+format = 1
+tile_data = PoolIntArray( -393207, 0, 0, -196597, 0, 0, 0, 0, 0, 3, 0, 0, 4, 0, 0, 65542, 0, 0 )
+
+[node name="ShootLine" type="Line2D" parent="."]
+light_mask = 2
+points = PoolVector2Array( -26.6139, -64.0557, 121.872, -79.024 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="SmoothPath" parent="." instance=ExtResource( 7 )]
+self_modulate = Color( 1, 1, 1, 1 )
+z_index = 2
+z_as_relative = false
+thickness = 5.0

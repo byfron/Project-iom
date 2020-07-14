@@ -1,0 +1,87 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://game/scenes/world/WorldScene.gd" type="Script" id=2]
+[ext_resource path="res://game/core/InputManager.gd" type="Script" id=3]
+[ext_resource path="res://game/ui/character_dialogs/DialogPanel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/core/JuicyCamera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/ui/actions/MainPanel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://game/ui/top_bar/TopBar.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game/scenes/world/WorldMap.tscn" type="PackedScene" id=12]
+[ext_resource path="res://game/ui/containers/ContainerPanel.tscn" type="PackedScene" id=13]
+[ext_resource path="res://game/ui/debug/DebugPanel.tscn" type="PackedScene" id=14]
+[ext_resource path="res://game/ui/containers/ItemActionList.tscn" type="PackedScene" id=15]
+[ext_resource path="res://game/ui/containers/InventoryPanel.tscn" type="PackedScene" id=16]
+[ext_resource path="res://game/ui/log/LogPanel.tscn" type="PackedScene" id=17]
+[ext_resource path="res://game/ui/info_panel/InfoPanel.tscn" type="PackedScene" id=19]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 70.3166, 442.62 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 122.0
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="WorldMap" parent="." instance=ExtResource( 12 )]
+position = Vector2( 0, 0 )
+
+[node name="JuicyCamera" parent="." instance=ExtResource( 6 )]
+zoom = Vector2( 0.95, 0.95 )
+
+[node name="InputArea" type="Area2D" parent="JuicyCamera"]
+scale = Vector2( 18.1946, 1.84239 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JuicyCamera/InputArea"]
+position = Vector2( 26.6058, 112.271 )
+shape = SubResource( 1 )
+
+[node name="MoveTween" type="Tween" parent="JuicyCamera"]
+
+[node name="CharArea2D" type="Area2D" parent="JuicyCamera"]
+scale = Vector2( 0.5, 0.5 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JuicyCamera/CharArea2D"]
+shape = SubResource( 2 )
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
+
+[node name="DialogPanel" parent="GUILayer" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 440 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 50
+
+[node name="DebugPanel" parent="GUILayer" instance=ExtResource( 14 )]
+offset = Vector2( 1600, 900 )
+transform = Transform2D( 1, 0, 0, 1, 1600, 900 )
+
+[node name="LogPanel" parent="GUILayer" instance=ExtResource( 17 )]
+position = Vector2( 17.432, 983.506 )
+scale = Vector2( 0.803986, 0.803986 )
+
+[node name="InfoPanel" parent="GUILayer" instance=ExtResource( 19 )]
+visible = false
+position = Vector2( 960.481, 9.25323 )
+z_index = 1
+
+[node name="MainPanel" parent="GUILayer" instance=ExtResource( 10 )]
+
+[node name="TopBar" parent="GUILayer" instance=ExtResource( 11 )]
+
+[node name="ContainerPanel" parent="GUILayer" instance=ExtResource( 13 )]
+visible = false
+position = Vector2( 802.542, 603.149 )
+
+[node name="InventoryPanel" parent="GUILayer" instance=ExtResource( 16 )]
+visible = false
+position = Vector2( 1027.88, 629.996 )
+
+[node name="ItemActionList" parent="GUILayer" instance=ExtResource( 15 )]
+visible = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false

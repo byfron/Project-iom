@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets_OLD/fonts/Poppins-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://game/ui/character_dialogs/Response.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 1 )
+
+[node name="Response" type="PanelContainer"]
+self_modulate = Color( 0.109804, 0.482353, 0.141176, 1 )
+margin_top = 1.0
+margin_right = 388.0
+margin_bottom = 15.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 388.0
+margin_bottom = 14.0
+
+[node name="ResponseNum" type="Label" parent="HBoxContainer"]
+margin_top = 6.0
+margin_right = 2.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 2 )
+text = "A)"
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 24.0
+margin_bottom = 8.0
+custom_fonts/font = SubResource( 3 )
+text = "This is a response"
+[connection signal="gui_input" from="." to="." method="_on_Response_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_Response_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Response_mouse_exited"]

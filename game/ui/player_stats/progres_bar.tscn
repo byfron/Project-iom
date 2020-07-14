@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://game/ui/player_stats/progres_bar.gd" type="Script" id=1]
+[ext_resource path="res://assets_OLD/fonts/SourceCodePro.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://game_assets/gui/bar.png" type="Texture" id=3]
+
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0.152649, 0, 214.353, 27 )
+margin_left = 2.49651
+margin_right = 3.05129
+margin_top = 2.7739
+margin_bottom = 1.53678
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="ProgressBar" type="PanelContainer"]
+rect_min_size = Vector2( 369, 0 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+text = ""
+color = Color( 0, 0, 0, 1 )
+max_value = 100
+value = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 369.0
+margin_bottom = 26.0
+custom_constants/margin_right = 4
+custom_constants/margin_left = 3
+
+[node name="Bar" type="Panel" parent="MarginContainer"]
+show_behind_parent = true
+margin_left = 3.0
+margin_right = 3.0
+margin_bottom = 26.0
+rect_pivot_offset = Vector2( 664.892, 13.527 )
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarContainer" type="Panel" parent="."]
+self_modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
+margin_right = 369.0
+margin_bottom = 26.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 369.0
+margin_bottom = 26.0
+custom_constants/separation = 36
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="HBoxContainer"]
+margin_left = 136.0
+margin_right = 136.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="HBoxContainer"]
+margin_left = 172.0
+margin_right = 232.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 4 )
+text = "0/100"
+__meta__ = {
+"_edit_use_anchors_": false
+}

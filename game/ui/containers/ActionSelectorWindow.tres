@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=2]
+
+[ext_resource path="res://game_assets/gui/window_2_border.png" type="Texture" id=1]
+
+[resource]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 143, 128 )
+margin_left = 6.7942
+margin_right = 6.14714
+margin_top = 6.47067
+margin_bottom = 6.14714

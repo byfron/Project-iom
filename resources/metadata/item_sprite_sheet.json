@@ -1,0 +1,12 @@
+{
+	"Animations":
+	[
+	{
+		"explode": {
+			"frames": 3,
+			"auto": true
+		}
+	}
+	],
+	"SpriteSheet": "items.tres"
+}

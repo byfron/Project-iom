@@ -1,0 +1,175 @@
+{
+	"base_tile": 0,
+	"autotiling":
+	[
+	{
+		"name:": "Door closed",
+		"src_tile": 252,
+		"neighbor_tiles": [154],
+		"codes":
+		[
+		{
+			"code": 17,
+			"id": 16,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 68,
+			"id": 13,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	},
+	{
+		"name": "door open",
+		"src_tile": 253,
+		"neighbor_tiles": [154],
+		"codes":
+		[
+		{
+			"code": 17,
+			"id": 20,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 68,
+			"id": 12,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	},		
+	{
+		"src_tile": 40,
+		"neighbor_tiles": [154],
+		"codes":
+		[
+		{
+			"code": 17,
+			"id": 6,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 68,
+			"id": 5,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	},		
+	{
+		"name": "Building walls",
+		"src_tile": 154,
+		"neighbor_tiles": [154, 253, 252, 40],
+		"codes":
+		[
+		{
+			"code": 85,
+			"id": 0,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 0,
+			"id": 0,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 64,
+			"id": 1,
+			"x_mirror": true,
+			"y_mirror": false
+		},
+		{
+			"code": 16,
+			"id": 6,
+			"x_mirror": true,
+			"y_mirror": false
+		},
+		{
+			"code": 80,
+			"id": 2,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 4,
+			"id": 1,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 68,
+			"id": 9,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 20,
+			"id": 11,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 84,
+			"id": 10,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 1,
+			"id": 6,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 65,
+			"id": 15,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 17,
+			"id": 7,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 81,
+			"id": 3,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 5,
+			"id": 8,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 69,
+			"id": 14,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 21,
+			"id": 7,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 85,
+			"id": 0,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	}
+	]
+}

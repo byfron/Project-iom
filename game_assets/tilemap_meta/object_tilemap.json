@@ -1,0 +1,132 @@
+{
+	"base_tile": 0,
+	"id_to_atlas": [
+	{
+		"src_tile": 41,
+		"atlas": 23
+	},
+	{
+		"src_tile": 65,
+		"atlas": 28
+	},		
+	{
+		"src_tile": 42,
+		"atlas": 24
+	},
+	{
+		"src_tile": 43,
+		"atlas": 25
+	},
+	{
+		"src_tile": 44,
+		"atlas": 26
+	},
+	{
+		"src_tile": 45,
+		"atlas": 27
+	},		
+	{
+		"src_tile": 66,
+		"atlas": 18
+	},
+	{
+		"src_tile": 67,
+		"atlas": 29
+	},			
+	{
+		"src_tile": 131,
+		"atlas": 9
+	},
+	{
+		"src_tile": 134,
+		"atlas": 10
+	},
+	{
+		"src_tile": 64,
+		"atlas": 8
+	},
+	{
+		"src_tile": 93,
+		"atlas": 21
+	}			
+	],
+	"autotiling":
+	[
+	{
+		"src_tile": 60,
+		"neighbor_tiles": [60],
+		"codes":
+		[
+		{
+			"code": 4,
+			"id": 16,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 64,
+			"id": 17,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	},
+	{
+		"src_tile": 63,
+		"neighbor_tiles": [63],
+		"codes":
+		[
+		{
+			"code": 4,
+			"id": 19,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 64,
+			"id": 20,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	},		
+	{
+		"src_tile": 76,
+		"neighbor_tiles": [76],
+		"codes":
+		[
+		{
+			"code": 16,
+			"id": 5,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 1,
+			"id": 13,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	},
+	{
+		"src_tile": 92,
+		"neighbor_tiles": [92],
+		"codes":
+		[
+		{
+			"code": 16,
+			"id": 7,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 1,
+			"id": 15,
+			"x_mirror": false,
+			"y_mirror": false
+		}
+		]
+	}		
+	]
+}

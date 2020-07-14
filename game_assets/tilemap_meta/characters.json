@@ -1,0 +1,22 @@
+{
+	"animations": [
+	{
+		"name": "SimpleWalk",
+		"frames": 1,
+		"orientations": true
+	},		
+	{
+		"name": "Walk",
+		"frames": 4,
+		"orientations": true
+	},
+	{
+		"name": "Death",
+		"frames": 1,
+		"orientations": true
+	},
+	{
+		"",
+	}
+	]
+}

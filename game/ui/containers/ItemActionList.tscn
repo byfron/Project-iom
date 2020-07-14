@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/ui/containers/ActionSelectorWindow.tres" type="StyleBox" id=2]
+[ext_resource path="res://game/ui/containers/Action.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends MarginContainer
+onready var action_container = $MarginContainer/MarginContainer/VBoxContainer
+var ActionNode = preload(\"res://game/ui/containers/Action.tscn\")
+
+func _ready():
+	pass 
+
+func clear_actions():
+	for n in action_container.get_children():
+		action_container.remove_child(n)
+		n.queue_free()
+		
+	#put width/height back to zero
+	rect_size.x = 0
+	rect_size.y = 0
+
+func show_entity_actions(entity):
+	show()
+	clear_actions()
+	rect_position = get_viewport().get_mouse_position() - Vector2(5,5)
+	var actions = ActionFactory.compute_item_actions(entity)
+	for action in actions:
+		var action_node = ActionNode.instance()
+		action_node.action_text = action.action_name
+		action_node.action = action
+		action_container.add_child(action_node)
+		print('Adding', action.action_name)
+		
+	pass
+		
+	#var actions = EntityPool.get_actions(entity)
+#	for action in actions:
+#		var action_node = ActionNode.instance()
+#		action_node.action_text = action[1]
+#		action_node.action_id = action[0]
+#		action_container.add_child(action_node)
+
+func _on_ActionSelector_mouse_exited():
+	#Mouse_exited gets trigger when hovering over children, so we brute-force check here
+	#that the mouse has truly existed the control rect
+	var mouse_is_inside = get_global_rect().has_point(get_global_mouse_position())
+	if not mouse_is_inside:
+		hide()
+"
+
+[node name="ItemActionList" type="MarginContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_right = 100.0
+margin_bottom = 79.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 100.0
+margin_bottom = 79.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+margin_right = 100.0
+margin_bottom = 79.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+margin_right = 100.0
+margin_bottom = 79.0
+mouse_filter = 2
+custom_constants/margin_right = 4
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 74.0
+mouse_filter = 2
+custom_constants/separation = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Action" parent="MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_right = 91.0
+action_text = "asdasd"
+
+[node name="Action2" parent="MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 35.0
+margin_right = 91.0
+margin_bottom = 69.0
+action_text = "pick one"
+[connection signal="mouse_exited" from="." to="." method="_on_ActionSelector_mouse_exited"]

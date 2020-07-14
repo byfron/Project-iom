@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/CAMP_FIRE_OLD.ogg-c1730c64ce9275976184d0766a497725.oggstr"
+
+[deps]
+
+source_file="res://game_assets/sounds/CAMP_FIRE_OLD.ogg"
+dest_files=[ "res://.import/CAMP_FIRE_OLD.ogg-c1730c64ce9275976184d0766a497725.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

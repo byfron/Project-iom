@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game_assets/textures/characters/DIFFUSE_Joe_PistolIdle_sheet.png" type="Texture" id=1]
+[ext_resource path="res://game/actors/ActorWeapon.gd" type="Script" id=2]
+
+[node name="ActorWeapon" type="Node2D"]
+light_mask = 4
+script = ExtResource( 2 )
+weapon_keypoints = {
+"E": Vector2( 21, -11 ),
+"N": Vector2( 1, -28 ),
+"NE": Vector2( 16, -28 ),
+"NW": Vector2( -14, -24 ),
+"S": Vector2( -2, 3 ),
+"SE": Vector2( 13, -5 ),
+"SW": Vector2( -16, -5 ),
+"W": Vector2( -21, -12 )
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+vframes = 8
+frame = 5
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( -16.6084, -1.39861 )

@@ -1,0 +1,22 @@
+{
+    "weapon_templates":
+    [
+	{
+        "name": "Bullwhip",
+		"weapon_id": 1,
+        "graphics": [1, 1, 92],
+        "description": ["Bullwhip descr."],
+		"item": [1.5, 2],
+		"weapon": [0, "2D4", 1, 1, 1, 1]
+    },
+	{
+        "name": ".32 Revolver",
+		"weapon_id": 2,
+        "graphics": [1, 1, 92],
+        "description": ["Colt Detective Revolver with a barrel of 6 shots."],
+		"item": [1.5, 1],
+		"weapon": [1, "1D8", 10, 1, 2, 1]
+    }		
+    ]
+}   
+

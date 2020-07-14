@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/actions/Action.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/actions/native_actions/Explode.gd" type="Script" id=2]
+[ext_resource path="res://game/actions/sub_actions/AnimSubAction.tscn" type="PackedScene" id=3]
+
+[node name="Explode" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+num_states = 3
+action_duration = 0.4
+
+[node name="AnimSubAction" parent="." index="0" instance=ExtResource( 3 )]
+animation = "bottle_explode"
+state_frames = [ 1, 2, 3 ]

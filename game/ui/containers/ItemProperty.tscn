@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game_assets/fonts/OpenSansCondensed-LightItalic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://game/ui/containers/ItemProperty.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Control" type="HSplitContainer"]
+anchor_right = 0.173
+anchor_bottom = 0.032
+margin_right = -244.983
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 23.0
+margin_bottom = 38.0
+custom_constants/margin_right = -10
+custom_constants/margin_top = 9
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 9
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+margin_left = 3.0
+margin_top = 9.0
+margin_right = 33.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 30, 20 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 35.0
+margin_top = 5.0
+margin_right = 96.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 1 )

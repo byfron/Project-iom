@@ -1,0 +1,380 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://game/ui/character_sheet/CharSheetPanel.gd" type="Script" id=1]
+[ext_resource path="res://assets_OLD/fonts/YanoneKaffeesatz-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets_OLD/fonts/SourceCodePro.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://game_assets/gui/window_2_border.png" type="Texture" id=4]
+[ext_resource path="res://game_assets/gui/button_shrink.png" type="Texture" id=5]
+[ext_resource path="res://game_assets/gui/button_expand.png" type="Texture" id=6]
+[ext_resource path="res://game/ui/character_sheet/PlayerTabs.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/ui/player_stats/progres_bar.tscn" type="PackedScene" id=8]
+
+
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 143, 128 )
+margin_left = 7.55475
+margin_right = 5.9133
+margin_top = 6.39248
+margin_bottom = 6.32111
+
+[sub_resource type="StyleBoxLine" id=2]
+color = Color( 0.372549, 0.321569, 0.188235, 1 )
+thickness = 2
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 25
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="CharSheet" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 7.55475
+margin_right = 677.555
+margin_bottom = 996.0
+mouse_filter = 2
+custom_constants/vseparation = 3
+custom_constants/hseparation = -2
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="PanelContainer" parent="GridContainer"]
+margin_right = 466.468
+margin_bottom = 400.714
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/MarginContainer"]
+margin_left = 7.55475
+margin_top = 6.39248
+margin_right = 460.555
+margin_bottom = 394.392
+
+[node name="AttributesSeparator" type="HBoxContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_right = 453.0
+margin_bottom = 24.0
+
+[node name="HSeparatorLeft" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/AttributesSeparator"]
+margin_right = 182.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesSeparator"]
+margin_left = 186.0
+margin_right = 267.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "Attributes"
+
+[node name="HSeparatorRight" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/AttributesSeparator"]
+margin_left = 271.0
+margin_right = 453.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="HealthBar" parent="GridContainer/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
+margin_top = 28.0
+margin_right = 453.0
+margin_bottom = 54.0
+text = "Health"
+color = Color( 0.329412, 0.0509804, 0.0980392, 1 )
+
+[node name="StaminaBar" parent="GridContainer/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
+margin_top = 58.0
+margin_right = 453.0
+margin_bottom = 84.0
+text = "Stamina"
+color = Color( 0.0666667, 0.156863, 0.639216, 1 )
+
+[node name="ManaBar" parent="GridContainer/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
+margin_top = 88.0
+margin_right = 453.0
+margin_bottom = 114.0
+text = "Mana"
+color = Color( 0.0823529, 0.501961, 0.266667, 1 )
+
+[node name="SanityBar" parent="GridContainer/MarginContainer/VBoxContainer" instance=ExtResource( 8 )]
+margin_top = 118.0
+margin_right = 453.0
+margin_bottom = 144.0
+text = "Sanity"
+color = Color( 0.65098, 0.156863, 0.721569, 1 )
+
+[node name="AttributesContainer" type="GridContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_left = 31.0
+margin_top = 148.0
+margin_right = 422.0
+margin_bottom = 216.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/hseparation = 38
+columns = 3
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesContainer"]
+margin_right = 105.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+text = "STR: 30"
+
+[node name="Label2" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesContainer"]
+margin_left = 143.0
+margin_right = 248.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+text = "STR: 30"
+
+[node name="Label3" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesContainer"]
+margin_left = 286.0
+margin_right = 391.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+text = "STR: 30"
+
+[node name="Label4" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesContainer"]
+margin_top = 36.0
+margin_right = 105.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 4 )
+text = "STR: 30"
+
+[node name="Label5" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesContainer"]
+margin_left = 143.0
+margin_top = 36.0
+margin_right = 248.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 4 )
+text = "STR: 30"
+
+[node name="Label6" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/AttributesContainer"]
+margin_left = 286.0
+margin_top = 36.0
+margin_right = 391.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 4 )
+text = "STR: 30"
+
+[node name="ExpSeparator" type="HBoxContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_top = 220.0
+margin_right = 453.0
+margin_bottom = 244.0
+
+[node name="HSeparatorLeft" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/ExpSeparator"]
+margin_right = 180.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/ExpSeparator"]
+margin_left = 184.0
+margin_right = 268.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "Experience"
+
+[node name="HSeparatorRight" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/ExpSeparator"]
+margin_left = 272.0
+margin_right = 453.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="ExpContainer" type="GridContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_left = 29.0
+margin_top = 248.0
+margin_right = 423.0
+margin_bottom = 280.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/hseparation = 34
+columns = 3
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/ExpContainer"]
+margin_right = 255.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+text = "EXP: 2000 (12000)"
+
+[node name="Label2" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/ExpContainer"]
+margin_left = 289.0
+margin_right = 394.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+text = "LVL: 30"
+
+[node name="StatsSeparator" type="HBoxContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_top = 284.0
+margin_right = 453.0
+margin_bottom = 308.0
+
+[node name="HSeparatorLeft" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/StatsSeparator"]
+margin_right = 197.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatsSeparator"]
+margin_left = 201.0
+margin_right = 252.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "Status"
+
+[node name="HSeparatorRight" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/StatsSeparator"]
+margin_left = 256.0
+margin_right = 453.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="StatusContainer" type="GridContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_top = 312.0
+margin_right = 453.0
+margin_bottom = 380.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/hseparation = 16
+columns = 4
+
+[node name="Label3" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatusContainer"]
+margin_right = 105.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.815686, 0.819608, 0.2, 1 )
+text = "Running"
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatusContainer"]
+margin_left = 121.0
+margin_right = 241.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.929412, 0, 0, 1 )
+text = "Bleeding"
+
+[node name="Label4" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatusContainer"]
+margin_left = 257.0
+margin_right = 347.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.815686, 0.819608, 0.2, 1 )
+text = "Hungry"
+
+[node name="Label5" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatusContainer"]
+margin_left = 363.0
+margin_right = 453.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.815686, 0.819608, 0.2, 1 )
+text = "Hungry"
+
+[node name="Label6" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatusContainer"]
+margin_top = 36.0
+margin_right = 105.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.815686, 0.819608, 0.2, 1 )
+text = "Hungry"
+
+[node name="Label7" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/StatusContainer"]
+margin_left = 121.0
+margin_top = 36.0
+margin_right = 241.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.815686, 0.819608, 0.2, 1 )
+text = "Hungry"
+
+[node name="HSeparator3" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer"]
+visible = false
+margin_top = 356.0
+margin_right = 488.0
+margin_bottom = 364.0
+custom_styles/separator = SubResource( 2 )
+custom_constants/separation = 8
+
+[node name="TextureButton" type="TextureButton" parent="GridContainer/MarginContainer/VBoxContainer"]
+visible = false
+margin_left = 224.0
+margin_top = 368.0
+margin_right = 264.0
+margin_bottom = 408.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
+expand = true
+
+[node name="MiscSeparator" type="HBoxContainer" parent="GridContainer/MarginContainer/VBoxContainer"]
+margin_top = 384.0
+margin_right = 453.0
+margin_bottom = 388.0
+
+[node name="HSeparatorLeft" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/MiscSeparator"]
+margin_right = 224.0
+margin_bottom = 4.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="Label" type="Label" parent="GridContainer/MarginContainer/VBoxContainer/MiscSeparator"]
+visible = false
+margin_left = 227.0
+margin_right = 260.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "Misc"
+
+[node name="HSeparatorRight" type="HSeparator" parent="GridContainer/MarginContainer/VBoxContainer/MiscSeparator"]
+margin_left = 228.0
+margin_right = 453.0
+margin_bottom = 4.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 2 )
+
+[node name="Panel" type="Panel" parent="GridContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 464.0
+margin_right = 664.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 200, 0 )
+mouse_filter = 2
+
+[node name="TabContainer" type="PanelContainer" parent="GridContainer"]
+visible = false
+margin_top = 403.0
+margin_right = 466.0
+margin_bottom = 415.714
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" parent="GridContainer/TabContainer" instance=ExtResource( 7 )]
+visible = false
+margin_left = 7.55475
+margin_top = 6.39248
+margin_right = 460.087
+margin_bottom = 578.392
+[connection signal="toggled" from="GridContainer/MarginContainer/VBoxContainer/TextureButton" to="." method="_on_TextureButton_toggled"]
+[connection signal="mouse_exited" from="GridContainer/TabContainer" to="." method="_on_TabContainer_mouse_exited"]
+
+[editable path="GridContainer/TabContainer/TabContainer"]

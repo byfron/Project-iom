@@ -1,0 +1,12 @@
+{
+	"item_templates":
+	[
+	{
+		"name": "bottle",
+		"item_id": 10,
+		"graphics": [1, 1, 10, 0],
+		"item": [1, 3],
+		"throwable": [0.5]
+	}
+	]
+}

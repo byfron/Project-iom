@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game/actions/sub_actions/AnimForwardSubAction.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/actions/user_actions/UserAction.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/actions/user_actions/Sneak.gd" type="Script" id=3]
+[ext_resource path="res://game/actions/sub_actions/RandomSoundSubAction.tscn" type="PackedScene" id=4]
+
+[node name="Sneak" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+action_name = "Sneak"
+
+[node name="Anim" parent="." index="0" instance=ExtResource( 1 )]
+animation = "Sneak"
+state_frames = [ null ]
+
+[node name="RandomSoundSubAction" parent="." index="1" instance=ExtResource( 4 )]
+sounds = [ "STEP1", "STEP2", "STEP3", "STEP4" ]

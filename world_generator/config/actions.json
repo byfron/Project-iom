@@ -1,0 +1,132 @@
+{
+	"actions": [
+	{
+		"id": 0,
+		"name": "talk",
+		"components": ["dialog"],
+		"description": "",
+		"range": 1,
+		"type": ["DEFAULT"]
+	},
+	{
+		"id": 1,
+		"name": "look",
+		"components": ["description"],
+		"description": "",
+		"type": ["DEFAULT"]
+	},
+	{
+		"id": 2,
+		"name": "melee attack",
+		"components": ["character"],
+		"description": "Regular attack that depends on the wielded weapon",
+		"range": 1,
+		"type": ["COMBAT"],
+		"animation": "CrossPunch",
+		"states": [0, 1, 2],
+		"execute": 1,
+		"auto": true,
+		"priority": 2,
+		"turn_time": 0.1
+	},
+	{
+		"id": 3,
+		"name": "open/close",
+		"components": ["door", "container"],
+		"description": "",
+		"range": 1,
+		"type": ["DEFAULT"]
+	},
+	{
+		"id": 4,
+		"name": "wield",
+		"components": ["weapon"],
+		"description": "",
+		"type": ["INVENTORY", "CONTAINER"]
+	},
+	{
+		"id": 5,
+		"name": "pick",
+		"components": ["item"],
+		"description": "",
+		"range": 1,
+		"type": ["DEFAULT"]
+	},
+	{
+		"id": 6,
+		"name": "drop",
+		"components": ["item"],
+		"description": "",
+		"type": ["INVENTORY"]
+	},		
+	{
+		"id": 7,
+		"name": "equip",
+		"components": ["clothing"],
+		"description": "",
+		"type": ["INVENTORY", "CONTAINER", "DEFAULT"]
+	},
+	{
+		"id": 8,
+		"name": "ascend/descend",
+		"components": ["stairs"],
+		"description": "",
+		"range": 1,
+		"type": ["DEFAULT"]
+	},
+	{
+		"id": 9,
+		"name": "shove",
+		"components": ["character"],
+		"description": "Violent push that displaces your enemy. It has a chance of knockdowns. Roll: STR vs. SIZE",
+		"range": 1,
+		"type": ["COMBAT"]
+	},
+	{
+		"id": 10,
+		"name": "walk",
+		"components": [],
+		"description": "",
+		"type": ["DEFAULT"],
+		"animation": "Running",
+		"states": [0, 1, 2, 3],
+		"execute": 0,
+		"turn_time": 0.1
+	},
+	{
+		"id": 11,
+		"name": "aim",
+		"components": ["character"],
+		"description": "",
+		"type": ["COMBAT"]
+	},
+	{
+		"id": 12,
+		"name": "fire",
+		"components": ["character"],
+		"description": "",
+		"type": ["COMBAT"]
+	},
+	{
+		"id": 13,
+		"name": "take",
+		"components": ["item"],
+		"description": "",
+		"type": ["CONTAINER"]
+	},		
+	{
+		"id": 14,
+		"name": "talk",
+		"components": ["dialog"],
+		"description": "",
+		"type": ["SOCIAL"]
+	},
+	{
+		"id": 15,
+		"name": "throw",
+		"components": ["throwable"],
+		"description": "",
+		"type": ["INVENTORY"]
+	}
+	]
+}

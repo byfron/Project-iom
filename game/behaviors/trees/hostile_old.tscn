@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://game/behaviors/action_leafs/attack_entity.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/blackboard.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=4]
+[ext_resource path="res://game/behaviors/action_leafs/reach_entity.gd" type="Script" id=5]
+[ext_resource path="res://game/behaviors/action_leafs/find_entity.gd" type="Script" id=6]
+
+[node name="hostile" type="Node"]
+
+[node name="BehaviorTree" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="BehaviorSequence" type="Node" parent="BehaviorTree"]
+script = ExtResource( 3 )
+
+[node name="find_entity" type="Node" parent="BehaviorTree/BehaviorSequence"]
+script = ExtResource( 6 )
+
+[node name="reach_entity" type="Node" parent="BehaviorTree/BehaviorSequence"]
+script = ExtResource( 5 )
+
+[node name="attack_entity" type="Node" parent="BehaviorTree/BehaviorSequence"]
+script = ExtResource( 1 )
+
+[node name="BehaviorBlackboard" type="Node" parent="."]
+script = ExtResource( 2 )

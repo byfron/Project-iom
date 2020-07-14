@@ -1,0 +1,15 @@
+{
+	"Sounds":
+	[
+	{
+		"Death01": {
+			"sid": 0,
+			"descr": "Animals and simple entities"
+		},
+		"Door01": {
+			"sid": 1,
+			"descr": "Normal door"
+		}
+	}
+	]
+}

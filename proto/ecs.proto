@@ -1,0 +1,192 @@
+syntax="proto2";
+
+import "world.proto";
+
+message LocationComponent {
+  required PBMapCoordinate coord = 1;
+}
+
+message MovementComponent {
+  required float speed = 1;
+}
+
+message GraphicsComponent {
+  required uint32 size_x = 1;
+  required uint32 size_y = 2;
+  required uint32 graphics_id = 3;
+  required uint32 gtype = 4;
+}
+
+message BehaviorComponent {
+  required string script = 1;
+}
+
+message DialogState {
+	required uint32 id = 1;
+	required string script = 2;
+}
+
+message DialogComponent {
+  repeated DialogState dialog_states = 1;
+}
+
+message CharacterComponent {
+  required string name = 1;
+  required string gender = 2;
+  required uint32 level = 3;
+  required uint32 experience = 4;
+}
+
+message SoundComponent {
+  map<string, uint32> sound_map = 1;
+}
+
+message MainCharacterComponent {
+  required string name = 1;
+  required string gender = 2;
+  required uint32 level = 3;
+  required uint32 experience = 4;  
+}
+
+message CharStatusComponent {
+  required bool crouching = 1;
+  required bool running = 2;
+  required bool bleeding = 3;
+  required bool poisoned = 4;
+}
+
+message CharStatsComponent {
+  required uint32 health = 1;
+  required uint32 stamina = 2;
+  required uint32 mana = 3;
+  required uint32 sanity = 4;
+}
+
+message VolumeComponent {
+  required uint32 height = 1;
+}
+
+message AttributesComponent {
+  required uint32 str = 1;
+  required uint32 dex = 2;
+  required uint32 con = 3;
+  required uint32 int = 4;
+  required uint32 edu = 5;
+  required uint32 cha = 6;
+}
+
+message ThrowableComponent {
+  required float weight_factor = 1;
+}
+
+message SkillsComponent {
+  map<string, uint32> skill_map = 1;  
+}
+
+message BodyPartsComponent {
+  required uint32 head = 1;
+  required uint32 chest = 2;
+  required uint32 left_arm = 3;
+  required uint32 right_arm = 4;
+  required uint32 left_leg = 5;
+  required uint32 right_leg = 6;
+}
+
+message InitiativeComponent {
+  required uint32 initiative = 1;
+}
+
+message DoorComponent {
+  required bool locked = 1;
+  required bool open_closed = 2;
+}
+
+message ItemComponent {
+  required float weight = 1;
+  required uint32 itype = 2;
+}
+
+message LightComponent {
+  required uint32 intensity = 1;
+  required uint32 size = 2;
+  repeated uint32 color = 3;
+}
+
+message DescriptionComponent {
+  required string description = 1;
+}
+
+message InventoryComponent {
+  required uint32 capacity = 1;
+  repeated string stored_entities = 2;
+  optional string weilded_in_main_hand = 3;
+  optional string weilded_in_secondary_hand = 4;
+  optional string equiped_in_head = 5;
+  optional string equiped_in_chest = 6;
+  optional string equiped_in_hands = 7;
+  optional string equiped_in_legs = 8;
+  optional string equiped_misc = 9;
+}
+
+message ContainerComponent {
+  required uint32 capacity = 1;
+  required uint32 type = 2;	
+  repeated string entities = 3;
+}
+
+message StairsComponent {
+  required int32 to_level = 1;
+}
+
+message FoodComponent {
+  required uint32 nutrition = 1;
+}
+
+message FireComponent {
+  required uint32 fire_power = 1;
+  optional uint32 fire_duration = 2;
+}
+
+message WeaponComponent {
+  required uint32 weapon_type = 1;
+  required string damage_roll = 2;
+  required uint32 range = 3;
+  required uint32 use_cost = 4;
+  required uint32 attacks_per_round = 5;
+  optional uint32 reload_cost = 6;
+}
+
+message ChunkComponent {
+  required PBWorldChunk chunk = 1;
+}
+
+message PBEntityPool {
+  map<string, PBEntity> entities = 1;
+  repeated PBAction actions = 2;
+}
+
+message PBComponent {
+  required string type = 1;
+  required bytes data = 2;
+}
+
+message PBAction {
+  required uint32 action_id = 1;
+  required string name = 2;
+  repeated string component_type = 3;
+  optional string description = 4;
+  repeated string type = 5;
+  optional uint32 range = 6;
+  repeated uint32 states = 7;
+  optional uint32 execute = 8;
+  optional string animation = 9;
+  required uint32 priority = 10;
+  required bool auto = 11;
+  required float turn_time = 12; 
+}
+
+message PBEntity {
+  required string entity_id = 1;
+  required string name = 2;
+  repeated PBComponent components = 3;
+}

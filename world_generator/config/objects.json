@@ -1,0 +1,155 @@
+{
+    "object_templates":
+    [
+	{
+        "name": "Tree",
+		"object_id": 92,
+        "graphics": [1, 2, 92],
+        "description": ["Tree descr."],
+        "location": [0,0]
+    },
+	{
+        "name": "Lamp",
+		"object_id": 76,
+        "graphics": [1, 2, 76],
+        "description": ["Lamp descr."],
+        "location": [0,0]
+    },
+	{
+        "name": "Bench",
+		"object_id": 60,
+        "graphics": [1, 2, 60],
+        "description": ["Bench descr."],
+        "location": [0,0]
+    },  		
+    {
+        "name": "Window",
+		"object_id": 40,
+        "graphics": [1, 1, 40],
+        "description": ["Window descr."],
+        "location": [0,0]
+    },
+	{
+        "name": "SideWindow",
+		"object_id": 41,
+        "graphics": [1, 1, 41],
+        "description": ["Window descr."],
+        "location": [0,0]
+    },
+	{
+        "name": "Door",
+		"object_id": 242,
+        "description": ["Door."],
+        "door": [false, false],
+		"graphics": [1, 1, 242],
+		"sound": {
+			"OPEN": 1,
+			"CLOSE": 1
+		},
+        "location": [0,0]
+    },
+	{
+        "name": "Door",
+		"object_id": 245,
+        "description": ["Door."],
+        "door": [false, false],
+		"graphics": [1, 1, 245],
+		"sound": {
+			"OPEN": 1,
+			"CLOSE": 1
+		},
+        "location": [0,0]
+    },        		    	
+    {
+        "name": "Door",
+		"object_id": 252,
+        "description": ["Door."],
+        "door": [false, false],
+		"graphics": [1, 1, 252],
+		"sound": {
+			"OPEN": 1,
+			"CLOSE": 1
+		},
+        "location": [0,0]
+    },
+	{
+        "name": "Door",
+		"object_id": 250,
+        "description": ["Door."],
+        "door": [false, false],
+		"graphics": [1, 1, 250],
+		"sound": {
+			"OPEN": 1,
+			"CLOSE": 1
+		},
+        "location": [0,0]
+    },        		
+    {
+        "name": "Fridge",
+		"object_id": 131,		
+        "graphics": [1, 1, 131],
+        "description": ["Fridge desc."],
+		"container": [5, 3],
+        "location": [0,0]
+     },
+     {
+         "name": "Barrel",
+		 "object_id": 66,
+         "graphics": [1, 1, 66],         
+         "description": ["Barrel description"],
+		 "container": [5, 1, []],
+         "sound": {
+			 "OPEN": 2
+		 },
+		 "volume": [1],
+         "location": [0,0]
+     },
+     {
+         "name": "Stove",
+		 "object_id": 134,		 
+         "graphics": [1, 1, 134],         
+         "description": ["device desc."],
+         "location": [0,0]
+     },
+     {
+         "name": "Bed",
+		 "object_id": 63,		 
+         "graphics": [2, 1, 63],         
+         "description": ["bed desc."],
+         "location": [0,0]
+     },
+	 {
+		 "name": "Manhole",
+		 "object_id": 65,
+		 "graphics": [1, 1, 65],
+		 "description": ["manhole"],
+		 "location": [0,0],
+		 "stairs": [1]
+	 },
+	 {
+		 "name": "Ladder",
+		 "object_id": 67,
+		 "graphics": [1, 1, 67],
+		 "description": ["Wooden ladder"],
+		 "location": [0,0],
+		 "stairs": [-1]
+	 },
+     {
+		 "name": "Torch",
+		 "object_id": 176,
+		 "graphics": [1, 1, 176],
+		 "description": ["Torch"],
+		 "fire": [4],
+		 "location": [0,0]
+	 },
+     {
+		 "name": "Bookshelf",
+		 "object_id": 177,
+		 "graphics": [1, 1, 177],
+		 "description": ["Plenty of books"],
+		 "volume": [2],
+		 "location": [0,0]
+	 }	
+     ]
+}   
+

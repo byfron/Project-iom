@@ -1,0 +1,82 @@
+{
+	"AnimationTypes":
+	[
+	{
+		"gtype": 0,
+		"descr": "Animals and simple entities",
+		"anims":		
+		{
+			"Running": {
+				"frames": 1,
+				"auto": false
+			}			
+		}
+	},
+	{
+		"gtype": 1,
+		"descr": "Humans and complex entities",
+		"anims":		
+		{
+			"Running": {
+				"frames": 4,
+				"auto": false
+			},
+			"BodyBlock": {
+				"frames": 1,
+				"auto": false
+			},			
+			"Death": {
+				"frames": 3,
+				"auto": true
+			},
+			"CrossPunch": {
+				"frames": 3,
+				"auto": false
+			},
+			"HeadHit": {
+				"frames": 1,
+				"auto": false
+			},
+			"FlyBack": {
+				"frames": 3,
+				"auto": false
+			},
+			"Aim": {
+				"frames": 1,
+				"auto": false,
+			},
+			"ShotgunAim": {
+				"frames": 1,
+				"auto": false,
+			},
+			"PistolIdle": {
+				"frames": 1,
+				"auto": false
+			}
+		}
+	}
+	],
+	"SpriteSheets":
+	[
+	{
+		"gid": 3,
+		"sprite_sheet": "Rat",
+	},
+	{
+		"gid": 1,
+		"sprite_sheet": "Joe",
+	},
+	{
+		"gid": 2,
+		"sprite_sheet": "Kate",
+	},
+	{
+		"gid": 3,
+		"sprite_sheet": "Liam",
+	},
+	{
+		"gid": 4,
+		"sprite_sheet": "Monster",
+	}		
+	]
+}

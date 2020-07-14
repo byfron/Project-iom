@@ -1,0 +1,23 @@
+{
+	"AnimationTypes":
+	[
+	{
+		"gtype": 0,
+		"descr": "Items that can be interacted with",
+		"anims":
+		{
+			"bottle_explode": {
+				"frames": 3,
+				"auto": true
+			}
+		}
+	}
+	],
+	"SpriteSheets":
+	[
+	{
+		"gid": 10,
+		"sprite_sheet": "items.tres"
+	}
+	]
+}

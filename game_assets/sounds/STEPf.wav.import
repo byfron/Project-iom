@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/STEPf.wav-7c748d2b5f89e76bac01c9517090978a.sample"
+
+[deps]
+
+source_file="res://game_assets/sounds/STEPf.wav"
+dest_files=[ "res://.import/STEPf.wav-7c748d2b5f89e76bac01c9517090978a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

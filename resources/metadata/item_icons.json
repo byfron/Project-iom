@@ -1,0 +1,20 @@
+{
+	"ItemIcons": [
+	{
+	"item_type": 0,
+	"icon": "banana"
+	},
+	{
+	"item_type": 1,
+	"icon": "pistol-gun"
+	},
+	{
+	"item_type": 2,
+	"icon": "whip"
+	},
+	{
+	"item_type": 3,
+	"icon": "brandy-bottle"
+	}		
+	]
+}

@@ -1,0 +1,27 @@
+enum ActionType {
+	TALK, # 0
+	LOOK, # 1
+	ATTACK, #2
+	OPEN_CLOSE, #3
+	WIELD, #4
+	PICK_ITEM, #5
+	DROP_ITEM, #6
+	EQUIP, #7
+	ASCEND_DESCEND, #8
+	SHOVE_ATTACK, #9
+	WALK, #10
+	AIM, #11
+	FIRE, #12
+	TAKE_ITEM, #13
+	TALK, #14
+	THROW_ITEM, #15
+	CROUCH,
+	USE,
+	REST,
+	INVESTIGATE,
+	STAND
+}
+
+enum NativeActionTypes {
+	FLY
+}

@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game/behaviors/action_leafs/attack_entity.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=3]
+[ext_resource path="res://game/behaviors/action_leafs/reach_entity.gd" type="Script" id=5]
+[ext_resource path="res://game/behaviors/action_leafs/find_entity.gd" type="Script" id=6]
+
+[node name="Attack" type="Node"]
+script = ExtResource( 3 )
+
+[node name="find_entity" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="reach_entity" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="attack_entity" type="Node" parent="."]
+script = ExtResource( 1 )

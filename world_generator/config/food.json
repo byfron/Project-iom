@@ -1,0 +1,19 @@
+{
+    "food_templates":
+    [
+        {
+            "name": "Banana",
+            "food_id": 1, 
+            "description": ["Banana fruit"],
+            "item": [1, 0],
+            "food": [2]
+        },
+        {
+            "name": "Tomato",
+            "food_id": 2,
+            "description": ["Tomato fruit"],
+            "item": [1, 0],
+            "food": [2]
+        }
+    ]
+}

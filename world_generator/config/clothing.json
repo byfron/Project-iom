@@ -1,0 +1,18 @@
+{
+    "item_types":
+    [
+    {
+		"type": 4,
+		"type_name": "fabric clothes",
+		"items":
+		[
+			{
+				"name": "pants",
+				"description": "",
+				"",
+				
+			}
+		]
+	}
+	]
+}

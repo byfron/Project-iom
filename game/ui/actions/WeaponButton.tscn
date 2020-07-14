@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://game/ui/actions/ActionButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/ui/actions/WeaponButton.gd" type="Script" id=2]
+[ext_resource path="res://game_assets/fonts/Silver.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.866667, 0.25098, 0.25098, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 3 )
+
+[node name="WeaponButton" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+action_type = 1
+color = Color( 0.866667, 0.25098, 0.25098, 1 )
+
+[node name="Panel" parent="MarginContainer" index="0"]
+custom_styles/panel = SubResource( 3 )
+
+[node name="Node2D" type="Node2D" parent="." index="3"]
+
+[node name="Label" type="Label" parent="Node2D" index="0"]
+margin_left = -88.8729
+margin_top = 7.0
+margin_right = -4.87286
+margin_bottom = 52.0
+grow_horizontal = 0
+custom_fonts/font = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

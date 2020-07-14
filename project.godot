@@ -1,0 +1,92 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Path2D",
+"class": "SmoothPath",
+"language": "GDScript",
+"path": "res://game/utils/SmoothPath.gd"
+} ]
+_global_script_class_icons={
+"SmoothPath": ""
+}
+
+[application]
+
+config/name="IsleOfManCLI"
+run/main_scene="res://game/Game.tscn"
+config/icon="res://icon.png"
+
+[audio]
+
+driver="ALSA"
+output_latency=5
+
+[autoload]
+
+SignalManager="*res://game/core/SignalManager.gd"
+GameEngine="*res://game/core/GameEngine.gd"
+ResourceManager="*res://game/utils/ResourceManager.gd"
+EntityPool="*res://game/core/EntityPool.gd"
+ActionManager="*res://game/core/ActionManager.gd"
+GameUtils="*res://game/utils/Utils.gd"
+DiceGenerator="*res://game/utils/DiceGenerator.gd"
+BRP="*res://game/core/BRP.gd"
+Utils="*res://game/utils/Utils.gd"
+Logger="*res://game/core/logger.gd"
+SoundManager="*res://game/core/sound/SoundManager.gd"
+ActionFactory="*res://game/core/ActionFactory.gd"
+InventoryUtils="*res://game/utils/InventoryUtils.gd"
+
+[display]
+
+window/size/width=1971
+window/size/height=1000
+window/size/resizable=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "godot-behavior-tree-plugin", "protobuf" )
+
+[input]
+
+visual_debugger={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":86,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shove={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+"melee attack"={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Inventory={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[physics]
+
+3d/active_soft_world=false
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.101961, 0.101961, 0.101961, 1 )
+environment/default_environment="res://default_env.tres"
+quality/gpu=true

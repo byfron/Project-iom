@@ -1,0 +1,126 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://game_assets/fonts/Gotish/GrenzeGotisch-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://game_assets/gui/blood-splatter-transparent.png" type="Texture" id=2]
+[ext_resource path="res://game_assets/fonts/Silver.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://game/fx/LifeAfterHit.gd" type="Script" id=4]
+
+
+[sub_resource type="DynamicFont" id=1]
+size = 250
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 300
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 200
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 500
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="LifeAfterHit" type="Node2D"]
+light_mask = 2
+script = ExtResource( 4 )
+
+[node name="Post" type="Node2D" parent="."]
+visible = false
+light_mask = 2
+
+[node name="Sprite" type="Sprite" parent="Post"]
+self_modulate = Color( 0.294118, 0, 0, 1 )
+light_mask = 2
+position = Vector2( -22.2917, 6.85899 )
+texture = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Post"]
+light_mask = 2
+margin_left = -2.57214
+margin_top = -22.2917
+margin_right = 91.4279
+margin_bottom = 347.708
+use_top_left = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelBorder" type="Label" parent="Post/CenterContainer"]
+visible = false
+light_mask = 2
+margin_left = -47.0
+margin_top = -185.0
+margin_right = 47.0
+margin_bottom = 185.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.847059, 0.403922, 0.403922, 1 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelBorder2" type="Label" parent="Post/CenterContainer"]
+visible = false
+light_mask = 2
+margin_left = -57.0
+margin_top = -222.0
+margin_right = 56.0
+margin_bottom = 222.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.72549, 0.176471, 0.176471, 1 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Post/CenterContainer"]
+light_mask = 2
+margin_left = -38.0
+margin_top = -148.0
+margin_right = 37.0
+margin_bottom = 148.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.909804, 0.380392, 0.380392, 1 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pre" type="Node2D" parent="."]
+visible = false
+light_mask = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Pre"]
+light_mask = 2
+margin_right = 40.0
+margin_bottom = 40.0
+use_top_left = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Pre/CenterContainer"]
+light_mask = 2
+margin_left = -132.0
+margin_top = -277.0
+margin_right = 131.0
+margin_bottom = 276.0
+custom_fonts/font = SubResource( 4 )
+text = "18"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="PostTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="FadeOutTween" type="Tween" parent="."]
+[connection signal="tween_completed" from="FadeOutTween" to="." method="_on_FadeOutTween_tween_completed"]

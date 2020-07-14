@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game/actors/SpriteAnimation.gd" type="Script" id=1]
+[ext_resource path="res://game_assets/shaders/select_actor_white_shade.shader" type="Shader" id=2]
+[ext_resource path="res://game_assets/textures/characters/DIFFUSE_Joe_PistolIdle_sheet.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/selected = null
+shader_param/attacked = null
+
+[node name="SpriteAnimation" type="Sprite"]
+material = SubResource( 1 )
+texture = ExtResource( 3 )
+vframes = 8
+frame = 2
+script = ExtResource( 1 )

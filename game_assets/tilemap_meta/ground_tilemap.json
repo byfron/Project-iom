@@ -1,0 +1,83 @@
+{
+	"base_tile": 0,
+	"id_to_atlas": [
+	{	
+		"src_tile": 58,
+		"atlas": 0,
+		"tile": 1
+	},
+	{
+		"src_tile": 75,
+		"atlas": 0,		
+		"tile": 6
+	},
+	{
+		"src_tile": 185,
+		"atlas": 0,		
+		"tile": 0
+	},
+	{
+		"src_tile": 186,
+		"atlas": 0,		
+		"tile": 0
+	},
+	{
+		"src_tile": 187,
+		"atlas": 0,		
+		"tile": 0
+	},
+	{
+		"src_tile": 163,
+		"atlas": 0,		
+		"tile": 2
+	}		
+	],
+	"randomized_terrain_atlas":[
+	{	
+		"src_tile": 73,
+		"atlas_id": 9
+	},
+	{	
+		"src_tile": 10,
+		"atlas_id": 10
+	},
+	{	
+		"src_tile": 72,
+		"atlas_id": 11
+	},
+	{	
+		"src_tile": 74,
+		"atlas_id": 12
+	},
+	{	
+		"src_tile": 48,
+		"atlas_id": 13
+	},
+	{
+		"src_tile": 11,
+		"atlas_id": 14
+	}		
+	],
+	"autotiling":
+	[
+	{
+		"src_tile": 48,
+		"neighbor_tiles": [75],
+		"codes":
+		[
+		{
+			"code": 1,
+			"id": 7,
+			"x_mirror": false,
+			"y_mirror": false
+		},
+		{
+			"code": 5,
+			"id": 7,
+			"x_mirror": false,
+			"y_mirror": false
+		}			
+		]
+	}
+	]
+}

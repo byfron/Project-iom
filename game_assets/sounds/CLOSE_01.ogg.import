@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/CLOSE_01.ogg-cdccf779d0bac48a9d08050987514344.oggstr"
+
+[deps]
+
+source_file="res://game_assets/sounds/CLOSE_01.ogg"
+dest_files=[ "res://.import/CLOSE_01.ogg-cdccf779d0bac48a9d08050987514344.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

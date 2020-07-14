@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/BROKEN_BOTTLE_01-old1.wav-e1bd4e40609972f41a337152f563d81d.sample"
+
+[deps]
+
+source_file="res://game_assets/sounds/BROKEN_BOTTLE_01-old1.wav"
+dest_files=[ "res://.import/BROKEN_BOTTLE_01-old1.wav-e1bd4e40609972f41a337152f563d81d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

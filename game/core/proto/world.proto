@@ -1,0 +1,28 @@
+syntax="proto2";
+
+message PBMapCoordinate {
+  required int32 x = 1;
+  required int32 y = 2;
+}
+
+message PBRect {
+  required PBMapCoordinate top_left = 1;
+  required PBMapCoordinate bottom_right = 2;
+}
+
+message PBTilemap {
+  required string name = 1;
+  required PBRect rect = 2;
+  required int32 level = 3;
+  required bytes data = 4;
+  required string type = 5;
+}
+
+message PBWorldChunk {
+  required PBMapCoordinate coord = 1;
+  repeated PBTilemap tilemap = 2;
+}
+
+message PBWorld {
+  repeated PBWorldChunk chunks = 1;
+}

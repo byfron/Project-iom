@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets_OLD/fonts/Abel-Regular.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+func set_text(text):
+	$Label.text = text
+	
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="OverlayAction" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -75.0156
+margin_top = -17.9603
+margin_right = 78.9844
+margin_bottom = 14.0397
+grow_horizontal = 2
+custom_fonts/font = SubResource( 2 )
+text = "Open"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,55 @@
+syntax="proto2";
+
+import "world.proto";
+
+message LocationComponent {
+  required PBMapCoordinate coord = 1;
+}
+
+message CharComponent {
+  required string name = 1;
+  required uint32 level = 2;
+  required bool player = 3;
+}
+
+message MovementComponent {
+  required float speed = 1;
+}
+
+message GraphicsComponent {
+  required uint32 size_x = 1;
+  required uint32 size_y = 2;
+  required uint32 graphics_id = 3;
+}
+
+message InitiativeComponent {
+  required uint32 initiative = 1;
+}
+
+message DoorComponent {
+  required bool locked = 1;
+  required bool open_closed = 2;
+}
+
+message DescriptionComponent {
+  required string description = 1;
+}
+
+message ChunkComponent {
+  required PBWorldChunk chunk = 1;
+}
+
+message PBEntityPool {
+  map<string, PBEntity> entities = 1;
+}
+
+message PBComponent {
+  required string type = 1;
+  required bytes data = 2;
+}
+
+message PBEntity {
+  required string entity_id = 1;
+  required string name = 2;
+  repeated PBComponent components = 3;
+}

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game/ui/containers/ActionEntry.gd" type="Script" id=1]
+[ext_resource path="res://game_assets/fonts/Abel-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0785065, 0.410156, 0.185244, 0 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Action" type="PanelContainer"]
+margin_right = 14.0
+margin_bottom = 34.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+action_text = "asdasdasd"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 113.0
+margin_bottom = 34.0
+mouse_filter = 2
+custom_constants/margin_right = 7
+custom_constants/margin_left = 7
+custom_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+margin_left = 7.0
+margin_right = 106.0
+margin_bottom = 32.0
+custom_fonts/font = SubResource( 2 )
+text = "asdasdasd"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="." to="." method="_on_Action_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_Action_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Action_mouse_exited"]

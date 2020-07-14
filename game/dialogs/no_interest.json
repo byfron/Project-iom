@@ -1,0 +1,44 @@
+[
+	{
+		"state_id": 1,
+		"text": "Are you Ok?",
+		"options": [
+		{
+			"text": "Yes",
+			"next_dialog_state": 2
+		},
+		{
+			"text": "No",
+			"next_dialog_state": 3
+		}
+		]
+	},
+	{
+		"state_id": 2,
+		"text": "Good. Take this, put it to good use",
+		"triggers_action": ["GIVE", 43],
+		"options": [
+		{
+			"text": "Thanks!",
+			"next_dialog_state": 4
+		}
+		]
+	},
+	{
+		"state_id": 3,
+		"text": "I'm sorry about that. Maybe this can help",
+		"triggers_action": ["GIVE", 43],
+		"options": [
+		{
+			"text": "Thanks!",
+			"next_dialog_state": 4				
+		}
+		]
+	},
+	{
+		"state_id": 4,
+		"text": "",
+		"next_dialog": 1,
+		"final": true			
+	}
+]

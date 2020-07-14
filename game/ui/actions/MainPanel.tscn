@@ -1,0 +1,365 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://game/ui/buttons/RoundButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/ui/actions/ActionButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/ui/actions/MainPanel.gd" type="Script" id=3]
+[ext_resource path="res://game/ui/player_stats/progres_bar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/ui/actions/StateButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game_assets/gui/icons/run_icon.png" type="Texture" id=6]
+[ext_resource path="res://game_assets/gui/icons/crouch_icon.png" type="Texture" id=7]
+[ext_resource path="res://game_assets/gui/icons/strike.png" type="Texture" id=8]
+[ext_resource path="res://game_assets/gui/interact.png" type="Texture" id=9]
+[ext_resource path="res://game_assets/gui/icons/walk_icon.png" type="Texture" id=10]
+[ext_resource path="res://game_assets/gui/icons/rest_icon.png" type="Texture" id=11]
+[ext_resource path="res://game_assets/gui/icons/talk_icon.png" type="Texture" id=12]
+[ext_resource path="res://game_assets/gui/icons/shoot.png" type="Texture" id=13]
+[ext_resource path="res://game_assets/gui/icons/inventory_icon.png" type="Texture" id=14]
+[ext_resource path="res://game_assets/gui/icons/shove_icon.png" type="Texture" id=15]
+[ext_resource path="res://game_assets/gui/icons/pick_icon.png" type="Texture" id=16]
+[ext_resource path="res://game_assets/gui/icons/investigate_icon.png" type="Texture" id=17]
+[ext_resource path="res://game/ui/actions/EquipButton.tscn" type="PackedScene" id=18]
+[ext_resource path="res://game_assets/gui/icons/hand_icon.png" type="Texture" id=19]
+
+[node name="MainPanel" type="Node2D"]
+position = Vector2( 0, 7.5526 )
+scale = Vector2( 0.8, 0.8 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="StatusActionContainer" type="GridContainer" parent="."]
+margin_left = 992.501
+margin_top = 1141.0
+margin_right = 1042.5
+margin_bottom = 1245.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RunButton" parent="StatusActionContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 0.0
+margin_right = 50.0
+margin_bottom = 50.0
+image = ExtResource( 6 )
+pressed_action_type = 1
+released_action_type = 1
+pressed = false
+
+[node name="CrouchButton" parent="StatusActionContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 54.0
+margin_right = 50.0
+margin_bottom = 104.0
+image = ExtResource( 7 )
+pressed_action_type = 16
+released_action_type = 20
+pressed = false
+
+[node name="MainActionContainer" type="GridContainer" parent="."]
+margin_left = 754.617
+margin_top = 1141.0
+margin_right = 966.617
+margin_bottom = 1245.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoveButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 50.0
+margin_bottom = 50.0
+image = ExtResource( 10 )
+action_type = 10
+
+[node name="TalkButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+image = ExtResource( 12 )
+
+[node name="AttackButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 50.0
+image = ExtResource( 8 )
+action_type = 2
+
+[node name="ShoveButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 50.0
+image = ExtResource( 15 )
+action_type = 9
+
+[node name="UseButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 54.0
+margin_right = 50.0
+margin_bottom = 104.0
+image = ExtResource( 9 )
+action_type = 17
+
+[node name="TakeButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 54.0
+margin_top = 54.0
+margin_right = 104.0
+margin_bottom = 104.0
+image = ExtResource( 16 )
+action_type = 5
+
+[node name="InvestigateButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 108.0
+margin_top = 54.0
+margin_right = 158.0
+margin_bottom = 104.0
+image = ExtResource( 17 )
+action_type = 19
+
+[node name="RestButton" parent="MainActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 162.0
+margin_top = 54.0
+margin_right = 212.0
+margin_bottom = 104.0
+image = ExtResource( 11 )
+action_type = 18
+
+[node name="WeaponActionContainer" type="GridContainer" parent="."]
+margin_left = 677.0
+margin_top = 1141.0
+margin_right = 727.0
+margin_bottom = 1245.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponSkill1" parent="WeaponActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 50.0
+margin_bottom = 50.0
+image = ExtResource( 13 )
+color = Color( 0.839216, 0.188235, 0.172549, 1 )
+
+[node name="WeaponSkill2" parent="WeaponActionContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 54.0
+margin_right = 50.0
+margin_bottom = 104.0
+color = Color( 0.839216, 0.188235, 0.172549, 1 )
+
+[node name="ActionContainer3" type="GridContainer" parent="."]
+margin_left = 1151.93
+margin_top = 1141.0
+margin_right = 1579.93
+margin_bottom = 1245.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 50.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control2" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 54.0
+margin_right = 104.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control3" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 108.0
+margin_right = 158.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control4" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 162.0
+margin_right = 212.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control8" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 216.0
+margin_right = 266.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control12" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 270.0
+margin_right = 320.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control11" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 324.0
+margin_right = 374.0
+margin_bottom = 50.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control10" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 54.0
+margin_right = 50.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control16" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 54.0
+margin_top = 54.0
+margin_right = 104.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control7" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 108.0
+margin_top = 54.0
+margin_right = 158.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control6" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 162.0
+margin_top = 54.0
+margin_right = 212.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control5" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 216.0
+margin_top = 54.0
+margin_right = 266.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control9" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 270.0
+margin_top = 54.0
+margin_right = 320.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="Control15" parent="ActionContainer3" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 324.0
+margin_top = 54.0
+margin_right = 374.0
+margin_bottom = 104.0
+color = Color( 0.109804, 0.239216, 0.309804, 1 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 4 )]
+margin_left = 677.0
+margin_top = 1075.0
+margin_right = 1046.0
+margin_bottom = 1101.0
+text = "Health"
+color = Color( 0.329412, 0.0509804, 0.0980392, 1 )
+value = 100
+
+[node name="StaminaBar" parent="." instance=ExtResource( 4 )]
+margin_left = 677.0
+margin_top = 1101.0
+margin_right = 1046.0
+margin_bottom = 1127.0
+text = "Stamina"
+color = Color( 0.0666667, 0.156863, 0.639216, 1 )
+value = 100
+
+[node name="ManaBar" parent="." instance=ExtResource( 4 )]
+margin_left = 1152.0
+margin_top = 1075.0
+margin_right = 1521.0
+margin_bottom = 1101.0
+text = "Mana"
+color = Color( 0.0823529, 0.501961, 0.266667, 1 )
+value = 100
+
+[node name="SanityBar" parent="." instance=ExtResource( 4 )]
+margin_left = 1152.0
+margin_top = 1101.0
+margin_right = 1521.0
+margin_bottom = 1127.0
+text = "Sanity"
+color = Color( 0.65098, 0.156863, 0.721569, 1 )
+value = 100
+
+[node name="CharacterButton" parent="." instance=ExtResource( 1 )]
+margin_left = 1064.81
+margin_top = 1089.97
+margin_right = 1192.81
+margin_bottom = 1217.97
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="InventoryButton" parent="." instance=ExtResource( 1 )]
+margin_left = 1064.81
+margin_top = 1165.56
+margin_right = 1192.81
+margin_bottom = 1293.56
+rect_scale = Vector2( 0.5, 0.5 )
+image = ExtResource( 14 )
+
+[node name="EquipButton" parent="." instance=ExtResource( 18 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 604.0
+margin_top = 1141.0
+margin_right = 654.0
+margin_bottom = 1191.0
+image = ExtResource( 19 )
+color = Color( 0.839216, 0.188235, 0.172549, 1 )
+[connection signal="gui_input" from="InventoryButton" to="." method="_on_InventoryButton_gui_input"]

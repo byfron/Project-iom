@@ -1,0 +1,9 @@
+{
+ 	"base_tile": 1,
+	"id_to_atlas": [
+	{
+		"src_tile": 1,
+		"atlas": 1
+	}
+	]
+}

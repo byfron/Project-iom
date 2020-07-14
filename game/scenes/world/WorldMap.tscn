@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://game/scenes/world/tilemaps/FOVTileMapLayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/scenes/world/WorldMap.gd" type="Script" id=2]
+[ext_resource path="res://game/scenes/world/OverlayLayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/scenes/world/tilemaps/TilemapController.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/utils/PathManager.gd" type="Script" id=7]
+
+[node name="WorldMap" type="Node2D"]
+position = Vector2( 0, -0.384724 )
+script = ExtResource( 2 )
+
+[node name="MapNode" type="Node2D" parent="."]
+
+[node name="ActorLayer" type="YSort" parent="MapNode"]
+z_index = 10
+z_as_relative = false
+
+[node name="TilemapController" parent="MapNode" instance=ExtResource( 5 )]
+
+[node name="OverlayLayer" parent="MapNode" instance=ExtResource( 3 )]
+
+[node name="DebugLayer" type="Node2D" parent="MapNode"]
+visible = false
+
+[node name="FOVTilemapLayer" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -1 )
+
+[node name="PathManager" type="Node" parent="."]
+script = ExtResource( 7 )

@@ -1,0 +1,28 @@
+[
+	{
+		"state_id": 1,
+		"text": "Are you Ok?",
+		"options": [
+			{
+				"text": "Yes",
+				"next_dialog_state": 2
+			},
+			{
+				"text": "No",
+				"next_dialog_state": 3
+			}
+		]
+	},
+	{
+		"state_id": 2,
+		"text": "Good. Take this, put it to good use",
+		"triggers_action": ["GIVE_ITEM", 43],
+		"next_dialog": 1
+	},
+	{
+		"state_id": 3,
+		"text": "I'm sorry about that. Maybe this can help",
+		"triggers_action": ["GIVE_QUEST", 43],
+		"next_dialog": 1
+	}
+]

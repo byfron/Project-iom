@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/behaviors/trees/abstract_behavior.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/blackboard.gd" type="Script" id=2]
+
+[node name="abstract_behavior" type="Node"]
+script = ExtResource( 1 )
+
+[node name="BehaviorBlackboard" type="Node" parent="."]
+script = ExtResource( 2 )

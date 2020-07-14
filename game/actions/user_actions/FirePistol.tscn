@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://game/actions/sub_actions/SoundSubAction.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/actions/user_actions/UserAction.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/actions/sub_actions/AttackSubAction.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/actions/user_actions/Fire.gd" type="Script" id=4]
+
+[node name="FirePistol" instance=ExtResource( 2 )]
+script = ExtResource( 4 )
+action_name = "Fire"
+num_states = 2
+priority = 1
+
+[node name="SoundSubAction" parent="." index="0" instance=ExtResource( 1 )]
+sound = "GUNSHOT"
+
+[node name="AttackSubAction" parent="." index="1" instance=ExtResource( 3 )]
+
+[editable path="SoundSubAction"]

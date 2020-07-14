@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/actions/user_actions/UserAction.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/actions/user_actions/Aim.gd" type="Script" id=2]
+[ext_resource path="res://game/actions/sub_actions/AnimSubAction.tscn" type="PackedScene" id=3]
+
+[node name="Aim" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+action_name = "Aim"
+
+[node name="AnimSubAction" parent="." index="0" instance=ExtResource( 3 )]
+animation = "PistolIdle"
+state_frames = [ 0 ]
