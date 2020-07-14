@@ -31,8 +31,6 @@ func _on_Action_mouse_exited():
 
 func _on_Action_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
-		#var selected_entity = GameEngine.context.selected_entity
-		#var action = ActionFactory.create_action_from_id(selected_entity, action_id, third_entity)
 		SignalManager.emit_signal('send_action', action)
 		SignalManager.emit_signal("hide_inventory")
 		

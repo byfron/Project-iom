@@ -113,22 +113,11 @@ stream = ExtResource( 34 )
 volume_db = -30.0
 
 [node name="Light2D" type="Light2D" parent="."]
-visible = false
 position = Vector2( -0.221341, 0.523932 )
 enabled = false
 texture = ExtResource( 3 )
 energy = 0.75
 range_height = 100.0
-
-[node name="LightMask" type="Light2D" parent="."]
-visible = false
-light_mask = 1024
-position = Vector2( 2.32134, -8.51163 )
-scale = Vector2( 0.322939, 0.34712 )
-enabled = false
-mode = 3
-range_item_cull_mask = 1024
-shadow_item_cull_mask = 1024
 
 [node name="DebugLabel" type="Label" parent="."]
 visible = false

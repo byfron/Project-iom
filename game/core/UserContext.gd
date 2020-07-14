@@ -239,8 +239,6 @@ func create_player_character(entity):
 	var node = node_factory.createPlayerActorNode(entity)
 	_entity2node[node.entity_id] = node
 	world.set_player_node(node)
-	node.occluder_mask.enabled = true
-	node.occluder_mask.show()
 	#add node to juicyCamera
 	world.camera.player_actor = node
 	

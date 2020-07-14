@@ -48,11 +48,16 @@ func set_frame(fidx):
 	current_sprite.set_frame_index(fidx, _orient_code)
 	
 func set_selected(flag):
-	for anim_name in anim_dictionary:
-		var anim = anim_dictionary[anim_name]
-		var mat = anim.get_material().duplicate()
-		mat.set_shader_param("selected", flag)
-		anim.material = mat
+	var current_sprite = get_child(0)
+	var mat = current_sprite.get_material().duplicate()
+	mat.set_shader_param("selected", flag)
+	current_sprite.material = mat
+	
+#	for anim_name in anim_dictionary:
+#		var anim = anim_dictionary[anim_name]
+#		var mat = anim.get_material().duplicate()
+#		mat.set_shader_param("selected", flag)
+#		anim.material = mat
 	
 func set_attacked(flag):
 	for anim_name in anim_dictionary:

@@ -6,8 +6,8 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
-shader_param/selected = null
-shader_param/attacked = null
+shader_param/selected = false
+shader_param/attacked = false
 
 [node name="SpriteAnimation" type="Sprite"]
 material = SubResource( 1 )
