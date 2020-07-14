@@ -20,7 +20,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="IsleOfManCLI"
+config/name="IOM"
 run/main_scene="res://game/Game.tscn"
 config/icon="res://icon.png"
 
@@ -53,7 +53,7 @@ window/size/resizable=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-behavior-tree-plugin", "protobuf" )
+enabled=PoolStringArray(  )
 
 [input]
 
