@@ -4,7 +4,7 @@
 [ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/condition.gd" type="Script" id=5]
-[ext_resource path="res://game/behaviors/trees/hostile.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/behaviors/trees/monster.tscn" type="PackedScene" id=6]
 
 [node name="friendly" instance=ExtResource( 1 )]
 

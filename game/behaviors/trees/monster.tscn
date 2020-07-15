@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://game/behaviors/action_leafs/jump_attack_entity.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=4]
+[ext_resource path="res://game/behaviors/action_leafs/attack_entity.gd" type="Script" id=5]
+[ext_resource path="res://game/behaviors/action_leafs/find_entity.gd" type="Script" id=6]
+[ext_resource path="res://game/behaviors/action_leafs/reach_entity.gd" type="Script" id=8]
+
+[node name="Monster" type="Node"]
+script = ExtResource( 3 )
+
+[node name="find_entity" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="BehaviorSelector" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="JumpAttackSeq" type="Node" parent="BehaviorSelector"]
+script = ExtResource( 3 )
+
+[node name="JumpAttack" type="Node" parent="BehaviorSelector/JumpAttackSeq"]
+script = ExtResource( 1 )
+
+[node name="MeleeAttackSeq" type="Node" parent="BehaviorSelector"]
+script = ExtResource( 3 )
+
+[node name="ReachEntity" type="Node" parent="BehaviorSelector/MeleeAttackSeq"]
+script = ExtResource( 8 )
+
+[node name="MeleeAttack" type="Node" parent="BehaviorSelector/MeleeAttackSeq"]
+script = ExtResource( 5 )

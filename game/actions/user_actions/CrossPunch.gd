@@ -9,3 +9,6 @@ func start_impl(context):
 
 func execute_impl(action, context):
 	pass
+
+func on_state_changed(action, context):
+	pass

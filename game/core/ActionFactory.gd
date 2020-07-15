@@ -30,7 +30,14 @@ func create_throw_item_action(entity, thrown_entity):
 	return throw_action
 
 func create_death_action(entity):
-	var death_action = load("res://game/actions/native_actions/Death.tscn").instance()
+	
+	var death_action = null
+	#TODO: Same ugly thing about distinguishing actions for containers and the rest!
+	if 'container' in entity.components:
+		death_action = load("res://game/actions/native_actions/DestroyObject.tscn").instance()
+	else:
+		death_action = load("res://game/actions/native_actions/Death.tscn").instance()
+		
 	death_action.init(entity)
 	return death_action
 
@@ -49,12 +56,20 @@ func create_walk_action(entity, path = null, responsive=false):
 	return run_action
 
 func create_takehit_action(entity, from_tile, damage):
-	var take_hit = load("res://game/actions/user_actions/TakeHit.tscn").instance()
+	
+	#TODO: For the time being... make it that we hit containers.
+	#This needs to change with a specific component (maybe breakable object)
+	var take_hit = null
+	if 'container' in entity.components:
+		take_hit = load("res://game/actions/user_actions/ObjectTakeHit.tscn").instance()
+	else:
+		take_hit = load("res://game/actions/user_actions/TakeHit.tscn").instance()
+		
 	take_hit.init(entity)
 	take_hit.damage = damage
 	take_hit.from_tile = from_tile
 	return take_hit
-	
+
 func create_aim_action(attacking_entity, attacked_entity):
 	var aim_action = load("res://game/actions/user_actions/Aim.tscn").instance()
 	aim_action.init(attacking_entity)
@@ -74,6 +89,14 @@ func create_ranged_attack_action(attacking_entity, to_tile):
 	fire_action.valid_range = weapon_entity.components['weapon'].get_range()
 	return fire_action
 
+func create_jump_attack_action(pentity, tile_path):
+	var jump_attack_action = load("res://game/actions/user_actions/JumpAttack.tscn").instance()
+	jump_attack_action.init(pentity)
+	jump_attack_action.attacked_tiles = tile_path
+	jump_attack_action.old_tile = Utils.get_entity_location(pentity)
+		
+	return jump_attack_action
+		
 func create_melee_attack_action(pentity, to_tile = null):
 	var action_info = EntityPool.action_map[ActionTypes.ATTACK]
 	

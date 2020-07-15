@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/actions/Action.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/actions/native_actions/DestroyObject.gd" type="Script" id=2]
+[ext_resource path="res://game/actions/sub_actions/RemoveEntity.tscn" type="PackedScene" id=3]
+
+[node name="DestroyObject" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+priority = 11
+consumes_turn = false
+action_duration = 0.4
+
+[node name="RemoveEntity" parent="." index="0" instance=ExtResource( 3 )]

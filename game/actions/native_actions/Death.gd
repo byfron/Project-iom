@@ -1,6 +1,10 @@
 extends "res://game/actions/Action.gd"
 var ECS = load('res://game/core/proto/ecs.gd')
 	
+	
+func start_impl(context):
+	pass
+	
 func process_impl(context, turn_time):
 	
 	#TODO: this can be generalized for all "auto" actions

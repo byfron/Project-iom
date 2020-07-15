@@ -19,4 +19,6 @@ func execute_impl(action, context):
 	
 	#choose random sound
 	var rnd_idx = rng.randi_range(0, len(sounds)-1)
-	actor.get_node("FX").get_node(sounds[rnd_idx]).play()
+	
+	if actor.has_node("FX"):
+		actor.get_node("FX").get_node(sounds[rnd_idx]).play()

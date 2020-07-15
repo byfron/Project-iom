@@ -132,8 +132,7 @@ __meta__ = {
 }
 
 [node name="GhostTimer" type="Timer" parent="."]
-wait_time = 0.001
-one_shot = true
+wait_time = 0.05
 
 [node name="GhostClones" type="Node2D" parent="."]
 

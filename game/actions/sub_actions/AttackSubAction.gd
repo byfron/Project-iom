@@ -36,7 +36,7 @@ func on_state_changed(action, context):
 			
 		else:
 			var node = action.get_map_node(context)
-			node.chat_balloon.hide()
+			#node.chat_balloon.hide()
 			#node.hide_meta()
 	
 func process(context, delta):

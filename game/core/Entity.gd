@@ -10,8 +10,13 @@ func _init(id, name):
 func attach(type, component):
 	components[type] = component
 	if not (type in EntityPool.cindex):
-			EntityPool.cindex[type] = []
+		EntityPool.cindex[type] = []
 	EntityPool.cindex[type].append(self)
+
+func destroy():
+	EntityPool.eindex.erase(self.id)
+	for type in components:
+		EntityPool.cindex[type].erase(self)
 
 func remove(type):
 	components.erase(type)

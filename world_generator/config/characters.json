@@ -7,7 +7,7 @@
 		"character": ["Wilson Grey", "M", 3, 0],
 		"dialog": ["fisherman_dialog"],
 		"movement": [1],
-		"behavior": ["friendly_test"],
+		"behavior": ["monster"],
 		"initiative": [2],
         "graphics": [1, 1, 1, 1],
 		"inventory": [5],

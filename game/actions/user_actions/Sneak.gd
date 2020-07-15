@@ -45,7 +45,6 @@ func on_state_changed(action, context):
 		#var entities = context.get_entities_in_tile(tile)
 		if tile and context.is_walkable(tile):
 			context.move_entity_to_tile(entity, tile)
-			entity.components['location'].get_coord().set_x(tile.x)
-			entity.components['location'].get_coord().set_y(tile.y)
+			
 		
 	

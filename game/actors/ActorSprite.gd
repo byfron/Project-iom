@@ -27,20 +27,6 @@ func switch_anim(anim_name):
 	remove_child(current_sprite)
 	add_child(anim_dictionary[anim_name])
 	anim_dictionary[anim_name].update_orientation(_orient_code)
-	
-	#current_frame_dict = frame_dictionary[anim_name]
-	#var anim_meta = _metadata[anim_name]
-	#animation = anim_name
-	#num_frames_per_orient = int(anim_meta['frames'])
-#	var frame_tex = frames.get_frame(anim_name, 0)
-	
-#	if anim_meta['auto']:
-#		#Launch tween that plays all animation
-#		var tween = $AutoAnimTween
-#		tween.interpolate_property(
-#			self, "frame", 0, 3, 0.5,
-#			Tween.TRANS_LINEAR, Tween.EASE_IN)
-#		tween.start()
 		
 func set_frame(fidx):
 #	assert(fidx < num_frames_per_orient)
@@ -52,12 +38,6 @@ func set_selected(flag):
 	var mat = current_sprite.get_material().duplicate()
 	mat.set_shader_param("selected", flag)
 	current_sprite.material = mat
-	
-#	for anim_name in anim_dictionary:
-#		var anim = anim_dictionary[anim_name]
-#		var mat = anim.get_material().duplicate()
-#		mat.set_shader_param("selected", flag)
-#		anim.material = mat
 	
 func set_attacked(flag):
 	for anim_name in anim_dictionary:
@@ -77,8 +57,6 @@ func orientCharacterTowards(code):
 	_orient_code = code
 	var current_sprite = get_child(0)
 	current_sprite.update_orientation(_orient_code)
-	
-	#self.frame = current_frame_dict[_orient_code] + frame_idx
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():

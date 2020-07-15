@@ -8,7 +8,8 @@ scene = bpy.context.scene
 animations = {'OrcWalk': [6, 14, 22, 31],
               'Melee': [10, 28, 57],
               'Death': [24, 45, 103],
-              'HeadHit': [9]}
+              'HeadHit': [9],
+              'JumpAttack': [11, 33, 54]}
 
 cam_keys = ['N', 'NW', 'W', 'SW', 'S', 'SE', 'E', 'NE']
 

@@ -59,7 +59,7 @@ if __name__ == "__main__":
     #Upstairs (first)
     coord = [339, 457, 0]
     #Downstarirs
-    coord = [368, 465, 1]
+    coord = [358, 465, 1]
 
     #New kitchen window blowout
     #coord = [354, 457, 0]

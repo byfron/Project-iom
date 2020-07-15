@@ -60,8 +60,8 @@ func start(action, context):
 	action_duration = GameEngine.MAX_TURN_TIME * num_states
 	
 	#TODO: remove this
-	var node = context.get_entity_node(entity)
-	node.set_debug_label(action.name[0] + str(current_state))
+	#var node = context.get_entity_node(entity)
+	#node.set_debug_label(action.name[0] + str(current_state))
 	
 	#change_state(context)
 	
@@ -108,8 +108,8 @@ func change_state(context):
 		sub_action.on_state_changed(self, context)
 
 	#TODO: Remove this
-	var node = context.get_entity_node(entity)
-	node.set_debug_label(str(current_state))
+	#var node = context.get_entity_node(entity)
+	#node.set_debug_label(str(current_state))
 		
 	current_state += 1
 	

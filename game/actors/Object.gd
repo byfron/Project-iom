@@ -34,6 +34,11 @@ func set_normal_map(im):
 func _ready():
 	$Sprite.texture = image
 	$Shadow.texture = image
+	
+	#TODO: refactor actor
+	$AttackedTimer.connect("timeout", self, "attacked_timer_ended")
+	$AttackedTimer.wait_time = GameEngine.MAX_TURN_TIME
+	
 	pass
 
 func select(flag):
@@ -41,6 +46,46 @@ func select(flag):
 	var mat = sprite.get_material().duplicate()
 	mat.set_shader_param("selected", flag)
 	sprite.material = mat
+
+##TODO: Refactor ACtor/OBject scenes and create an inheritance!
+func orientCharacterTowards(o):
+	pass
+	
+func take_melee_damage(damage):
+	pass
+	#explode()
+	#pass
+	
+func explode():
+	#We have the sprite as a region rect. We'll have to create 
+	#as many new rects as particles in the explosion
+	#load('res://game/actors/FX/ShatteredSprite.tscn')
+	var explosion = load('res://game/actors/FX/Explosion.tscn').instance()
+	#explosion.img()
+	
+	explosion.initialize($Sprite.texture, $Sprite.region_rect, 5, 5)
+	explosion.detonate = true
+	
+	#remove sprite and add explosion
+	$Sprite.hide()
+	$Shadow.hide()
+	add_child(explosion)
+	
+	#TODO: delete object
+	
+
+##TODO: Refactor ACtor/OBject scenes and create an inheritance!
+func attacked(flag):
+	#set up a timer to bring this back to normal
+	var mat = $Sprite.get_material().duplicate()
+	mat.set_shader_param("attacked", flag)
+	$Sprite.material = mat
+	$AttackedTimer.start()
+
+func attacked_timer_ended():
+	var mat = $Sprite.get_material().duplicate()
+	mat.set_shader_param("attacked", false)
+	$Sprite.material = mat
 
 func set_graphics(gid, gtype):
 	#load graphics dor all states

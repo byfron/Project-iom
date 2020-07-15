@@ -14,10 +14,11 @@ var _timer = null
 var _active_actions = []
 var _waiting_for_player = true
 var _behavior_system = null
-var MAX_TURN_TIME = 0.2
+var MAX_TURN_TIME = 0.3
 var current_turn_time = 0
 var action_list = []
 var waiting_time = 0
+var cinematic_state = false
 var paused = false
 
 func _ready():
@@ -47,6 +48,9 @@ func get_current_state():
 	return state_manager.get_current_state()
 	
 func interrupt_action(new_action, old_action):
+	
+	#TODO! Warning! The action_list is deprecated so the interruption
+	#code may be broken. Make sure it's still needed
 	
 	var idx = action_list.find(old_action)
 	if idx >= 0:
@@ -82,23 +86,26 @@ func run_next_turn():
 	#active entities without player
 	var active_entities = get_active_entities(false)
 	
+	#TODO: what about the objects with no initiative? 
+	#They may need to (for instance) take damage with actions
+	
 	#initialize_actions_from_queue()
 	for entity in active_entities:
 		
 		#Check that entity has initiative. It may have died this turn
-		if not entity.components.has('initiative'):
-			continue
+		#TODO: this wont work now with object entities also being processed
+		#if not entity.components.has('initiative'):
+		#	continue
 		
 		var action = context.action_queue.get(entity.id)
-		if action == null:
+		if action == null and entity.components.has('initiative'):
 			_behavior_system.update(context, entity)
 			action = context.action_queue.get(entity.id)
-			##update state of all actions
-			#for action in action_list:
 		if action:
 			action.change_state(context)
 	
 	current_turn_time = 0
+	context.clear_dead_entities()
 	
 func is_time_to_run_turn():
 	if current_turn_time >= MAX_TURN_TIME:
@@ -117,9 +124,13 @@ func _process(delta):
 	#If the player is waiting, do not run the next turn. 
 	if player_action != null:
 		
+#		if player_is_frozen: #ignore action and pop it
+#			context.action_queue.pop(player_action.entity.id)
+#		else:
+#
 		# Jump ahead of time if the player action is responsive
-		if player_action.responsive:
-				current_turn_time = MAX_TURN_TIME
+		if player_action.responsive and not cinematic_state:
+			current_turn_time = MAX_TURN_TIME
 		
 		#Some actions may not consume any turn, so they just happen, and 
 		#player plays again
@@ -130,29 +141,45 @@ func _process(delta):
 			if is_time_to_run_turn():
 				player_action.change_state(context)
 				run_next_turn()
-			
+		
 		clear_up_finished_actions()
-
+		
 	#TIME STOPS after max_turn_time
 	if current_turn_time < MAX_TURN_TIME:
 		current_turn_time += delta
-		for action in action_list:
+		for entity_id in context.action_queue.action_map:
+			var action = context.action_queue.get(entity_id)
+			#for action in action_list:
 			action.process(context, current_turn_time)
-
+		
 func get_active_entities(return_player_entity = true):
+	var entity_ids = get_active_entity_ids_with_initiative()
+	
+	#add all other entities present in the action_map
+	#with no initiative
+	for entity_id in context.action_queue.action_map:
+		if entity_ids.find(entity_id) == -1:
+			entity_ids.append(entity_id)
+		
+	if not return_player_entity:
+		entity_ids.erase(context.get_player_entity().id)
+		
+	var entities = []
+	for eid in entity_ids:
+		entities.append(EntityPool.get(eid))
+		
+	return entities
+	
+func get_active_entity_ids_with_initiative():
 	var entities = context.get_entities_with_component('initiative')
 	
 	#Consider only entities in this Z level
 	#TODO: now entities can't move across levels
 	var z_entities = []
 	for ent in entities:
-		
-		if (not return_player_entity) and ent == context.get_player_entity():
-			continue
-			
 		var location = Utils.get_entity_location(ent)
 		if location.z == context.get_current_chunk().z:
-			z_entities.append(ent)
+			z_entities.append(ent.id)
 			
 	return z_entities
 

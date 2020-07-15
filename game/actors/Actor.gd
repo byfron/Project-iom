@@ -307,7 +307,10 @@ func hide_meta():
 	
 func start_ghosting():
 	$GhostTimer.start()
-	
+
+func stop_ghosting():
+	$GhostTimer.stop()
+		
 func _on_GhostTimer_timeout():
 	var ghost = preload("res://game/actors/GhostEffect.tscn").instance()
 	get_parent().add_child(ghost)

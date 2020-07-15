@@ -2,16 +2,22 @@ extends Node
 tool
 var ActionFactory = load('res://game/core/ActionFactory.gd').new()
 
-func start(action, context):
-	pass
-
 func process(context, delta):
 	pass
 
 func on_state_changed(action, context):
 	pass
-
+	
 func execute_impl(action, context):
+	pass
+
+func start(action, context):
+	#var node = context._entity2node[entity.id]
+	#node.orientCharacterTowards(from_tile)
+	
+	#node.attacked(true)
+
+#func execute_impl(action, context):
 	var node = action.get_map_node(context)
 	node.take_melee_damage(action.damage)
 	

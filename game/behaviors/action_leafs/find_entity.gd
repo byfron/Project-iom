@@ -22,16 +22,19 @@ func tick(tick: Tick) -> int:
 		return FAILED
 	
 	#check if there's a line of sight to entity
-	var tiles = Utils.get_tiles_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
+	var tiles = Utils.get_obstacles_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
 	var values = Utils.get_values_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
 	if len(values) > 0:
 		#path is blocked
 		return FAILED
+		
+	#TODO: at this point we should probably cache the tilepath, as it may be used in other
+	#actions like jump attack (now we have duplicated code)
 	
 	#if the entity is crouching (or small) check if the tile right before is a volume,
 	#so that we don't see it either
 	if Utils.is_player_crouching():
-		var end_point = Utils.get_fovline_second_last(context.world.fov_obstacles, actor_tile, player_tile)
+		var end_point = Utils.get_fovline_second_last(actor_tile, player_tile)
 		var pvolumes = context.get_entities_in_2Dtile_plevel(end_point)
 		if pvolumes:
 			#We assume only one volume-entity per tile
@@ -47,6 +50,6 @@ func tick(tick: Tick) -> int:
 		SignalManager.emit_signal('send_action', surprised_action)
 	
 	
-	
+	#add 
 	
 	return OK

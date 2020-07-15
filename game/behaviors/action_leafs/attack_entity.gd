@@ -2,7 +2,7 @@ extends "res://addons/godot-behavior-tree-plugin/action.gd"
 var ActionFactory = load('res://game/core/ActionFactory.gd').new()
 # Leaf Node
 func tick(tick: Tick) -> int:
-	return OK
+
 	var context = tick.blackboard.get('context')
 	var actor = tick.actor
 	

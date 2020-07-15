@@ -123,13 +123,13 @@ func is_player_crouching():
 	var entity = GameEngine.context.get_player_entity()
 	return entity.components['char_status'].get_crouching()
 
-func get_fovline_second_last(map, start, stop):
+func get_fovline_second_last(start, stop):
 	var num = (stop - start).length()+1
 	var step = (stop - start) / (num - 1)
 	var pos = start + step * (num-2)
 	return Vector2(round(pos.x), round(pos.y))
 
-func get_tiles_in_fovline(map, start, stop):
+func get_obstacles_in_fovline(map, start, stop):
 	var num = (stop - start).length()+1
 	var step = (stop - start) / (num - 1)
 	var points = []
@@ -212,6 +212,11 @@ func get_entity_weilded_weapon(entity):
 	return null
 	
 static func apply_damage(entity, damage):
+	
+	#TODO: barrels take damage but have no char_stats
+	if not 'char_stats' in entity.components:
+		return 0
+	
 	var health = entity.components['char_stats'].get_health()
 	var health_left = health - damage
 	if health_left > 0:

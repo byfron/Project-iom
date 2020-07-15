@@ -53,7 +53,7 @@ window/size/resizable=false
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "godot-behavior-tree-plugin", "protobuf" )
 
 [input]
 

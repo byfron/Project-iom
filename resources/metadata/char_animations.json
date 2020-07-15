@@ -64,8 +64,15 @@
 			"Idle": {
 				"frames": 1,
 				"auto": false
-			}			
-			
+			},
+			"JumpAttack": {
+				"frames": 3,
+				"auto": false
+			},
+			"Dodge": {
+				"frames": 1,
+				"auto": false
+			}
 		}
 	}
 	],

@@ -2,6 +2,7 @@
 var world = null
 var action_entities = []
 var native_entities = []
+var _pending_entities_to_kill = []
 
 var action_queue = ActionQueue.new()
 var node_factory = load('res://game/core/NodeFactory.gd').new()
@@ -132,7 +133,7 @@ func get_player_entity():
 	
 func get_entities_with_component(comp_id):
 	return EntityPool.filter(comp_id)
-
+	
 func enqeue_action(action):
 		self.action_queue.append(action)
 
@@ -268,6 +269,31 @@ func compute_player_path(dst):
 		path[i] = Vector3(t.x, t.y, src.z)
 	return path
 	
+func kill_entity(entity):
+	_pending_entities_to_kill.append(entity)
+	
+func clear_dead_entities():
+	for entity in _pending_entities_to_kill:
+		var tile = Utils.get_entity_location(entity)
+		remove_entity_from_tile(entity, tile)
+		delete_entity_node(entity)
+	
+		#if the entity had volume, remove from obstacles/fov maps
+		if entity.components.has('volume'):
+			var tile2d = Vector2(tile.x, tile.y)
+			if world.wlk_obstacles.has(tile2d):
+				world.wlk_obstacles.erase(tile2d)
+			if world.fov_obstacles.has(tile2d):
+				world.fov_obstacles.erase(tile2d)
+			
+		#check the action queue to remove any pending action
+		if action_queue.has(entity.id):
+			action_queue.pop(entity.id)
+	
+		entity.destroy()
+		
+	_pending_entities_to_kill.clear()
+	
 func delete_entity_node(entity):
 	if entity.id in _entity2node:
 		var node = _entity2node[entity.id]
@@ -332,3 +358,6 @@ func move_entity_to_tile(entity, tile, use_tweeen=true):
 	
 	var screen_pos = Utils.getScreenCoordsTileCenter(tile)
 	node.moveTo(tile, screen_pos, use_tweeen)
+	
+	entity.components['location'].get_coord().set_x(tile.x)
+	entity.components['location'].get_coord().set_y(tile.y)
