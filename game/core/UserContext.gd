@@ -267,6 +267,7 @@ func compute_player_path(dst):
 	for i in range(len(path)):
 		var t = path[i]
 		path[i] = Vector3(t.x, t.y, src.z)
+	path.pop_front()
 	return path
 	
 func kill_entity(entity):

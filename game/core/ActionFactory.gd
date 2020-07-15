@@ -217,7 +217,7 @@ func create_default_movement_actions(pentity, coords):
 	if len(actions) == 0:
 		var path = GameEngine.context.compute_player_path(coords)
 		#Remove first element which is the same as the players
-		path.pop_front()
+		#path.pop_front()
 		if len(path) > 0:
 			#TODO: refactor this when we add running
 			if crouching:

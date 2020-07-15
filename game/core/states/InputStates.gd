@@ -140,7 +140,6 @@ class CrouchInputState extends InputState:
 			var tile = GameEngine.context.world.world_map.worldTileFromScreenPos(event.position)
 			var pentity = GameEngine.context.get_player_entity()
 			var path = GameEngine.context.compute_player_path(tile)
-			path.pop_front()
 			_action = ActionFactory.create_sneak_action(pentity, path)
 			_action.num_states = len(path)
 			SignalManager.emit_signal('send_action', _action)
