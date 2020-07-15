@@ -91,10 +91,11 @@ func orientCharacterTowards(tile, invert_flag = false):
 	
 	var orient_code = ''
 	
-	if offset.x == 0 and offset.y == 1:
-		orient_code = 'N'
-	elif offset.x == 0 and offset.y == -1:
-		orient_code = 'S'
+	if offset.x == 0:
+		if offset.y > 0:
+			orient_code = 'N'
+		elif offset.y < 0:
+			orient_code = 'S'
 	elif (angle >= (7.0/2)*orient_arc and angle <= PI) or (angle >= -PI and angle <= -(7.0/2)*orient_arc):
 		orient_code = 'N'
 	elif (angle >= 0 and angle <= orient_arc/2) or (angle <= 0 and angle >= -orient_arc/2):
