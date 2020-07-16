@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/HEAVY_RAIN.ogg-9b9d5fb5b3a99cb27376115d4be1fc1b.oggstr"
+
+[deps]
+
+source_file="res://game_assets/sounds/HEAVY_RAIN.ogg"
+dest_files=[ "res://.import/HEAVY_RAIN.ogg-9b9d5fb5b3a99cb27376115d4be1fc1b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

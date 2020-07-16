@@ -311,10 +311,14 @@ class ComponentFactory:
         sy = arglist[1]
         gid = arglist[2]
         gtype = 0
-        if len(arglist) > 3:
+        if len(arglist) >= 4:
             gtype = arglist[3]
-            
-        comp = ecs_pb2.GraphicsComponent(size_x=sx, size_y=sy,graphics_id=gid,gtype=gtype)
+        
+        shadows = True
+        if len(arglist) >= 5:
+            shadows = arglist[4]
+
+        comp = ecs_pb2.GraphicsComponent(size_x=sx, size_y=sy,graphics_id=gid,gtype=gtype,cast_shadows=shadows)
         return ComponentFactory.create_component('graphics', comp)
         
     @staticmethod

@@ -198,4 +198,12 @@ color = Color( 0.858824, 0.8, 0.619608, 0.737255 )
 energy = 5.0
 
 [node name="Tween" type="Tween" parent="WeaponFireNode"]
+
+[node name="Lantern" type="Node2D" parent="."]
+visible = false
+rotation = -1.5708
+
+[node name="Light2D" type="Light2D" parent="Lantern"]
+position = Vector2( 20.9558, 183.214 )
+texture = ExtResource( 38 )
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]

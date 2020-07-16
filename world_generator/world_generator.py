@@ -24,6 +24,10 @@ class WorldGenerator(Generator):
 
         #make tree obstacles
         mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE1)
+        mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE2)
+        mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE3)
+        mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE4)
+        mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE5)
         return (mask > 0).astype('uint8')*3
 
     def create_entities(self, world):
@@ -61,6 +65,8 @@ if __name__ == "__main__":
     #Downstarirs
     coord = [358, 465, 1]
 
+    coord = [21, 92, 0]
+    
     #New kitchen window blowout
     #coord = [354, 457, 0]
 

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/THUNDER_CLAP.wav-f6a8e02b5a27bb4aa28a3eceb130ce2b.sample"
+
+[deps]
+
+source_file="res://game_assets/sounds/THUNDER_CLAP.wav"
+dest_files=[ "res://.import/THUNDER_CLAP.wav-f6a8e02b5a27bb4aa28a3eceb130ce2b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

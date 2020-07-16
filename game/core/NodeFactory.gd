@@ -102,12 +102,17 @@ func createObjectNode(entity):
 	node.coords = tile_location
 	node.position = Vector2(tile_offset.x, tile_offset.y)
 	node.entity_name = entity.name
+	
+	if 'light' in entity.components:
+		node.set_light(0)
+	
 	if 'graphics' in entity.components:
 		var gid = entity.components['graphics'].get_graphics_id()
 		var gtype = entity.components['graphics'].get_gtype()
+		var cast_shadows = entity.components['graphics'].get_cast_shadows()
 		if gid == null:
 			assert(false)
 		else:
-			node.set_graphics(gid, gtype)
+			node.set_graphics(gid, gtype, cast_shadows)
 	
 	return node

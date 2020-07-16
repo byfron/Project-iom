@@ -793,6 +793,11 @@ class GraphicsComponent:
 		service.field = _gtype
 		data[_gtype.tag] = service
 		
+		_cast_shadows = PBField.new("cast_shadows", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 5, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
+		service = PBServiceField.new()
+		service.field = _cast_shadows
+		data[_cast_shadows.tag] = service
+		
 	var data = {}
 	
 	var _size_x
@@ -826,6 +831,14 @@ class GraphicsComponent:
 		_gtype.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
 	func set_gtype(value):
 		_gtype.value = value
+	
+	var _cast_shadows
+	func get_cast_shadows():
+		return _cast_shadows.value
+	func clear_cast_shadows():
+		_cast_shadows.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
+	func set_cast_shadows(value):
+		_cast_shadows.value = value
 	
 	func to_string():
 		return PBPacker.message_to_string(data)

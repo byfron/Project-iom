@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game_assets/textures/lights/lamp_cone.png" type="Texture" id=1]
+
+[node name="Light2D2" type="Light2D"]
+position = Vector2( 14.8724, -26.4643 )
+texture = ExtResource( 1 )
+texture_scale = 0.4
+energy = 1.85
+range_height = 934.2

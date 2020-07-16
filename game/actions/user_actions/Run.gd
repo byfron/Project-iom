@@ -6,7 +6,8 @@ func start_impl(context):
 	#var node = context.get_entity_node(entity)
 	#node.under_attack = false
 
-#func on_finish(context):
+func on_finish(context):
+	pass
 	#Put back idle animation on exit
 	#var node = context.get_entity_node(entity)
 	#node.set_animation("Idle")

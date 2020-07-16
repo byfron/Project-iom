@@ -59,7 +59,29 @@ func load_object_sprite_metadata():
 	var metadata = Utils.load_from_json(object_path + '/object_sheet_meta_32x64.json')
 	for gid_entry in metadata['objects']:
 		var gid = int(gid_entry)
-		_object_sprite_meta[gid] = metadata['objects'][gid_entry]
+		_object_sprite_meta[gid] = {
+			'coords': metadata['objects'][gid_entry],
+			'size': metadata['size'],
+			'texture': 'objects_sheet_32x64.png'
+		}
+		
+	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_96x128.json')
+	for gid_entry in metadata['objects']:
+		var gid = int(gid_entry)
+		_object_sprite_meta[gid] = {
+			'coords': metadata['objects'][gid_entry],
+			'size': metadata['size'],
+			'texture': 'objects_sheet_96x128.png'
+		}
+		
+	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_32x96.json')
+	for gid_entry in metadata['objects']:
+		var gid = int(gid_entry)
+		_object_sprite_meta[gid] = {
+			'coords': metadata['objects'][gid_entry],
+			'size': metadata['size'],
+			'texture': 'objects_sheet_32x96.png'
+		}
 	
 func get_object_sprite_sheet():
 	pass

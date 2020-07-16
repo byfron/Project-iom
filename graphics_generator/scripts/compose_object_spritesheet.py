@@ -4,11 +4,26 @@ import os
 import glob
 import numpy as np
 import json
+import sys
 
-subfolder = 'objects'
+sprite_size = '32x64'
+
+argv = ''
+if '--' in sys.argv:
+    argv = sys.argv
+    argv = argv[argv.index("--") + 1:]
+
+if argv:
+    sprite_size = argv[0]
+else:
+    print('Specify sprite size')
+    assert(False)
+
+subfolder = 'objects_' + sprite_size
 object_subfolders = [ f.path for f in os.scandir(subfolder) if f.is_dir() ]
-TSIZE_X = 32
-TSIZE_Y = 64
+
+TSIZE_X = int(sprite_size.split('x')[0])
+TSIZE_Y = int(sprite_size.split('x')[1])
 
 rows = 8
 cols = 8
@@ -25,7 +40,7 @@ for object_name in object_subfolders:
     sheet_meta['objects'][object_id] = [row, col]
 
 
-meta_filename = os.path.join(subfolder, 'object_sheet_meta_32x64.json')
+meta_filename = os.path.join(subfolder, 'object_sheet_meta_' + str(TSIZE_X) + 'x' + str(TSIZE_Y) + '.json')
 with open(meta_filename, 'w') as fp:
     json.dump(sheet_meta, fp)
     
@@ -43,6 +58,6 @@ for rtype in types:
         output_sheet[row*TSIZE_Y:(row+1)*TSIZE_Y, col*TSIZE_X:(col+1)*TSIZE_X,:] = frame
         sidx += 1
 
-    sheet_name = rtype + '_objects_sheet_32x64.png'
+    sheet_name = rtype + '_objects_sheet_' + str(TSIZE_X) + 'x' + str(TSIZE_Y) + '.png'
     cv2.imwrite(os.path.join(subfolder,sheet_name), output_sheet)
     print('Generated ' + sheet_name)
