@@ -1,0 +1,53 @@
+{
+	"AnimationTypes":
+	[
+	{
+		"gtype": 0,
+		"descr": "2Hand weapons",
+		"anims":		
+		{
+			"2HandSwing": {
+				"frames": 3,
+				"auto": false
+			}
+		}
+	},
+	{
+		"gtype": 1,
+		"descr": "Ranged pistols",
+		"anims":		
+		{			
+			"Aim": {
+				"frames": 1,
+				"auto": false
+			}
+		}
+	},
+	{
+		"gtype": 2,
+		"descr": "SpellBook",
+		"anims":		
+		{						
+			"MagicAttack": {
+				"frames": 3,
+				"auto": false
+			}
+		}
+	}
+	],
+	"SpriteSheets":
+	[
+	{
+		"gid": 92,
+		"sprite_sheet": "Revolver"
+	},
+	{
+		"gid": 5,
+		"sprite_sheet": "Bat"
+	},
+	{
+		"gid": 6,
+		"sprite_sheet": "Book"
+	}		
+	]
+}

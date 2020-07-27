@@ -1,0 +1,6 @@
+ResponseID#ResponseText#Concept#Criteria#Trigger
+onsee_carla_disappear_01#Come on, wait for me!#OnSee#CarlaDisappeared / NotSaid_onsee_carla_disappear_01#
+onsee_carla_disappear_02#Hey! #OnSee#CarlaDisappeared / NotCombat / Mood>0.5 / onsee_carla_disappear_01=1#
+onsee_window_01#Maybe we can break this window#OnSee#object_window / NotSaid_onsee_window_01#anim_point
+onsee_window_02#Look! Another window#OnSee#object_window / Said_onsee_window_01=1#anim_point
+onsee_monster_01#Careful! A horrible monster!#OnSee#object_monster#anim_point

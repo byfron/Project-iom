@@ -1,0 +1,23 @@
+{
+	"AnimationTypes":
+	[
+	{
+		"gtype": 2,
+		"descr": "SpellBook",
+		"anims":		
+		{						
+			"MagicAttack": {
+				"frames": 10,
+				"auto": false
+			}
+		}
+	}
+	],
+	"SpriteSheets":
+	[
+	{
+		"gid": 0,
+		"sprite_sheet": "MagicHalo"
+	}
+	]
+}
