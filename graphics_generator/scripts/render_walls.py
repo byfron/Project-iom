@@ -6,11 +6,13 @@ import glob
 import numpy as np
 
 scene = bpy.context.scene
-cameras = ['B_0', 'BL_1', 'LR_1', 'TB_1', 'TBG_1', 'TL_1', 'LR_1', 'TR_1', 'TBR_1', 'CROSS', 'LRT_1', 'LRB_1', 'BR_1']
+num_cameras = 49
+
 object_name = 'Walls'
 types = ['NORMAL', 'DIFFUSE']
 
-for camera_name in cameras:
+for camera_id in range(1, num_cameras+1):
+    camera_name = 'Camera.%02d' % camera_id
     camera = scene.objects[camera_name]
     if not os.path.exists(object_name):
         os.mkdir(object_name)

@@ -16,11 +16,10 @@ func start_thunder():
 	$Tween.start()
 	$ThunderSound.play()
 	
-func _on_Timer_timeout():
-	
-	#Set a new random wait time on the timer 
-	$Timer.wait_time = randi()%20 + 10
+
+func _on_ThunderTimer_timeout():
+		#Set a new random wait time on the timer 
+	$ThunderTimer.wait_time = randi()%20 + 10
 	
 	start_thunder()
-	
-	
+	pass # Replace with function body.

@@ -95,7 +95,15 @@ func _unhandled_input(event):
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
+	
 	if just_pressed and event is InputEventKey:
+		
+		#Reddit rain DEMO
+		if event.scancode == KEY_R:
+			GameEngine.context.world.start_rain()
+			
+			pass
+			
 		var state = GameEngine.get_current_state()
 		GameEngine.get_current_state().process_keyboard_input(event, self)
 	

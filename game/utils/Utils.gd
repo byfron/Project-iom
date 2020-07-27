@@ -123,6 +123,85 @@ func is_player_crouching():
 	var entity = GameEngine.context.get_player_entity()
 	return entity.components['char_status'].get_crouching()
 
+func compute_fov_cones_from_orientation(orient_code):
+	var orient_arc = 2 * PI/8
+	var fov_cones = []
+	
+	if orient_code == 'N':
+		fov_cones.append([-PI, -(7.0)*orient_arc])
+		fov_cones.append([(7.0)*orient_arc, PI])
+	if orient_code == 'S':
+		fov_cones.append([0, orient_arc])
+		fov_cones.append([-orient_arc, 0])
+	if orient_code == 'NE':
+		fov_cones.append([(5.0)*orient_arc, (7.0)*orient_arc])
+	if orient_code == 'E':
+		fov_cones.append([(3.0)*orient_arc, (5.0)*orient_arc])
+	if orient_code == 'SE':
+		fov_cones.append([orient_arc, (3.0)*orient_arc])
+	if orient_code == 'NW':
+		fov_cones.append([-(7.0)*orient_arc, -(5.0)*orient_arc])
+	if orient_code == 'W':
+		fov_cones.append([-(5.0)*orient_arc, -(3.0)*orient_arc])
+	if orient_code == 'SW':
+		fov_cones.append([-(3.0/2)*orient_arc, -orient_arc/2, ])
+
+	return fov_cones
+	
+func compute_bb(points):
+	var minp = Vector2(10000, 10000)
+	var maxp = -minp
+	for p in points:
+		if p.x < minp.x:
+			minp.x = p.x
+		if p.x > maxp.x:
+			maxp.x = p.x
+		if p.y < minp.y:
+			minp.y = p.y
+		if p.y > maxp.y:
+			maxp.y = p.y
+			
+	return [minp, maxp]
+
+func get_entity_memory(entity):
+	return GameEngine.context.get_entity_node(entity).memory
+
+#TODO: refactor in a fov class
+func get_objects_in_fovcones(position, fov_cones, distance):
+	var tiles_in_fov = {}
+	for fcone in fov_cones:
+		
+		#TODO: this poligons are fixed per orientation and distance. 
+		#Compute and cache offset vectors!
+		
+		var fov_polygon = []
+		var min_arc = fcone[0]
+		var max_arc = fcone[1]
+		var min_y = int(distance * cos(min_arc))
+		var min_x = int(distance * sin(min_arc))
+		var max_y = int(distance * cos(max_arc))
+		var max_x = int(distance * sin(max_arc))
+		
+		#Get rect. iterate rows, cols of the rect
+		#add tile to map if it's IN the polygon
+		var fov1 = position + Vector2(min_x, min_y)
+		var fov2 = position + Vector2(max_x, max_y)
+		
+		var bb = compute_bb([position, fov1, fov2])
+		
+		for col in range(bb[0].y, bb[1].y):
+			for row in range(bb[0].x, bb[1].x):
+				if Geometry.point_is_inside_triangle(Vector2(row, col), position, fov1, fov2):
+					tiles_in_fov[Vector2(row, col)] = true
+	
+	var entities = []
+	for tile in tiles_in_fov:
+		var ents = GameEngine.context.get_entities_in_2Dtile_plevel(tile)
+		if ents:
+			entities += ents
+			
+	return entities
+
 func get_fovline_second_last(start, stop):
 	var num = (stop - start).length()+1
 	var step = (stop - start) / (num - 1)
@@ -192,6 +271,8 @@ func get_skill_of_weapon(wtype):
 		return 'Brawler'
 	elif wtype == 1:
 		return 'Firearms'
+	elif wtype == 2:
+		return 'Magic'
 		
 	assert(false)
 

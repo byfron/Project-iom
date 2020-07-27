@@ -2,14 +2,14 @@
 	"character_templates":
     [
 	{
-        "name": "Fisherman",
+        "name": "Eric",
 		"character_id": 10,
-		"character": ["Wilson Grey", "M", 3, 0],
-		"dialog": ["fisherman_dialog"],
+		"character": ["Eric", "M", 3, 0],
+		"dialog": ["Eric_dialog"],
 		"movement": [1],
-		"behavior": ["monster"],
+		"behavior": ["companion"],
 		"initiative": [2],
-        "graphics": [1, 1, 1, 1],
+        "graphics": [1, 1, 3, 1],
 		"inventory": [5],
         "description": ["Fisherman descr."],
 		"dialog": [

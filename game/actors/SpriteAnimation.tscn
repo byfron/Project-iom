@@ -8,9 +8,14 @@
 shader = ExtResource( 2 )
 shader_param/selected = false
 shader_param/attacked = false
+shader_param/magic = false
+shader_param/frozen = false
+shader_param/outline_color = Plane( 0.2, 0.92, 0.9, 1 )
+shader_param/width = 1.5
 
 [node name="SpriteAnimation" type="Sprite"]
 material = SubResource( 1 )
+position = Vector2( 0, -0.37735 )
 texture = ExtResource( 3 )
 vframes = 8
 frame = 2

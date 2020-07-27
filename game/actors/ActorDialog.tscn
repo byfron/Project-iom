@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://game/actors/ActorDialog.gd" type="Script" id=1]
+[ext_resource path="res://game_assets/fonts/Gotish/GrenzeGotisch-ExtraLight.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.154639 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1 )
+
+[sub_resource type="CanvasItemMaterial" id=4]
+blend_mode = 1
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_bottom = 2
+
+[sub_resource type="DynamicFont" id=6]
+size = 21
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="ActorDialog" type="Node2D"]
+light_mask = 2
+material = SubResource( 1 )
+script = ExtResource( 1 )
+dialog_text = "asda"
+
+[node name="Line2D" type="Line2D" parent="."]
+light_mask = 2
+material = SubResource( 2 )
+position = Vector2( -0.540375, -0.540359 )
+points = PoolVector2Array( 0, 0, 74.9084, -72.0578 )
+width = 2.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 3 )
+
+[node name="DialogLabel" type="Node2D" parent="."]
+light_mask = 2
+position = Vector2( 58.9084, -106.058 )
+
+[node name="Label" type="Label" parent="DialogLabel"]
+light_mask = 2
+material = SubResource( 4 )
+margin_right = 32.0
+margin_bottom = 34.0
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
+text = "asda"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

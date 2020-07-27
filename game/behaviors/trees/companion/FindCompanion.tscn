@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=1]
+[ext_resource path="res://game/behaviors/trees/generic/SearchSequence.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/behaviors/trees/generic/ReachPosition.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends \"res://addons/godot-behavior-tree-plugin/action.gd\"
+
+func react_to_companion_gone(tick):
+	var actor = tick.actor
+	var entity = EntityPool.get(actor.entity_id)
+	
+	var memory = tick.blackboard.get('memory')
+	if memory.companion_gone == false:
+		
+		#Query dialog manager to say stuff
+		#SignalManager.emit_signal('query_dialog_system', entity, 'OnSee', ['CarlaDisappeared'])
+		
+		#SignalManager.emit_signal('send_action', ActionFactory.create_say_something_action(entity, 'comp_disappear'))
+		memory.companion_gone = true
+	
+# Leaf Node
+func tick(tick: Tick) -> int:
+	var context = tick.blackboard.get('context')
+	var actor = tick.actor
+	var entity = EntityPool.get(actor.entity_id)
+	var actor_tile = Utils.get_entity_location(entity)
+	var player_tile = context.get_current_tile()
+	
+	#TODO: 
+	#Deduce sight distance from player perception. Take statuses into account.
+	var max_distance = 10
+	
+	#check if user is in the same level AND at a distance threshold
+	if not (player_tile.z == actor_tile.z and (player_tile - actor_tile).length() < max_distance):
+		#react_to_companion_gone(tick)
+		return FAILED
+	
+	#check if there's a line of sight to entity
+	var tiles = Utils.get_obstacles_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
+	var values = Utils.get_values_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
+	if len(values) > 0:
+		#path is blocked
+		react_to_companion_gone(tick)
+		return FAILED
+		
+	#if the entity is crouching (or small) check if the tile right before is a volume,
+	#so that we don't see it either
+	if Utils.is_player_crouching():
+		var end_point = Utils.get_fovline_second_last(actor_tile, player_tile)
+		var pvolumes = context.get_entities_in_2Dtile_plevel(end_point)
+		if pvolumes:
+			#We assume only one volume-entity per tile
+			if 'volume' in pvolumes[0].components:
+				return FAILED
+				
+				
+				
+	#TODO: The chance of remembering, or the LUCK to actually follow a path that
+	#is your actual one (luck to find things as well)
+	
+	#Store in memory the last position we saw the player
+	var memory = tick.blackboard.get('memory')
+	if memory:
+		memory.last_seen_companion = player_tile
+		memory.companion_gone = false
+	
+	return OK
+"
+
+[node name="FindCompanion" type="Node"]
+script = ExtResource( 1 )
+
+[node name="LookForPlayerEntity" type="Node" parent="."]
+script = SubResource( 1 )
+
+[node name="ReachPosition" parent="." instance=ExtResource( 3 )]
+
+[node name="SearchSequence" parent="." instance=ExtResource( 2 )]

@@ -211,5 +211,16 @@ func update_chunk_database(tile, stack_type, tid):
 			data[offset.x + offset.y * sizex] = tid
 			tilemap.set_data(data)
 
+############################ Experiment###########################################3
+#TODO: this should be somewhere else, 
+#maybe inside an action that is processed by the weather_system
+func start_rain():
+	var color = $CanvasModulate.color
+	$WeatherTween.interpolate_property($CanvasModulate, "color", color, Color(0.290196, 0.270588, 0.45098), 5, Tween.TRANS_SINE, Tween.EASE_OUT)
+	$WeatherTween.start()
 	
-
+func _on_WeatherTween_tween_completed(object, key):
+	var rain_node = load('res://game/fx/Rain.tscn').instance()
+	$JuicyCamera.add_child(rain_node)
+	
+################################ Experiment###########################################3

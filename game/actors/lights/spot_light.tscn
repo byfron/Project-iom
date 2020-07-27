@@ -6,6 +6,5 @@
 z_index = 9
 
 [node name="Light2D" type="Light2D" parent="."]
-visible = false
 texture = ExtResource( 1 )
 range_height = 400.0

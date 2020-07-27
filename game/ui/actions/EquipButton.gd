@@ -32,11 +32,19 @@ func _ready():
 	clip_panel.rect_position.y = -10
 	clip_panel.rect_size.y = 0
 	
+	
+	SignalManager.connect("weapon_button_pressed", self, "weapon_button_pressed")
+	
+	
 func highlight():
 	$Highlight.show()
 
 func unhighlight():
 	$Highlight.hide()
+
+func weapon_button_pressed(button):
+	deactivate()
+	assign_image(button.image)
 
 func _on_Control_mouse_entered():
 	pass # Replace with function body.

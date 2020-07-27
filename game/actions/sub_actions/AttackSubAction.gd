@@ -58,6 +58,14 @@ func execute_impl(action, context):
 			take_hit_action.damage = damage
 			SignalManager.emit_signal('send_action', take_hit_action)
 			
+			
+			#if the enemy is frozen destroy it
+			#if ent.status == 'frozen':
+			var attacked_node = context._entity2node[ent.id]
+			attacked_node.explode()
+			
+			
+			
 			#Mark behavior tree to react to the attack
 			if ent.id in context.behavior_map:
 				var beh = context.behavior_map[ent.id]

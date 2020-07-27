@@ -1,8 +1,6 @@
 extends Node
 
-
 const Tick = preload("res://addons/godot-behavior-tree-plugin/tick.gd")
-
 
 func _execute(tick: Tick) -> int:
 	

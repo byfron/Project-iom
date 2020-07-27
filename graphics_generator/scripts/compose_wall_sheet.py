@@ -5,7 +5,7 @@ import glob
 import numpy as np
 import cv2
 
-cameras = ['B_0', 'BL_1', 'LR_1', 'TB_1', 'TBG_1', 'TL_1', 'LR_1', 'TR_1', 'TBR_1', 'CROSS', 'LRT_1', 'LRB_1', 'BR_1']
+#cameras = ['B_0', 'BL_1', 'LR_1', 'TB_1', 'TBG_1', 'TL_1', 'LR_1', 'TR_1', 'TBR_1', 'CROSS', 'LRT_1', 'LRB_1', 'BR_1']
 object_name = 'Walls'
 types = ['NORMAL', 'DIFFUSE']
 TSIZE = 32
@@ -75,17 +75,27 @@ locations[6][6] = 'BR_1'
 for rtype in types:
     output_sheet = np.zeros((rows*TSIZE, cols*TSIZE, 4))
 
+    idx = 1
     for row in range(rows):
         for col in range(cols):
 
-            cam_name = locations[row][col]               
-            if not cam_name in cameras:                
-                continue
+            cam_name = 'Camera.%02d' % idx
+#            cam_name = locations[row][col]               
+ #           if not cam_name in cameras:                
+  #              continue
             
             all_files = glob.glob("Walls/" + rtype + "_Camera_" + cam_name + "*.png")
+            print("Walls/" + rtype + "_Camera_" + cam_name + "*.png")
+
             filename = all_files[0]
             frame = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
             output_sheet[row*TSIZE:(row+1)*TSIZE, col*TSIZE:(col+1)*TSIZE,:] = frame
+
+
+            cv2.imshow('test', output_sheet/255.0)
+            cv2.waitKey(50)
+        
+            idx += 1
 
     sheet_name = 'Walls_' + rtype + '_sheet.png'
     cv2.imwrite(sheet_name, output_sheet)
@@ -96,10 +106,14 @@ for rtype in types:
 output_sheet = np.zeros((rows*TSIZE, cols*TSIZE, 4))
 for row in range(rows):
     for col in range(cols):
-        all_files = glob.glob("Walls/DIFFUSE_Camera_B_0*.png")
+        all_files = glob.glob("Walls/DIFFUSE_Camera_Camera.43*.png")
         filename = all_files[0]
         frame = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
         output_sheet[row*TSIZE:(row+1)*TSIZE, col*TSIZE:(col+1)*TSIZE,:] = frame
+
+        
+#        pdb.set_trace()
+        
 
 sheet_name = 'Walls_Bottom_sheet_DIFFUSE.png'
 cv2.imwrite(sheet_name, output_sheet)
@@ -108,7 +122,7 @@ cv2.imwrite(sheet_name, output_sheet)
 output_sheet = np.zeros((rows*TSIZE, cols*TSIZE, 4))
 for row in range(rows):
     for col in range(cols):
-        all_files = glob.glob("Walls/NORMAL_Camera_B_0*.png")
+        all_files = glob.glob("Walls/NORMAL_Camera_Camera.43*.png")
         filename = all_files[0]
         frame = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
         output_sheet[row*TSIZE:(row+1)*TSIZE, col*TSIZE:(col+1)*TSIZE,:] = frame

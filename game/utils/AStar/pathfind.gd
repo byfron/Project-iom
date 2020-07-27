@@ -19,6 +19,10 @@ func _grid_traverse_queue(pq, traversed, grid, curr, prev, to, curr_cost):
 
 	if grid.has(curr):
 		return
+		
+	#if curr is the end AND is not walkable, 
+	#just finish gently
+		
 	
 	#if curr in grid:
 	#	return
@@ -89,6 +93,14 @@ func _evaluate_grid(userdata):
 		var curr = Vector2(i, j)
 		var end = Vector2(end_i, end_j)
 		
+		#if end is not walkable and manhattan distance to the end is 1, finish
+		if end in grid and Utils.manhattan_dist(curr, end) == 1:
+			var result = []
+			var start = Vector2(start_i, start_j)
+			var begin = Vector2(curr.x, curr.y)
+			_get_path(grid, traversed, start, curr, begin, result)
+			return result
+		
 		#TODO: we don't need to compute this (we can store it in the node)
 		#var curr_cost = current_probe#_distance(Vector2(start_i, start_j), Vector2(i,j))
 		
@@ -116,6 +128,8 @@ func _evaluate_grid(userdata):
 			var begin = Vector2(end.x, end.y)
 			_get_path(grid, traversed, start, end, begin, result)
 			return result
+			
+			
 		elif current_probe > maximum_probe:
 			return []
 		else:			

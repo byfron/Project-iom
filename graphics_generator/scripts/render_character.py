@@ -8,32 +8,42 @@ scene = bpy.context.scene
 # animations = {'Run': [1, 6, 12, 18],
 #               'Death': [13, 52, 70, 96]}
 
-animations = {'Running': [6, 13, 18, 25],
-              'BodyBlock': [33],
-              'CrossPunch': [26, 35, 50],
-              'HeadHit': [9],
-              'Knockdown_2': [30, 48],
-              'FlyBack': [10, 21, 54],
-              'PistolIdle': [5],
-              'Shotgun': [0],
+animations = {'Running': [1, 7, 13, 18],
+              'MagicAttack': [13, 29, 65],
+              '2HandSwing': [69, 83, 0],
+              'Idle': [0],
+              'Aim': [0],
               'Dodge': [35],
-              'Death': [13, 37, 104],
+              'HeadHit': [9],
               'Sneak': [10, 17, 26, 33],
               'Crouch': [1],
-              'Idle': [1]}
+              'CrossPunch': [26, 35, 50],
+              '2HandIdle': list(range(0,150,10))}
 
+              # 'BodyBlock': [33],
+              # 'CrossPunch': [26, 35, 50],
+              # 'HeadHit': [9],
+              # 'Knockdown_2': [30, 48],
+              # 'FlyBack': [10, 21, 54],
+              # 'PistolIdle': [5],
+              # 'Shotgun': [0],
+              # 'Dodge': [35],
+              # 'Death': [13, 37, 104],
+              # 'Sneak': [10, 17, 26, 33],
+              # 'Crouch': [1],
+              # 'Idle': [1]}
 
 cam_keys = ['N', 'NW', 'W', 'SW', 'S', 'SE', 'E', 'NE']
 
-v7_rigs = ['Joe']
-v1_rigs = ['Kate']
-all_characters = {}
-all_characters['1'] = v1_rigs
-all_characters['7'] = v7_rigs
+#v7_rigs = ['Joe']
+#v1_rigs = ['Kate']
+#all_characters = {}
+#all_characters['1'] = v1_rigs
+#all_characters['7'] = v7_rigs
 
-hips_bone = {}
-hips_bone['7'] = 'mixamorig7:Hips'
-hips_bone['1'] = 'mixamorig:Hips'
+#hips_bone = {}
+#hips_bone['7'] = 'mixamorig7:Hips'
+#hips_bone['1'] = 'mixamorig:Hips'
 
 argv = ''
 if '--' in sys.argv:
@@ -48,66 +58,70 @@ for armature in bpy.data.objects:
     if armature.type != 'ARMATURE':
         continue
     armature.location.z = -10000
+    print('Moving ' + armature.name)
 
 
-for rig_type in all_characters:
-    chars = all_characters[rig_type]
-    bone_hips_name = hips_bone[rig_type]
-    for character_name in chars:
-        armature = scene.objects[character_name]
+layers_to_render = ['RenderLayer', 'NormalLayer']
+render_layers = bpy.context.scene.view_layers
+for layer in render_layers:
+  # some condition
+  layer.use = layer.name in layers_to_render
+    
+bone_hips_name = 'Hips'
 
-        if not os.path.exists(character_name):
-            os.mkdir(character_name)
+chars = ['Eric', 'Carla', 'Elizabeth']
+    
+#for rig_type in all_characters:
+    #chars = all_characters[rig_type]
+    #bone_hips_name = hips_bone[rig_type]
+for character_name in chars:
+    armature = scene.objects[character_name]
+
+    if not os.path.exists('characters/' + character_name):
+        os.mkdir('characters/' + character_name)
         
-        for anim_name in animations:
-
-            full_anim_name = anim_name + 'V' + rig_type
-            frames = animations[anim_name]
-
-            if not full_anim_name in bpy.data.actions:
-                continue
+    for anim_name in animations:
             
-            action = bpy.data.actions[full_anim_name]
-            armature.animation_data.action = action
+        full_anim_name = anim_name#+ 'V' + rig_type
+        frames = animations[anim_name]
 
-            if not os.path.exists(character_name + '/' + anim_name):
-                os.mkdir(character_name + '/' + anim_name)
+        if not full_anim_name in bpy.data.actions:
+            continue
+            
+        action = bpy.data.actions[full_anim_name]
+        armature.animation_data.action = action
+
+        if not os.path.exists('characters/' + character_name + '/' + anim_name):
+            os.mkdir('characters/' + character_name + '/' + anim_name)
                             
-            armature = scene.objects[character_name]
-            armature.location.x = 0
-            armature.location.y = 0
-            armature.location.z = 0
-            for cam_key in cam_keys:
-                frame_img_idx = 0
-                for frame_i in frames:                
-                    scene.frame_set(frame_i)
-                    camera_name = 'Camera_' + cam_key
-                    camera = scene.objects[camera_name]
-                    camera.constraints['Damped Track'].target = armature
+        armature = scene.objects[character_name]
+        armature.location.x = 0
+        armature.location.y = 0
+        armature.location.z = 0
+        for cam_key in cam_keys:
+            frame_img_idx = 0
+            camera_name = 'Camera_' + cam_key
+            camera = scene.objects[camera_name]
+            camera.constraints['Damped Track'].target = armature
+            camera.constraints['Damped Track'].subtarget = bone_hips_name
+            bpy.context.scene.camera = camera
+            
+            for frame_i in frames:                
+                scene.frame_set(frame_i)
 
-                    camera.constraints['Damped Track'].subtarget = bone_hips_name
-
-#                    render_name = character_name + '/' + anim_name + '/Camera_' + cam_key + '_' + str(frame_img_idx)
-                    bpy.context.scene.camera = camera
-
-                    color_out_node = scene.node_tree.nodes['ColorOutput']
-                    normal_out_node = scene.node_tree.nodes['NormalOutput']
-                    color_out_node.file_slots[0].path = 'DIFFUSE_Camera' + cam_key + '_' + str(frame_img_idx)
-                    normal_out_node.file_slots[0].path = 'NORMAL_Camera' + cam_key + '_' + str(frame_img_idx)
+                color_out_node = scene.node_tree.nodes['ColorOutput']
+                normal_out_node = scene.node_tree.nodes['NormalOutput']
+                color_out_node.file_slots[0].path = 'DIFFUSE_Camera' + cam_key + '_' + str(frame_img_idx)
+                normal_out_node.file_slots[0].path = 'NORMAL_Camera' + cam_key + '_' + str(frame_img_idx)
                     
-                    color_out_node.base_path = character_name + '/' + anim_name + '/'
-                    normal_out_node.base_path = character_name + '/' + anim_name + '/'
-
-                    bpy.ops.render.render(write_still = True)
+                color_out_node.base_path = 'characters/' + character_name + '/' + anim_name + '/'
+                normal_out_node.base_path = 'characters/' + character_name + '/' + anim_name + '/'
+                
+                bpy.ops.render.render(write_still = True)
         
-                    frame_img_idx += 1
+                frame_img_idx += 1
 
-
-    #Move armature out of the camera view
-    armature.location.z = -10000
-
-
-
+        armature.location.z = -10000
     
 # main_armature = scene.objects['Joe']
 

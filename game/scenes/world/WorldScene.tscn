@@ -84,6 +84,7 @@ position = Vector2( 1027.88, 629.996 )
 visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 position = Vector2( 0, -4 )
-color = Color( 0.219608, 0.239216, 0.294118, 1 )
+
+[node name="WeatherTween" type="Tween" parent="."]
+[connection signal="tween_completed" from="WeatherTween" to="." method="_on_WeatherTween_tween_completed"]

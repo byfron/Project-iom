@@ -17,16 +17,23 @@ func on_finish(context):
 
 func on_state_changed(action, context):
 #func execute_impl(action, context):
+	
+	print('onStateChanged')
+	
 	var tile = path.pop_front()
 	if not tile:
 		return
 	
+	
+	
 	#If our tile is under attack, moving is dodging roll!
 	var node = context.get_entity_node(entity)
+	tile = Vector3(tile.x, tile.y, node.coords.z)
+	
 	if node.under_attack:
 		#instantiate dodge action and execute it?
 		$Anim.animation = "Dodge"
-		node.switch_anim("Dodge")
+		node.set_animation("Dodge")
 		node.orientCharacterTowards(tile, true)
 		#Make the actor face the contrary direction of movement
 		
@@ -42,7 +49,7 @@ func on_state_changed(action, context):
 		
 	else:
 		$Anim.animation = "Running"
-		node.switch_anim("Running")
+		node.set_animation("Running")
 		node.orientCharacterTowards(tile)
 
 		#var entities = context.get_entities_in_tile(tile)
@@ -52,3 +59,4 @@ func on_state_changed(action, context):
 			entity.components['location'].get_coord().set_y(tile.y)
 		
 	
+			print('moving entity ', entity.name, ' to ', str(tile.x), ' ', str(tile.y))

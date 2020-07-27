@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game/actions/sub_actions/RandomAnimSubAction.gd" type="Script" id=1]
+
+[node name="RandomAnimSubAction" type="Node"]
+script = ExtResource( 1 )

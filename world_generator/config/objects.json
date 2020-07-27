@@ -41,7 +41,7 @@
 		"object_id": 76,
         "graphics": [1, 2, 76, 0, false],
         "description": ["Lamp descr."],
-		"light": [1.0, 1.0, 2, 1],
+		"light": [1, 1, 2, 1],
         "location": [0,0]
     },
 	{
@@ -55,12 +55,15 @@
         "name": "Window",
 		"object_id": 40,
         "graphics": [1, 1, 40, 0, false],
+ 	    "light": [1, 1, 2, 2],
+		"interest": [5],
         "description": ["Window descr."],
         "location": [0,0]
     },
 	{
         "name": "SideWindow",
 		"object_id": 41,
+		"interest": [5],
         "graphics": [1, 1, 41, 0, false],
         "description": ["Window descr."],
         "location": [0,0]
@@ -69,6 +72,7 @@
         "name": "Door",
 		"object_id": 242,
         "description": ["Door."],
+		"interest": [6],
         "door": [false, false],
 		"graphics": [1, 1, 242],
 		"sound": {
@@ -130,7 +134,7 @@
          "sound": {
 			 "OPEN": 2
 		 },
-		 "volume": [1],
+		 "volume": [1, 1, 1],
          "location": [0,0]
      },
      {
@@ -176,10 +180,64 @@
 		 "object_id": 177,
 		 "graphics": [1, 1, 177],
 		 "description": ["Plenty of books"],
-		 "volume": [2],
+		 "volume": [1, 1, 2],
 		 "container": [5, 1, []],
 		 "location": [0,0]
-	 }	
-     ]
+	},
+	{
+		 "name": "Kitchen",
+		 "object_id": 178,
+		 "graphics": [1, 1, 178],
+		 "description": ["Kitchen"],
+		 "volume": [1, 3, 1],
+		 "location": [0,0]
+	},
+	{
+		 "name": "Sofa",
+		 "object_id": 179,
+		 "graphics": [1, 1, 179],
+		 "description": ["Sofa"],
+		 "volume": [1, 3, 1],
+		 "location": [0,0]
+	},
+	{
+		 "name": "Stand",
+		 "object_id": 180,
+		 "graphics": [1, 1, 180, 0, false],
+		 "description": ["Fern Stand"],
+		 "location": [0,0]
+	},
+	{
+		 "name": "PottedPlant",
+		 "object_id": 181,
+		 "graphics": [1, 1, 181, 0, false],
+		 "description": ["Potted Plant"],
+		 "location": [0,0]
+	},
+	{
+		 "name": "FootLamp",
+		 "object_id": 182,
+		 "graphics": [1, 1, 182, 0, false],
+		 "description": ["Foot Lamp"],
+		 "light": [1, 1, 2, 1],		
+		 "location": [0,0]
+	},
+	{
+		 "name": "Table",
+		 "object_id": 183,
+		 "graphics": [1, 1, 183, 0],
+		 "description": ["Wood Table"],
+		 "volume": [1, 3, 1],
+		 "location": [0,0]
+	},
+	{
+		 "name": "Chair",
+		 "object_id": 184,
+		 "interest": [2],
+		 "graphics": [1, 1, 184, 0, false],
+		 "description": ["Wood Chair"],
+		 "orientation": ["S"],
+		 "location": [0,0]
+	 }			
+    ]
 }   
-

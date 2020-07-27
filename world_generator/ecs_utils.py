@@ -104,6 +104,13 @@ class ComponentFactory:
     def create_item(weight, itype):
         comp = ecs_pb2.ItemComponent(weight=weight, itype=itype)
         return ComponentFactory.create_component('item', comp)
+
+    @staticmethod
+    def create_interest(*args):
+        arglist = list(args)
+        interest = arglist[0]
+        comp = ecs_pb2.InterestComponent(interest = interest)
+        return ComponentFactory.create_component('interest', comp)
     
     @staticmethod
     def create_location(coords):
@@ -206,8 +213,10 @@ class ComponentFactory:
     @staticmethod
     def create_volume(*args):
         arglist = list(args)
-        height = arglist[0]
-        comp = ecs_pb2.VolumeComponent(height=height)
+        h_tiles = arglist[0]
+        w_tiles = arglist[1]        
+        height = arglist[2]
+        comp = ecs_pb2.VolumeComponent(h_tiles=h_tiles, w_tiles=w_tiles, height=height)
         return ComponentFactory.create_component('volume', comp)
 
     @staticmethod
@@ -284,7 +293,12 @@ class ComponentFactory:
     
     @staticmethod
     def create_light(*args):
-        comp = ecs_pb2.LightComponent(intensity=1, size=1, color=[255,255,255])
+        arglist = list(args)
+        intensity = arglist[0]
+        size = arglist[1]
+        color = arglist[2]
+        ltype = arglist[3]
+        comp = ecs_pb2.LightComponent(intensity=intensity, size=size, color=color, type=ltype)
         return ComponentFactory.create_component("light", comp)
     
     @staticmethod
@@ -292,6 +306,13 @@ class ComponentFactory:
         arglist = list(args)
         pass    
 
+    @staticmethod
+    def create_orientation(*args):
+        arglist = list(args)
+        direction = arglist[0]
+        comp = ecs_pb2.OrientationComponent(direction=direction)
+        return ComponentFactory.create_component("orientation", comp)
+    
     @staticmethod
     def create_device(*args):
         arglist = list(args)       
@@ -317,7 +338,7 @@ class ComponentFactory:
         shadows = True
         if len(arglist) >= 5:
             shadows = arglist[4]
-
+            
         comp = ecs_pb2.GraphicsComponent(size_x=sx, size_y=sy,graphics_id=gid,gtype=gtype,cast_shadows=shadows)
         return ComponentFactory.create_component('graphics', comp)
         

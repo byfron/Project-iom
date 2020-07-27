@@ -861,6 +861,46 @@ class GraphicsComponent:
 			return PB_ERR.PARSE_INCOMPLETE
 		return result
 	
+class InterestComponent:
+	func _init():
+		var service
+		
+		_interest = PBField.new("interest", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		service = PBServiceField.new()
+		service.field = _interest
+		data[_interest.tag] = service
+		
+	var data = {}
+	
+	var _interest
+	func get_interest():
+		return _interest.value
+	func clear_interest():
+		_interest.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
+	func set_interest(value):
+		_interest.value = value
+	
+	func to_string():
+		return PBPacker.message_to_string(data)
+		
+	func to_bytes():
+		return PBPacker.pack_message(data)
+		
+	func from_bytes(bytes, offset = 0, limit = -1):
+		var cur_limit = bytes.size()
+		if limit != -1:
+			cur_limit = limit
+		var result = PBPacker.unpack_message(data, bytes, offset, cur_limit)
+		if result == cur_limit:
+			if PBPacker.check_required(data):
+				if limit == -1:
+					return PB_ERR.NO_ERRORS
+			else:
+				return PB_ERR.REQUIRED_FIELDS
+		elif limit == -1 && result > 0:
+			return PB_ERR.PARSE_INCOMPLETE
+		return result
+	
 class BehaviorComponent:
 	func _init():
 		var service
@@ -1428,12 +1468,38 @@ class VolumeComponent:
 	func _init():
 		var service
 		
-		_height = PBField.new("height", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		_h_tiles = PBField.new("h_tiles", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		service = PBServiceField.new()
+		service.field = _h_tiles
+		data[_h_tiles.tag] = service
+		
+		_w_tiles = PBField.new("w_tiles", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 2, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		service = PBServiceField.new()
+		service.field = _w_tiles
+		data[_w_tiles.tag] = service
+		
+		_height = PBField.new("height", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 3, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
 		service = PBServiceField.new()
 		service.field = _height
 		data[_height.tag] = service
 		
 	var data = {}
+	
+	var _h_tiles
+	func get_h_tiles():
+		return _h_tiles.value
+	func clear_h_tiles():
+		_h_tiles.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
+	func set_h_tiles(value):
+		_h_tiles.value = value
+	
+	var _w_tiles
+	func get_w_tiles():
+		return _w_tiles.value
+	func clear_w_tiles():
+		_w_tiles.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
+	func set_w_tiles(value):
+		_w_tiles.value = value
 	
 	var _height
 	func get_height():
@@ -1985,10 +2051,15 @@ class LightComponent:
 		service.field = _size
 		data[_size.tag] = service
 		
-		_color = PBField.new("color", PB_DATA_TYPE.UINT32, PB_RULE.REPEATED, 3, false, [])
+		_color = PBField.new("color", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 3, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
 		service = PBServiceField.new()
 		service.field = _color
 		data[_color.tag] = service
+		
+		_type = PBField.new("type", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 4, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		service = PBServiceField.new()
+		service.field = _type
+		data[_type.tag] = service
 		
 	var data = {}
 	
@@ -2013,8 +2084,56 @@ class LightComponent:
 		return _color.value
 	func clear_color():
 		_color.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
-	func add_color(value):
-		_color.value.append(value)
+	func set_color(value):
+		_color.value = value
+	
+	var _type
+	func get_type():
+		return _type.value
+	func clear_type():
+		_type.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
+	func set_type(value):
+		_type.value = value
+	
+	func to_string():
+		return PBPacker.message_to_string(data)
+		
+	func to_bytes():
+		return PBPacker.pack_message(data)
+		
+	func from_bytes(bytes, offset = 0, limit = -1):
+		var cur_limit = bytes.size()
+		if limit != -1:
+			cur_limit = limit
+		var result = PBPacker.unpack_message(data, bytes, offset, cur_limit)
+		if result == cur_limit:
+			if PBPacker.check_required(data):
+				if limit == -1:
+					return PB_ERR.NO_ERRORS
+			else:
+				return PB_ERR.REQUIRED_FIELDS
+		elif limit == -1 && result > 0:
+			return PB_ERR.PARSE_INCOMPLETE
+		return result
+	
+class OrientationComponent:
+	func _init():
+		var service
+		
+		_direction = PBField.new("direction", PB_DATA_TYPE.STRING, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.STRING])
+		service = PBServiceField.new()
+		service.field = _direction
+		data[_direction.tag] = service
+		
+	var data = {}
+	
+	var _direction
+	func get_direction():
+		return _direction.value
+	func clear_direction():
+		_direction.value = DEFAULT_VALUES_2[PB_DATA_TYPE.STRING]
+	func set_direction(value):
+		_direction.value = value
 	
 	func to_string():
 		return PBPacker.message_to_string(data)

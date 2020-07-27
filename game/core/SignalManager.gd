@@ -51,3 +51,10 @@ signal status_button_released
 signal select_prev_verb
 signal select_next_verb
 signal activate_current_action
+
+#signals related to equip panel
+signal weapon_button_pressed
+
+
+#Attempts to create a query and match against the rules
+signal query_dialog_system

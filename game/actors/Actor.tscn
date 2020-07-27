@@ -1,9 +1,14 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://game/actors/Actor.gd" type="Script" id=1]
+[ext_resource path="res://game/actors/ActorDialog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://game_assets/textures/lights/light_mask_soft.png" type="Texture" id=3]
+[ext_resource path="res://game/actors/ActorFX.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets_OLD/fonts/YanoneKaffeesatz-VariableFont_wght.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://game_assets/sounds/FREEZE.wav" type="AudioStream" id=6]
 [ext_resource path="res://game/actors/ActorWeapon.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game_assets/sounds/SPELL.wav" type="AudioStream" id=8]
+[ext_resource path="res://game/actors/Memory.tscn" type="PackedScene" id=9]
 [ext_resource path="res://game_assets/sounds/FEMALE_OUCH.wav" type="AudioStream" id=12]
 [ext_resource path="res://game_assets/sounds/WATER_SPLASH_01.wav" type="AudioStream" id=16]
 [ext_resource path="res://game_assets/sounds/FEMALE_PAIN_01.wav" type="AudioStream" id=17]
@@ -112,8 +117,14 @@ volume_db = -30.0
 stream = ExtResource( 34 )
 volume_db = -30.0
 
+[node name="FREEZE" type="AudioStreamPlayer" parent="FX"]
+stream = ExtResource( 6 )
+
+[node name="SPELL" type="AudioStreamPlayer" parent="FX"]
+stream = ExtResource( 8 )
+
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( -0.221341, 0.523932 )
+position = Vector2( -0.836057, -0.0907836 )
 enabled = false
 texture = ExtResource( 3 )
 energy = 0.75
@@ -145,7 +156,10 @@ wait_time = 0.5
 one_shot = true
 
 [node name="ActorSprite" parent="." instance=ExtResource( 29 )]
-position = Vector2( 1.9763, -17.0108 )
+position = Vector2( 2, -17 )
+
+[node name="ActorFX" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0.705856, -26.059 )
 
 [node name="SurprisedSprite" type="Sprite" parent="."]
 visible = false
@@ -206,4 +220,13 @@ rotation = -1.5708
 [node name="Light2D" type="Light2D" parent="Lantern"]
 position = Vector2( 20.9558, 183.214 )
 texture = ExtResource( 38 )
+
+[node name="ActorDialog" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 2.91991, -45 )
+z_index = 70
+z_as_relative = false
+dialog_text = "assss"
+
+[node name="Memory" parent="." instance=ExtResource( 9 )]
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]

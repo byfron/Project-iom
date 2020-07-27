@@ -66,6 +66,8 @@ if __name__ == "__main__":
     coord = [358, 465, 1]
 
     coord = [21, 92, 0]
+
+    coord = [58, 43, 0]
     
     #New kitchen window blowout
     #coord = [354, 457, 0]

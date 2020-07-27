@@ -11,8 +11,8 @@ func set_obstacles(obstacles):
 	
 func compute_path(start_tile, end_tile):
 	
-	if end_tile in obstacle_map:
-		return []
+	#if end_tile in obstacle_map:
+	#	return []
 		
 	var path = pathfind.astar(obstacle_map, start_tile, end_tile)
 	return path

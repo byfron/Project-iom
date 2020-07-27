@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=1]
+[ext_resource path="res://game/behaviors/action_leafs/WalkTowardsCompanion.gd" type="Script" id=2]
+[ext_resource path="res://game/behaviors/trees/companion/CompanionIsCloseEnough.gd" type="Script" id=4]
+
+[node name="StayCloseToCompanion" type="Node"]
+script = ExtResource( 1 )
+
+[node name="CompanionIsCloseEnough" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="WalkTowardsCompanion" type="Node" parent="."]
+script = ExtResource( 2 )

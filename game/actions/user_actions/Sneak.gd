@@ -40,7 +40,7 @@ func on_state_changed(action, context):
 #	else:
 	#if true:
 	$Anim.animation = "Sneak"
-	node.switch_anim("Sneak")
+	node.set_animation("Sneak")
 	node.orientCharacterTowards(tile)
 
 	#var entities = context.get_entities_in_tile(tile)

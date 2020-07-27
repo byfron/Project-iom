@@ -13,3 +13,8 @@ func start_impl(context):
 func execute_impl(action, context):
 	pass
 	#var attacking_node = context._entity2node[action.entity.id]
+
+func on_finish(context):
+	#var node = get_map_node(context)
+	#node.magic(false)
+	pass

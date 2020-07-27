@@ -9,7 +9,7 @@ signal tilemaps_generated
 
 onready var ground_layer = $FgNode/GroundLayer
 onready var overground_layer = $FgNode/OvergroundLayer
-onready var dwelling_layer = $FgNode/WallsTilemap #$FgNode/DwellingLayer
+onready var dwelling_layer = $FgNode/WallsTilemap #$FgNode/MultiLevelTilemapLayer #$FgNode/DwellingLayer
 
 var tilemap_stack = {}
 
@@ -25,6 +25,8 @@ class TileInfo:
 func _ready():
 	tilemap_stack[TILEMAPSTACK.GROUND] = [ground_layer, overground_layer]
 	tilemap_stack[TILEMAPSTACK.OVERGROUND] = [dwelling_layer]
+	
+	dwelling_layer.init()
 	
 func _process(delta):
 	pass

@@ -49,10 +49,6 @@
 				"frames": 1,
 				"auto": false,
 			},
-			"PistolIdle": {
-				"frames": 1,
-				"auto": false
-			},
 			"Crouch": {
 				"frames": 1,
 				"auto": false
@@ -72,6 +68,25 @@
 			"Dodge": {
 				"frames": 1,
 				"auto": false
+			},
+			"2HandSwing": {
+				"frames": 3,
+				"auto": false
+			},
+			"MagicAttack": {
+				"frames": 3,
+				"auto": false
+			}
+		}
+	},
+	{
+		"gtype": 2,
+		"descr": "Weapon/Object animations",
+		"anims":		
+		{
+			"2HandSwing": {
+				"frames": 3,
+				"auto": false
 			}
 		}
 	}
@@ -80,23 +95,23 @@
 	[
 	{
 		"gid": 3,
-		"sprite_sheet": "Rat",
+		"sprite_sheet": "Eric",
 	},
 	{
 		"gid": 1,
-		"sprite_sheet": "Joe",
+		"sprite_sheet": "Carla",
 	},
 	{
 		"gid": 2,
 		"sprite_sheet": "Kate",
 	},
 	{
-		"gid": 3,
-		"sprite_sheet": "Liam",
-	},
-	{
 		"gid": 4,
 		"sprite_sheet": "Monster",
-	}		
+	},
+	{
+		"gid": 5,
+		"sprite_sheet": "Bat",
+	},		
 	]
 }

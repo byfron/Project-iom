@@ -10,5 +10,3 @@ num_states = 3
 action_duration = 0.4
 
 [node name="AnimSubAction" parent="." index="0" instance=ExtResource( 3 )]
-animation = "bottle_explode"
-state_frames = [ 1, 2, 3 ]

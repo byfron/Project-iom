@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/scenes/world/tilemaps/TwoLevelTilemapLayer.gd" type="Script" id=1]
 [ext_resource path="res://resources/overlay_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://game_assets/shaders/wall_occlusion.shader" type="Shader" id=3]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -15,10 +16,12 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+
 [node name="TwoLevelTilemapLayer" type="Node2D"]
 light_mask = 1024
 script = ExtResource( 1 )
-tileset = ExtResource( 2 )
 
 [node name="Tilemap_0" type="TileMap" parent="."]
 z_index = 4
@@ -39,6 +42,7 @@ cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
 
 [node name="Tilemap_1" type="TileMap" parent="."]
+material = SubResource( 3 )
 z_index = 10
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )

@@ -125,6 +125,10 @@ func get_current_chunk():
 func get_entity_node(entity):
 	return _entity2node[entity.id]
 	
+func update_actor_memory(entity_id):
+	var node = _entity2node[entity_id]
+	node.memory.update_memories()
+	
 func get_player_node():
 	return _entity2node[player_entity_id]
 	
@@ -220,13 +224,15 @@ func create_character(entity):
 	world.set_actor_node(node)
 	_entity2node[node.entity_id] = node
 	
+	node.initialize_fx_animations()
+	
 	#Create behaviors
 	if 'behavior' in entity.components:
 		var comp = entity.components['behavior']
 		var btree_resource = 'res://game/behaviors/trees/' + comp.get_script() + '.tscn'
 		var bree = load(btree_resource)
 		behavior_map[entity.id] = bree.instance()
-		behavior_map[entity.id].init_behavior(self)
+		behavior_map[entity.id].init_behavior(node, self)
 		
 	#Create dialogs
 	if 'dialog' in entity.components:
@@ -238,6 +244,10 @@ func create_character(entity):
 func create_player_character(entity):
 	player_entity_id = entity.id
 	var node = node_factory.createPlayerActorNode(entity)
+	
+	node.initialize_char_object_animations()
+	node.initialize_fx_animations()
+	
 	_entity2node[node.entity_id] = node
 	world.set_player_node(node)
 	#add node to juicyCamera
@@ -349,6 +359,10 @@ func move_player_to_tile(entity, tile):
 	world.moveCamera(screen_pos)
 	
 func move_entity_to_tile(entity, tile, use_tweeen=true):
+	
+	assert(typeof(tile)==7)
+	
+	
 	if entity.id == player_entity_id:
 		move_player_to_tile(entity, tile)
 		return

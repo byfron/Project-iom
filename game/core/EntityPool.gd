@@ -90,6 +90,10 @@ func decode_component(ctype, comp_data):
 		comp = ECS.CharStatusComponent.new()
 	elif ctype == 'volume':
 		comp = ECS.VolumeComponent.new()
+	elif ctype == 'orientation':
+		comp = ECS.OrientationComponent.new()
+	elif ctype == 'interest':
+		comp = ECS.InterestComponent.new()		
 	if comp:
 		comp.from_bytes(Marshalls.base64_to_raw(comp_data.get_string_from_utf8()))
 	else:

@@ -4,10 +4,12 @@ extends Node
 func _ready():
 	pass
 	
-func init_behavior(context):
+func init_behavior(actor, context):
 	var blackboard = $BehaviorBlackboard
 	blackboard.set('context', context)
 	blackboard.set("enemy_list", [])
+	
+#Get rid of this? This is memory
 	
 func onEvent(etype, entity_id):
 	var blackboard = $BehaviorBlackboard

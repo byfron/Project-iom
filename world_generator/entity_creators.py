@@ -17,18 +17,19 @@ def create_player(location):
 
 
     #Let's create a weapon item and add it to the inventory of the main character
-    weapon1 = create_weapon(1)
-    weapon2 = create_weapon(2)
+    bat = create_weapon(3)
+    revolver = create_weapon(2)
+    spell_book = create_weapon(4)
     food = create_random_food_item()
     
     #Let's put also a bottle in the inventory
     bottle = create_item(10)
 
-    inv = ComponentFactory.create_inventory_with_stuff(20, [bottle.entity_id, weapon2.entity_id, weapon1.entity_id, food.entity_id], weapon2.entity_id)
+    inv = ComponentFactory.create_inventory_with_stuff(20, [bottle.entity_id, revolver.entity_id, bat.entity_id, food.entity_id, spell_book.entity_id], spell_book.entity_id)
     
     
     desc = ComponentFactory.create_description('Main character desc')
-    skills = ComponentFactory.create_skills(**{'Brawler': 30, 'Stealth': 24, 'Firearms': 90})
+    skills = ComponentFactory.create_skills(**{'Brawler': 30, 'Stealth': 24, 'Firearms': 90, 'Magic': 30})
     stats = ComponentFactory.create_char_stats(100, 80, 90, 100)
     
     EntityFactory.attach_components(ent, [loc, inv, char, mov, ini, gr, desc, skills, stats, cstatus])
@@ -61,8 +62,8 @@ def create_random_food_item():
 def create_item(item_id):
     return ItemTemplate.create_entity(item_id)
 
-def create_object(object_id, location):
-    return ObjectTemplate.create_entity_with_location(object_id, location)
+def create_object(object_id, location, direction=None):
+    return ObjectTemplate.create_entity_with_location(object_id, location, direction)
 
 def create_character(character_id, location):
     return CharacterTemplate.create_entity_with_location(character_id, location)

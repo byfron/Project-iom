@@ -48,7 +48,7 @@ func initialize(texture, region_rect, bits_x, bits_y):
 	var n = 0
 	for i in range(bits_x):
 		for j in range(bits_y):
-			var sprite = Sprite.new()
+			var sprite = load("res://game/actors/FX/ShatteredSprite.tscn").instance()
 			sprite.texture = texture
 			sprite.region_enabled = true
 			sprite.region_rect.position.x = float(i*(region_rect.size.x))/bits_x + region_rect.position.x
@@ -67,21 +67,21 @@ func initialize(texture, region_rect, bits_x, bits_y):
 
 	obj.shuffle()
 
-func img():
-	pos = Vector2(0,0)
-		
-	for n in range(bits_x*bits_y):
-		obj.append(objNode.instance())
-		obj[n].set_frame(n);
-		add_child(obj[n])
-		
-	for y in range(bits_y):
-		for x in range(bits_x):
-			obj[frames].set_position(Vector2(x * (sprite_size_x/bits_x) + pos.x, y*(sprite_size_y/bits_y) + pos.y))
-			frames += 1
-			
-	obj.shuffle()
-			
+#func img():
+#	pos = Vector2(0,0)
+#
+#	for n in range(bits_x*bits_y):
+#		obj.append(objNode.instance())
+#		obj[n].set_frame(n);
+#		add_child(obj[n])
+#
+#	for y in range(bits_y):
+#		for x in range(bits_x):
+#			obj[frames].set_position(Vector2(x * (sprite_size_x/bits_x) + pos.x, y*(sprite_size_y/bits_y) + pos.y))
+#			frames += 1
+#
+#	obj.shuffle()
+#
 func clear():
 	frames = 0
 	for n in range(len(obj)):

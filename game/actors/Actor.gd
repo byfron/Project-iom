@@ -24,6 +24,7 @@ var _state_offset = Vector2(0,0)
 
 onready var occluder_mask = $LightMask
 onready var loot_effect = $LootInContainer
+onready var memory  = $Memory
 
 export(Texture) var image setget set_image
 export(Color) var color setget set_color
@@ -53,9 +54,38 @@ func set_image(im):
 		var sprite = $Sprite
 		sprite.texture = image
 
+func initialize_char_object_animations():
+	var entity = Utils.get_entity_weilded_weapon(EntityPool.get(entity_id))
+	
+	if 'graphics' in entity.components:
+		var gid = entity.components['graphics'].get_graphics_id()
+		var gtype = entity.components['graphics'].get_gtype()
+		load_weapon_animation(gid, gtype)
+		
+func start_fx(fx_name):
+	var actor_fx = $ActorFX
+	actor_fx.switch_anim('MagicAttack')
+	actor_fx.set_frame(0)
+	actor_fx.start()
+		
+func initialize_fx_animations():
+		load_fx_animation(0, 2)
+
 func load_animation(gid, gtype):
 	var actor_sprite = $ActorSprite
 	actor_sprite.load_animations(gid, gtype)
+	#actor_sprite.load_weapon_animations(gid, gtype)
+	
+func load_weapon_animation(gid, gtype):
+	var actor_sprite = $ActorSprite
+	actor_sprite.load_weapon_animations(gid, gtype)
+	
+func load_fx_animation(gid, gtype):
+	var fx_sprite = $ActorFX
+	fx_sprite.load_animations(gid, gtype)
+	
+func get_fx():
+	return $ActorFX
 	
 func _ready():
 	self.add_child(move_tween)
@@ -74,13 +104,17 @@ func _ready():
 	actor_sprite.orientCharacterTowards(current_orientation)
 	
 	non_tweened_position = position
-		
+	
+	
 func refresh_position():
 	#Computes pos of actor from current coords
 	position = Utils.getScreenCoordsTileCenter(coords)
 
 func init():
 	pass
+	
+func say_stuff(text, time):
+	$ActorDialog.say_stuff(text, time)
 	
 #TODO: use key-strokes from settings
 func orientCharacterTowards(tile, invert_flag = false):
@@ -126,9 +160,22 @@ func orientCharacterTowards(tile, invert_flag = false):
 	
 	current_orientation = orient_code
 	$ActorSprite.orientCharacterTowards(orient_code)
-			
+	#$WeaponSprite.orientCharacterTowards(orient_code)
+	
+func reset_statuses():
+	select(false)
+	magic(false)
+	frozen(false)
+	
+	
+func frozen(flag):
+	$ActorSprite.set_frozen(flag)
+	
 func select(flag):
 	$ActorSprite.set_selected(flag)
+	
+func magic(flag):
+	$ActorSprite.set_magic(flag)
 
 func attacked(flag):
 	#set up a timer to bring this back to normal
@@ -140,9 +187,6 @@ func attacked_timer_ended():
 	
 func set_debug_label(text):
 	$DebugLabel.text = text
-	
-func switch_anim(anim):
-	$ActorSprite.switch_anim(anim)
 			
 func create_ghost_trail():
 	pass
@@ -162,6 +206,8 @@ func moveTo(tile, pos, use_tween=true):
 	
 func set_frame(frame_idx):
 	$ActorSprite.set_frame(frame_idx)
+	#$WeaponSprite.set_frame(frame_idx)
+	
 	
 func fire_weapon():
 	var angle = orientation_angle[current_orientation]
@@ -322,3 +368,24 @@ func _on_GhostTimer_timeout():
 	ghost.hframes = $ActorSprite.get_current_frame().hframes
 	ghost.frame = $ActorSprite.get_current_frame().frame
 	
+
+func explode():
+	#We have the sprite as a region rect. We'll have to create 
+	#as many new rects as particles in the explosion
+	#load('res://game/actors/FX/ShatteredSprite.tscn')
+	var explosion = load('res://game/actors/FX/Explosion.tscn').instance()
+	#explosion.img()
+	
+	
+	var sprite = $ActorSpritew.get_children()[0]
+	
+	var region_rect = $ActorSprite.get_current_frame_rect()
+	
+	explosion.initialize(sprite.texture, region_rect, 5, 5)
+	explosion.detonate = true
+	
+	#remove sprite and add explosion
+	$ActorSprite.hide()
+	add_child(explosion)
+	
+	#TODO: delete object

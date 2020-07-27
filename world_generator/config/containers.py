@@ -9,6 +9,7 @@
      {
          "type_name": "barrel",
          "description": ["Barrel desc."],
+         "interest": [5],
          "sound": {
 	     "OPEN": 2
 	 },

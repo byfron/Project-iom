@@ -18,3 +18,4 @@ func _on_Control_gui_input(event):
 			var pentity = GameEngine.context.get_player_entity()
 			var action = ActionFactory.create_equip_action(pentity, weapon_entity)
 			SignalManager.emit_signal('send_action', action)
+			SignalManager.emit_signal("weapon_button_pressed", self) 

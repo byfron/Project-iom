@@ -2,6 +2,7 @@ extends Node
 
 onready var UserContext = preload('res://game/core/UserContext.gd')
 onready var BehaviorSystem = preload('res://game/core/systems/BehaviorSystem.gd')
+onready var FuzzyPatternMatcher = preload('res://game/dialogs/FuzzyPatternMatcher.gd')
 
 var state_manager = preload('res://game/core/states/StateManager.gd').new()
 
@@ -15,21 +16,32 @@ var _active_actions = []
 var _waiting_for_player = true
 var _behavior_system = null
 var MAX_TURN_TIME = 0.3
+var DEFAULT_MEMORY_CLEAN_TURNS = 50
+var DEFAULT_ENTMEM_CLEAN_TURNS = 200
+
 var current_turn_time = 0
 var action_list = []
 var waiting_time = 0
 var cinematic_state = false
 var paused = false
+var _fuzzy_dialog_matcher = null
 
 func _ready():
 	
 	_behavior_system = BehaviorSystem.new()
+	_fuzzy_dialog_matcher = FuzzyPatternMatcher.new()
 	systems.append(BehaviorSystem.new())
 	context = create_context()
 	state_manager.init()
 	
+	#Create dialog database from cvs
+	_fuzzy_dialog_matcher.create_database('res://game_assets/dialogs/Eric.csv')
+	SignalManager.connect("query_dialog_system", _fuzzy_dialog_matcher, "process_query")
+	
 	#Load metadata of ResourceManager
+	ResourceManager.load_fx_animation_metadata("res://resources/metadata/fx_animations.json")
 	ResourceManager.load_char_animation_metadata("res://resources/metadata/char_animations.json")
+	ResourceManager.load_char_object_animation_metadata("res://resources/metadata/char_object_animations.json")
 	ResourceManager.load_item_animation_metadata("res://resources/metadata/item_animations.json")
 	ResourceManager.load_item_icon_metadata("res://resources/metadata/item_icons.json")
 	ResourceManager.load_object_sprite_metadata()
@@ -68,12 +80,19 @@ class PrioritySorter:
 		return false
 
 func clear_up_finished_actions():
+	
+	var actions_to_pop = []
+	
 	for entity_id in context.action_queue.action_map:
 		var action = context.action_queue.get(entity_id)
-		if action.is_finished():
-			action.on_finish(context)
-			context.action_queue.pop(action.entity.id)
-			SignalManager.emit_signal("pop_action", action)
+		if ((action.responsive and action.current_state == action.num_states-1) or 
+			(action.is_finished() and not action.infinite)):
+			actions_to_pop.append(action)
+			
+	for action in actions_to_pop:
+		action.on_finish(context)
+		context.action_queue.pop(action.entity.id)
+		SignalManager.emit_signal("pop_action", action)
 	
 func get_overlay_layer():
 	return context.world.world_map.overlay_layer
@@ -100,12 +119,22 @@ func run_next_turn():
 		var action = context.action_queue.get(entity.id)
 		if action == null and entity.components.has('initiative'):
 			_behavior_system.update(context, entity)
+			print('Updates behavior tree for ', entity.name)
 			action = context.action_queue.get(entity.id)
+		else:
+			print(entity.name, ' has a unfinished action')
+
 		if action:
 			action.change_state(context)
-	
+		else:
+			print('But action is null')
+			
 	current_turn_time = 0
 	context.clear_dead_entities()
+
+	#decreases one turn to the memory of all active actors
+	for eid in get_active_entity_ids_with_initiative():
+		context.update_actor_memory(eid)
 	
 func is_time_to_run_turn():
 	if current_turn_time >= MAX_TURN_TIME:
@@ -113,11 +142,23 @@ func is_time_to_run_turn():
 		
 	return false
 	
+func notify_time_to_new_actions(time_value):
+	var active_entities = get_active_entities(false)
+	for entity in active_entities:
+		var action = context.action_queue.get(entity.id)
+		if action:
+			action.current_state_time = time_value
+	
 func _process(delta):
 	
 	if paused:
 		return
 	
+	for entity_id in context.action_queue.action_map:
+		var action = context.action_queue.get(entity_id)
+		#for action in action_list:
+		action.process(context, current_turn_time)
+		
 	var player_entity = context.get_player_entity()
 	var player_action = context.action_queue.get(player_entity.id)
 	
@@ -131,7 +172,7 @@ func _process(delta):
 		# Jump ahead of time if the player action is responsive
 		if player_action.responsive and not cinematic_state:
 			current_turn_time = MAX_TURN_TIME
-		
+			
 		#Some actions may not consume any turn, so they just happen, and 
 		#player plays again
 		if not player_action.consumes_turn:
@@ -142,15 +183,14 @@ func _process(delta):
 				player_action.change_state(context)
 				run_next_turn()
 		
-		clear_up_finished_actions()
+		#notify_time_to_new_actions(current_turn_time)
 		
 	#TIME STOPS after max_turn_time
 	if current_turn_time < MAX_TURN_TIME:
 		current_turn_time += delta
-		for entity_id in context.action_queue.action_map:
-			var action = context.action_queue.get(entity_id)
-			#for action in action_list:
-			action.process(context, current_turn_time)
+		
+	clear_up_finished_actions()
+		
 		
 func get_active_entities(return_player_entity = true):
 	var entity_ids = get_active_entity_ids_with_initiative()
@@ -201,6 +241,15 @@ func initialize_world(world_scene):
 
 	var player_z_level = main_char_entity[0].components['location'].get_coord().get_z()
 	
+	
+	#TODO: we should have the entities already in some kind of octreee so that we only initialize a local
+	#subset of the world
+	#initialize map with chunk components
+	var chunk_entities = EntityPool.filter('chunk')
+	context.world.initialize_from_chunk_components(chunk_entities, player_z_level)
+	
+	
+	
 	#add all location entities to the map (that are at the same level as the player)
 	#TODO: maybe eventually also add only the ones around the player
 	var location_entities = EntityPool.filter('location')
@@ -222,25 +271,33 @@ func initialize_world(world_scene):
 				
 			#TODO: refactor somewhere
 			if 'volume' in entity.components:
+				
+				#add obstacles across the whole volume
+				var htiles = entity.components['volume'].get_h_tiles()
+				var wtiles = entity.components['volume'].get_w_tiles()
+				
 				#add walk obstacle
 				var tile = Utils.get_entity_location(entity)
-				context.world.wlk_obstacles[Vector2(tile.x, tile.y)] = 1
+				for h in range(htiles):
+					for w in range(wtiles):
+						context.world.wlk_obstacles[Vector2(tile.x+w, tile.y+h)] = 1
 				
 				#If the volume hight is more than one, we also add a fov obstacle
 				if entity.components['volume'].get_height() > 1:
-					context.world.fov_obstacles[Vector2(tile.x, tile.y)] = 1
-				
+					for h in range(htiles):
+						for w in range(wtiles):
+							context.world.fov_obstacles[Vector2(tile.x+w, tile.y+h)] = 1
+					
 			context.create_object(entity)
 	
-	#initialize map with chunk components
-	var chunk_entities = EntityPool.filter('chunk')
+	
 	
 	#create light entities
-	for light in EntityPool.filter('light'):
-		var location_comp = light.components['location'].get_coord()
-		if location_comp.get_z() != player_z_level:
-			continue
-		context.create_light(light)
+#	for light in EntityPool.filter('light'):
+#		var location_comp = light.components['location'].get_coord()
+#		if location_comp.get_z() != player_z_level:
+#			continue
+#		context.create_light(light)
 		
 	#TODO: This should dynamically change the graphics of the fire
 	#Some fire may be just lava tiles(no graphics, no smoke), while other can be a campfire
@@ -254,9 +311,6 @@ func initialize_world(world_scene):
 		else:
 			context.create_campfire(campfire)
 		
-	#TODO: we should have the entities already in some kind of octreee so that we only initialize a local
-	#subset of the world
-	context.world.initialize_from_chunk_components(chunk_entities, player_z_level)
 	
 
 	

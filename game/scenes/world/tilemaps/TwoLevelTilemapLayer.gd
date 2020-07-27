@@ -1,5 +1,5 @@
 extends Node2D
-tool
+#tool
 
 onready var tilemap_0 = $Tilemap_0
 onready var tilemap_1 = $Tilemap_1
@@ -17,6 +17,9 @@ export(String) var autotiler_cfg_1 setget set_autotiler_cfg_1
 export(bool) var is_objectmap
 
 func _ready():
+	pass
+	
+func init():
 	tilemap_0.tile_set = tileset
 	tilemap_1.tile_set = tileset
 	shadows.tile_set = tileset
@@ -71,7 +74,7 @@ func merge_maps(chunks, autotiler_cfg):
 	var height = 0
 	
 	if chunks.empty():
-		return null
+		return null	
 		
 	var num_map_chunks = len(chunks)
 

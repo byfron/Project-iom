@@ -42,13 +42,13 @@
          "rest_spot": [],
          "location": [0,0]
      },
-{
-         "type_name": "Bed",
+     {
+         "type_name": "Kitchen",
          "graphics": [],         
-         "description": ["bed desc."],
-         "rest_spot": [],
+         "description": ["Kitchen."],
+         "size": [1, 3]
          "location": [0,0]
-     }        
+     }
      ]
 }   
 

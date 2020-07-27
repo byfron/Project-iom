@@ -75,6 +75,25 @@ func create_aim_action(attacking_entity, attacked_entity):
 	aim_action.init(attacking_entity)
 	aim_action.aimed_entity = attacked_entity
 	return aim_action
+
+func create_magic_aim_action(attacking_entity, attacked_entity):
+	var aim_action = load("res://game/actions/user_actions/MagicAim.tscn").instance()
+	aim_action.init(attacking_entity)
+	aim_action.aimed_entity = attacked_entity
+	return aim_action
+
+func create_magic_attack_action(attacking_entity, to_tile):
+	var magic_action = load("res://game/actions/user_actions/MagicAttack.tscn").instance()
+	magic_action.init(attacking_entity)
+	
+	var weapon_entity = Utils.get_entity_weilded_weapon(attacking_entity)
+	magic_action.weapon_entity = weapon_entity
+	var wtype = weapon_entity.components['weapon'].get_weapon_type()
+	magic_action.attacked_tile = to_tile
+	magic_action.success_rate = Utils.get_modified_skill(attacking_entity, Utils.get_skill_of_weapon(wtype))
+	magic_action.roll_text = 'Success rate: ' + str(magic_action.success_rate) + '%'
+	magic_action.valid_range = weapon_entity.components['weapon'].get_range()
+	return magic_action
 	
 func create_ranged_attack_action(attacking_entity, to_tile):
 	var fire_action = load("res://game/actions/user_actions/FirePistol.tscn").instance()
@@ -101,14 +120,21 @@ func create_melee_attack_action(pentity, to_tile = null):
 	var action_info = EntityPool.action_map[ActionTypes.ATTACK]
 	
 	#TODO: this will depend on wielded weapon!
+	var wielded_weapon = Utils.get_entity_weilded_weapon(pentity)
 	
-	var punch_action = load("res://game/actions/user_actions/CrossPunch.tscn").instance()
-	punch_action.init_action(action_info, pentity)
+	var melee_attack_action = null
+	if wielded_weapon:
+		melee_attack_action = load("res://game/actions/user_actions/Melee2Hands.tscn").instance()
+		melee_attack_action.init_action(action_info, pentity)
+		if to_tile:
+			melee_attack_action.attacked_tile = to_tile
+	else:
+		melee_attack_action = load("res://game/actions/user_actions/CrossPunch").instance()
+		melee_attack_action.init_action(action_info, pentity)
+		if to_tile:
+			melee_attack_action.attacked_tile = to_tile
 	
-	if to_tile:
-		punch_action.attacked_tile = to_tile
-	
-	return punch_action
+	return melee_attack_action
 	
 func create_use_action(pentity, used_entity):
 	
@@ -133,6 +159,18 @@ func create_drop_action(pentity, item_entity):
 func create_crouch_action(pentity):
 	var action = load("res://game/actions/user_actions/Crouch.tscn").instance()
 	action.init(pentity)
+	return action
+
+func create_random_idle_action(pentity):
+	var action = load("res://game/actions/user_actions/RandomIdle.tscn").instance()
+	action.init(pentity)
+	return action
+
+func create_say_something_action(pentity, response):
+	var action = load("res://game/actions/user_actions/SaySomething.tscn").instance()
+	action.init(pentity)
+	#TODO: choose randomly 
+	action.dialog = response.text_array[0]
 	return action
 
 func create_stand_action(pentity):

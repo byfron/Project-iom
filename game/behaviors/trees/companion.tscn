@@ -1,0 +1,31 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://addons/godot-behavior-tree-plugin/mem_sequence.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=2]
+[ext_resource path="res://game/behaviors/trees/abstract_behavior.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/behaviors/trees/companion/FindCompanion.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=5]
+[ext_resource path="res://game/behaviors/trees/companion/StayCloseToCompanion.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/behaviors/trees/companion/LookForStuffMem.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/behaviors/trees/companion.gd" type="Script" id=8]
+[ext_resource path="res://game/behaviors/trees/companion/DealWithEnemies.tscn" type="PackedScene" id=9]
+
+[node name="companion" instance=ExtResource( 3 )]
+script = ExtResource( 8 )
+
+[node name="BehaviorTree" type="Node" parent="." index="1"]
+script = ExtResource( 2 )
+
+[node name="BehaviorMemSequence" type="Node" parent="BehaviorTree" index="0"]
+script = ExtResource( 1 )
+
+[node name="Survive" type="Node" parent="BehaviorTree/BehaviorMemSequence" index="0"]
+script = ExtResource( 5 )
+
+[node name="DealWithEnemies" parent="BehaviorTree/BehaviorMemSequence" index="1" instance=ExtResource( 9 )]
+
+[node name="FindCompanion" parent="BehaviorTree/BehaviorMemSequence" index="2" instance=ExtResource( 4 )]
+
+[node name="StayCloseToCompanion" parent="BehaviorTree/BehaviorMemSequence" index="3" instance=ExtResource( 6 )]
+
+[node name="LookForStuffMem" parent="BehaviorTree/BehaviorMemSequence" index="4" instance=ExtResource( 7 )]

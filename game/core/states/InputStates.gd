@@ -65,6 +65,8 @@ class DefaultInputState extends InputState:
 	func on_enter():
 		#Unselects any entity when we switch to default
 		#SignalManager.emit_signal('unselect_entity')
+		var node = GameEngine.context.get_player_node()
+		node.reset_statuses()
 		pass
 		
 	func process_mouse_input(event):
@@ -95,14 +97,39 @@ class AttackInputState extends InputState:
 		
 		#If the weapon is ranged, we should change to "range mode"
 		var pentity = GameEngine.context.get_player_entity()
-		var is_ranged = Utils.weapon_equipped_is_ranged(pentity)
-		if is_ranged:
+		#var is_ranged = Utils.weapon_equipped_is_ranged(pentity)
+		
+		
+		var equipped_entity = Utils.get_entity_weilded_weapon(pentity)
+		var wcomponent = Utils.get_component(equipped_entity, 'weapon')
+		var wrange = 1
+		var wtype = 1
+		if (wcomponent):
+			wrange = wcomponent.get_range()
+			wtype = wcomponent.get_weapon_type()
+		
+		#TODO: from weapon type get the action
+		# 2_hands_melee
+		# 1_hand_melee
+		# magic
+		# gun_ranged
+		
+		
+		
+		if wrange > 1:
 			
 			#Send aim action?
 			#if not aim_action_sent:
 			#TODO: We are sending actions continuously! maybe only when we change tiles!
+			var action = null
 			if _selected_entity:
-				var action = ActionFactory.create_aim_action(pentity, _selected_entity)
+				if wtype == 1: #Ranged firearm
+					action = ActionFactory.create_aim_action(pentity, _selected_entity)
+				elif wtype == 2:
+					action = ActionFactory.create_magic_aim_action(pentity, _selected_entity)
+				else:
+					assert(false)
+					
 				action.consumes_turn = false
 				SignalManager.emit_signal('send_action', action)
 				
@@ -110,8 +137,10 @@ class AttackInputState extends InputState:
 			var tile = GameEngine.context.world.world_map.worldTileFromScreenPos(event.position)
 			
 			var action = null
-			if is_ranged:
+			if wtype == 1: #Ranged firearm
 				action = ActionFactory.create_ranged_attack_action(pentity, tile)
+			elif wtype == 2:
+				action = ActionFactory.create_magic_attack_action(pentity, tile)
 			else:
 				action = ActionFactory.create_melee_attack_action(pentity, tile)
 				

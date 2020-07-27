@@ -80,7 +80,7 @@ func createActorNode(entity):
 		assert(false)
 	else:
 		node.load_animation(gid, gtype)
-	
+		
 	return node
 	
 func createGroundItemNode(entity, tile_location):
@@ -104,7 +104,7 @@ func createObjectNode(entity):
 	node.entity_name = entity.name
 	
 	if 'light' in entity.components:
-		node.set_light(0)
+		node.create_light(entity.components['light'].get_type())
 	
 	if 'graphics' in entity.components:
 		var gid = entity.components['graphics'].get_graphics_id()
@@ -113,6 +113,35 @@ func createObjectNode(entity):
 		if gid == null:
 			assert(false)
 		else:
-			node.set_graphics(gid, gtype, cast_shadows)
+			var direction = null
+			if 'orientation' in entity.components:
+				direction = entity.components['orientation'].get_direction()
+			node.set_graphics(gid, gtype, cast_shadows, direction)
+	
+	
+	#TODO: make windows and other objects hanging on walls be displayed
+	#on top of the upper wall tilemap
+	if entity.name == 'Window':
+		#node.z_as_relative = false
+		#node.z_index = 11
+		
+		#This is the ugliest: remove top-wall tilemap cell in window location!
+		var tmap_controller = GameEngine.context.world.world_map.tilemap_controller
+		tmap_controller.dwelling_layer.tilemap_0.set_cell(tile_location[0], tile_location[1], 0, false, false, false, Vector2(6,0))
+		
+		pass
+	
+#	#bring sprite to the center + 16
+#	var rect_size = node.get_node('Sprite').region_rect.size
+#	node.position.x -= (rect_size.x/2 - 16)
+#	node.position.y -= (rect_size.y - 64)
+	
+	var volume = null
+	if 'volume' in entity.components:
+		volume = entity.components['volume']
+		#if it's a volume don't shift the sprite
+	
+	node.move_sprite_to_correct_location(volume)
+	
 	
 	return node

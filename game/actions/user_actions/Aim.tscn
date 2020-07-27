@@ -9,5 +9,5 @@ script = ExtResource( 2 )
 action_name = "Aim"
 
 [node name="AnimSubAction" parent="." index="0" instance=ExtResource( 3 )]
-animation = "PistolIdle"
+animation = "Aim"
 state_frames = [ 0 ]

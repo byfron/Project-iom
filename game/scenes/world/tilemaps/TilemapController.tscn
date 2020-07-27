@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/scenes/world/tilemaps/TilemapController.gd" type="Script" id=1]
+[ext_resource path="res://game/scenes/world/tilemaps/MultiLevelTilemapLayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/grass.tres" type="TileSet" id=3]
 [ext_resource path="res://game/scenes/world/tilemaps/TwoLevelTilemapLayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/walls.tres" type="TileSet" id=6]
@@ -18,6 +19,12 @@ autotiler_cfg = "res://game_assets/tilemap_meta/ground_tilemap.json"
 [node name="OvergroundLayer" parent="FgNode" instance=ExtResource( 7 )]
 
 [node name="WallsTilemap" parent="FgNode" instance=ExtResource( 4 )]
+tileset = ExtResource( 6 )
+autotiler_cfg_0 = "res://game_assets/tilemap_meta/wall_tilemap_level_0.json"
+autotiler_cfg_1 = "res://game_assets/tilemap_meta/wall_tilemap_level_1.json"
+
+[node name="MultiLevelTilemapLayer" parent="FgNode" instance=ExtResource( 2 )]
+visible = false
 tileset = ExtResource( 6 )
 autotiler_cfg_0 = "res://game_assets/tilemap_meta/wall_tilemap_level_0.json"
 autotiler_cfg_1 = "res://game_assets/tilemap_meta/wall_tilemap_level_1.json"

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game/behaviors/trees/generic/Fail.gd" type="Script" id=1]
+
+[node name="Fail" type="Node"]
+script = ExtResource( 1 )

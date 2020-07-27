@@ -125,9 +125,38 @@ class ObjectTemplate:
             template_data = json.load(fp)
             for template in template_data['object_templates']:
                 ObjectTemplate.object_map[template['object_id']] = template
+
+    @staticmethod
+    def object_has_component(obj_id, comp_name):
+        if not ObjectTemplate.object_map:
+            ObjectTemplate.initialize_object_map()
+
+        if obj_id not in ObjectTemplate.object_map:
+            print('obj_id %d not recognized as object' % obj_id)
+            return False
+
+        obj = copy.deepcopy(ObjectTemplate.object_map[obj_id])
+        if comp_name in obj:
+            return True
+
+        return False
+
+    @staticmethod
+    def object_get_volume(obj_id):
+        if not ObjectTemplate.object_map:
+            ObjectTemplate.initialize_object_map()
+
+        if obj_id not in ObjectTemplate.object_map:
+            print('obj_id %d not recognized as object' % obj_id)
+            return None
+
+        obj = copy.deepcopy(ObjectTemplate.object_map[obj_id])
+        if 'volume' in obj:
+            return obj['volume']
+        return None
                 
     @staticmethod
-    def create_entity_with_location(obj_id, location):
+    def create_entity_with_location(obj_id, location, orientation=None):
         if not ObjectTemplate.object_map:
             ObjectTemplate.initialize_object_map()        
             
@@ -140,6 +169,9 @@ class ObjectTemplate:
         del obj['name']
         del obj['object_id']
         del obj['location']
+
+        if orientation:
+            del obj['orientation']
         
         module = __import__('ecs_utils')
         cls = getattr(module, 'ComponentFactory')
@@ -157,6 +189,10 @@ class ObjectTemplate:
                 assert(False)
 
         comp_list.append(ComponentFactory.create_location([location[1], location[0], location[2]]))
+
+        if orientation:
+            comp_list.append(ComponentFactory.create_orientation(orientation))
+            
         EntityFactory.attach_components(ent, comp_list)
         return ent
 

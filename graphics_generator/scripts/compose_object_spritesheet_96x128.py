@@ -5,16 +5,28 @@ import glob
 import numpy as np
 import json
 
-subfolder = 'objects_96x128'
-object_subfolders = [ f.path for f in os.scandir(subfolder) if f.is_dir() ]
-TSIZE_X = 96
-TSIZE_Y = 128
-
 rows = 8
 cols = 8
 
+argv = ''
+if '--' in sys.argv:
+    argv = sys.argv
+    argv = argv[argv.index("--") + 1:]
+if argv:
+    sprite_size = argv[0]
+else:
+    print('Specify sprite size')
+    assert(False)
+
+subfolder = 'objects_' + sprite_size
+object_subfolders = [ f.path for f in os.scandir(subfolder) if f.is_dir() ]
+
+TSIZE_X = sprite_size.split('x')[0]
+TSIZE_Y = sprite_size.split('x')[0]
+
+
 #We can create a json file that relates ID with row/col of the spritesheet
-sheet_meta = {'size': [TSIZE_X, TSIZE_Y], 'objects': {}}
+sheet_meta = {'size': [TSIZE_X, TSIZE_Y], 'objects': []}
 sidx = 0
 for object_name in object_subfolders:
     oname = object_name.split('/')[1]
@@ -22,7 +34,11 @@ for object_name in object_subfolders:
     row = int(sidx/rows)
     col = int(sidx%cols)
     sidx += 1
-    sheet_meta['objects'][object_id] = [row, col]
+    obj_dict = {"object_id": object_id,
+                "row": row,
+                "col": col,
+                "orientation": orientation}
+    sheet_meta['objects'].append(obj_dict)
 
 
 meta_filename = os.path.join(subfolder, 'object_sheet_meta_96x128.json')

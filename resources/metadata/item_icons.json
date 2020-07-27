@@ -15,6 +15,14 @@
 	{
 	"item_type": 3,
 	"icon": "brandy-bottle"
-	}		
+	},
+	{
+	"item_type": 4,
+	"icon": "cricket-bat"
+	},
+	{
+	"item_type": 5,
+	"icon": "spellbook"
+	}					
 	]
 }

@@ -11,11 +11,16 @@ export var consumes_turn = true
 export var action_duration = 0.1
 export var infinite = false
 export var responsive = false
+
+# The action finishes only when reaching the end of the turn time,
+# rather than when reaching the final state
+export var continuous = false
+
 export var valid_range = 1
 
-#var current_state_time = 0
-var current_action_time = 0
+#var current_turn_time = 0
 var has_finished = false
+var has_started = false
 var state_duration = 1
 var not_yet_executed = true
 
@@ -31,12 +36,10 @@ func _ready():
 #		return true
 #	return false
 	
-func process(context, delta):
-	#current_state_time += delta
-	#current_action_time += delta
-	process_impl(context, delta)
+func process(context, current_turn_time):
+	process_impl(context, current_turn_time)
 	for sub_action in get_children():
-		sub_action.process(context, delta)
+		sub_action.process(context, current_turn_time)
 	
 func init(ent):
 	entity = ent
@@ -78,6 +81,12 @@ func finish_action():
 
 func is_finished():
 	
+	if continuous and get_normalized_action_time(GameEngine.current_turn_time) >= 1.0:
+		return true
+	elif current_state+1 == num_states:
+		return true
+			
+	#We can force finish actions with a flag
 	if has_finished:
 		return true
 		
@@ -97,6 +106,12 @@ func get_normalized_action_time(turn_time):
 	
 func change_state(context):
 
+	if not has_started:
+		has_started = true
+		current_state = 0
+	else:
+		current_state += 1
+
 	context.world.debug_panel.add_map_entry(entity.id, str(current_state))
 	
 	if not_yet_executed and current_state >= execution_state:
@@ -110,11 +125,12 @@ func change_state(context):
 	#TODO: Remove this
 	#var node = context.get_entity_node(entity)
 	#node.set_debug_label(str(current_state))
-		
-	current_state += 1
+	#current_state_time = 0
+	
+	
 	
 	
 	#If this is the last state, finish action
-	if current_state == num_states:
-		finish_action()
+	#if current_state+1 == num_states:
+	#	finish_action()
 
