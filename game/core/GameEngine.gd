@@ -15,7 +15,7 @@ var _timer = null
 var _active_actions = []
 var _waiting_for_player = true
 var _behavior_system = null
-var MAX_TURN_TIME = 0.3
+var MAX_TURN_TIME = 0.15
 var DEFAULT_MEMORY_CLEAN_TURNS = 50
 var DEFAULT_ENTMEM_CLEAN_TURNS = 200
 
@@ -25,6 +25,14 @@ var waiting_time = 0
 var cinematic_state = false
 var paused = false
 var _fuzzy_dialog_matcher = null
+
+enum TILEMAPSTACK {
+	GROUND = 1,
+	OVERGROUND = 2,
+	DECORATION = 3,
+	OBJECT = 4,
+	META = 5
+}
 
 func _ready():
 	
@@ -234,12 +242,17 @@ func initialize_world(world_scene):
 	context.register_signals()
 
 	#create main character
-	var main_char_entity = EntityPool.filter('main_character')
-	assert(len(main_char_entity) == 1)
+	var main_char_entities = EntityPool.filter('main_character')
+	assert(len(main_char_entities) == 2)
 	
-	context.create_player_character(main_char_entity[0])
+	for main_char in main_char_entities:
+		var is_companion = main_char.components['main_character'].get_is_companion()
+		if is_companion:
+			context.create_companion_character(main_char)
+		else:
+			context.create_player_character(main_char)
 
-	var player_z_level = main_char_entity[0].components['location'].get_coord().get_z()
+	var player_z_level = context.get_player_entity().components['location'].get_coord().get_z()
 	
 	
 	#TODO: we should have the entities already in some kind of octreee so that we only initialize a local
@@ -248,9 +261,10 @@ func initialize_world(world_scene):
 	var chunk_entities = EntityPool.filter('chunk')
 	context.world.initialize_from_chunk_components(chunk_entities, player_z_level)
 	
+	create_entity_nodes(player_z_level)
 	
-	
-	#add all location entities to the map (that are at the same level as the player)
+func create_entity_nodes(player_z_level):
+		#add all location entities to the map (that are at the same level as the player)
 	#TODO: maybe eventually also add only the ones around the player
 	var location_entities = EntityPool.filter('location')
 	for entity in location_entities:
@@ -263,6 +277,7 @@ func initialize_world(world_scene):
 				pass
 				
 			context.add_entity_to_tile(entity, Vector3(location_comp.get_x(), location_comp.get_y(), location_comp.get_z()))
+				
 		if 'character' in entity.components:
 			context.create_character(entity)
 		else:

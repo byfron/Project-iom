@@ -3,6 +3,7 @@ var FSMModule = preload('res://game/utils/FSM.gd').new()
 onready var cursor = $Cursor
 onready var aimline = $AimLine
 onready var gui_tilemap = $GUITilemap
+onready var fmarker = $FloorMarker
 
 var dir_array = [Vector2(0, -1), Vector2(1, -1), Vector2(1, 0), Vector2(1,1), Vector2(0, 1), Vector2(-1, 1), Vector2(-1, 0), Vector2(-1, -1)]
 		
@@ -68,6 +69,14 @@ func select_tile(tile):
 	var scoords = Utils.getScreenCoords(tile)
 	cursor.show()
 	cursor.position = scoords
+	
+func place_floor_marker(tile):
+	var scoords = Utils.getScreenCoordsTileCenter(tile)
+	fmarker.show()
+	fmarker.position = scoords
+	
+func hide_floor_marker():
+	fmarker.hide()
 	
 func unselect_tile():
 	cursor.hide()

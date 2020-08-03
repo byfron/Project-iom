@@ -98,10 +98,14 @@ func load_object_sprite_metadata():
 	load_object_sheet(metadata, '32x64')
 	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_96x128.json')
 	load_object_sheet(metadata, '96x128')
+	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_64x96.json')
+	load_object_sheet(metadata, '64x96')
 	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_96x64.json')
 	load_object_sheet(metadata, '96x64')
 	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_32x96.json')
 	load_object_sheet(metadata, '32x96')
+	metadata = Utils.load_from_json(object_path + '/object_sheet_meta_32x32.json')
+	load_object_sheet(metadata, '32x32')
 	
 func get_object_sprite_sheet():
 	pass

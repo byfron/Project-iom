@@ -17,6 +17,10 @@ shader = ExtResource( 5 )
 shader = ExtResource( 6 )
 shader_param/selected = null
 shader_param/attacked = null
+shader_param/magic = null
+shader_param/frozen = null
+shader_param/outline_color = null
+shader_param/width = null
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 9 )

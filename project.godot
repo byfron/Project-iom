@@ -208,6 +208,7 @@ _global_script_class_icons={
 
 config/name="IOM"
 run/main_scene="res://game/Game.tscn"
+run/low_processor_mode=true
 config/icon="res://icon.png"
 
 [audio]
@@ -233,7 +234,7 @@ InventoryUtils="*res://game/utils/InventoryUtils.gd"
 
 [display]
 
-window/size/width=1971
+window/size/width=1970
 window/size/height=1000
 window/size/resizable=false
 

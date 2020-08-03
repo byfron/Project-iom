@@ -3,11 +3,11 @@
 	[
 	{
 		"level": 0,
-		"map_file": "test_outdoors.aseprite"
+		"map_file": "village_test.aseprite"
 	},
 	{
 		"level": 1,
-		"map_file": "level_1.aseprite"
+		"map_file": "test_indoors.aseprite"
 	}
 	]
 }

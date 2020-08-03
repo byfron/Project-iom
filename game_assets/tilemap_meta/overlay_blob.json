@@ -39,16 +39,17 @@
 	},
 	{
 		"atlas_id": 9,
-		"src_1": 15,
-		"src_2": 15,
-		"comp_tiles": 15
+		"src_1": 48,
+		"src_2": 73,
+		"comp_tiles": -1
 	}			
 	],
 	"blob_autotiling":[
 	{
 		"atlas_id": 14,
 		"src_tile": 11,
-		"neighbor_tiles": [11]
+		"neighbor_tiles": [11],
+		"is_dynamic": false
 	}
 	],
 	"codes": [

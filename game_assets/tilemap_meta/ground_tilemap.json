@@ -30,7 +30,12 @@
 		"src_tile": 163,
 		"atlas": 0,		
 		"tile": 2
-	}		
+	},
+	{
+		"src_tile": 48,
+		"atlas": 0,		
+		"tile": 3
+	}			
 	],
 	"autotiling3x3":[
 	{
@@ -100,8 +105,8 @@
 		"atlas_id": 12
 	},
 	{	
-		"src_tile": 48,
-		"atlas_id": 13
-	}
+		"src_tile": 12,
+		"atlas_id": 14
+	}		
 	]
 }

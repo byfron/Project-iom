@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game/scenes/world/tilemaps/TilemapLayer.gd" type="Script" id=1]
+[ext_resource path="res://resources/overlay_tileset.tres" type="TileSet" id=2]
+
+[node name="ReflectionTilemapLayer" type="Node2D"]
+script = ExtResource( 1 )
+tileset = ExtResource( 2 )
+autotiler_cfg = "res://game_assets/tilemap_meta/overlay_blob.json"
+
+[node name="Tilemap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 2
+cell_clip_uv = true
+format = 1
+tile_data = PoolIntArray( 65548, 0, 0, 262152, 0, 2, 262153, 0, 2, 262154, 0, 2, 327685, 0, 2, 327688, 0, 2, 327689, 0, 2, 327690, 0, 2, 327691, 0, 2, 327693, 0, 0, 393225, 0, 2, 393226, 0, 0, 393229, 0, 0, 393230, 0, 1, 458761, 0, 2, 458762, 0, 2, 458763, 0, 0, 458767, 0, 1, 524301, 0, 0, 524302, 0, 2, 589830, 0, 2 )

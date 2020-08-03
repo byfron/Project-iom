@@ -3,7 +3,7 @@ extends Node2D
 
 onready var tilemap_0 = $Tilemap_0
 onready var tilemap_1 = $Tilemap_1
-onready var shadows = $Shadows
+#onready var shadows = $Shadows
 #Keep tilematrix array as a dictionary
 var map_chunks_0 = {}
 var map_chunks_1 = {}
@@ -22,7 +22,7 @@ func _ready():
 func init():
 	tilemap_0.tile_set = tileset
 	tilemap_1.tile_set = tileset
-	shadows.tile_set = tileset
+	#shadows.tile_set = tileset
 
 func set_autotiler_cfg_0(cfg):
 	autotiler_cfg_0 = cfg
@@ -35,7 +35,7 @@ func update_tileset(tset):
 	if Engine.editor_hint:
 		tilemap_0.tile_set = tileset
 		tilemap_1.tile_set = tileset
-		shadows.tile_set = tileset
+		#shadows.tile_set = tileset
 	
 func add_chunk(chunk_coord, rect, data):
 	#Compute two autotilers for top and bottom levels
@@ -125,7 +125,7 @@ func get_3x3_autotilers(player_chunk, tilemap_matrix):
 func clear_tilemap():
 	tilemap_0.set('tile_data', [])
 	tilemap_1.set('tile_data', [])
-	shadows.set('tile_data', [])
+	#shadows.set('tile_data', [])
 
 func refresh():
 	var chunks_0 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_0)
@@ -135,7 +135,7 @@ func refresh():
 	var full_wallmap_1 = merge_maps(chunks_1, autotiler_cfg_1)
 	if full_wallmap_0:
 		full_wallmap_0.apply(tilemap_0)
-		full_wallmap_0.apply(shadows)
+		#full_wallmap_0.apply(shadows)
 		
 	if full_wallmap_1:
 		full_wallmap_1.apply(tilemap_1)
@@ -155,7 +155,7 @@ func update_tilemap(pos, tid):
 	var full_wallmap_0 = merge_maps(chunks_0, autotiler_cfg_0)
 	if full_wallmap_0:
 		full_wallmap_0.apply(tilemap_0)
-		full_wallmap_0.apply(shadows)
+		#full_wallmap_0.apply(shadows)
 		
 	var chunks_1 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_1)
 	var full_wallmap_1 = merge_maps(chunks_1, autotiler_cfg_1)
@@ -173,4 +173,4 @@ func clear():
 	map_data = {}
 	tilemap_0.clear()
 	tilemap_1.clear()
-	shadows.clear()
+	#shadows.clear()

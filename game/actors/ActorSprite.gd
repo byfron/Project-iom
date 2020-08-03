@@ -31,6 +31,10 @@ func invert_direction(code):
 	pass
 	
 func switch_anim(anim_name):
+	
+	if anim_name == 'Dodge':
+		pass
+	
 	if current_animation == anim_name:
 		return
 		
@@ -97,7 +101,9 @@ func frame_forward():
 		current_sprite.frame_forward(_orient_code)
 	
 func get_current_frame():
-	return $SpriteAnimation
+	#the first child should always be the current actor anim. The 
+	#second child is the weapon anim (if any)
+	return get_children()[0]
 	
 func get_current_frame_rect():
 	var anim = anim_dictionary[current_animation]
@@ -110,7 +116,7 @@ func get_current_frame_rect():
 	var col = frame_idx%anim.num_frames_per_orient
 	return Rect2(row*size_h, col*size_w, size_h, size_w)
 	
-func orientCharacterTowards(code):	
+func orientCharacterTowards(code):
 	_orient_code = code
 	for current_sprite in get_children():
 		current_sprite.update_orientation(_orient_code)

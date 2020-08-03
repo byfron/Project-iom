@@ -89,7 +89,30 @@
 				"auto": false
 			}
 		}
-	}
+	},
+	{
+		"gtype": 3,
+		"descr": "Zombies, Possessed villagers, etc...",
+		"anims":
+		{
+			"Running": {
+				"frames": 4,
+				"auto": false
+			},
+			"CrossPunch": {
+				"frames": 3,
+				"auto": false
+			},
+			"HeadHit": {
+				"frames": 1,
+				"auto": false
+			},
+			"Death": {
+				"frames": 3,
+				"auto": true
+			}			
+		}
+	}		
 	],
 	"SpriteSheets":
 	[
@@ -112,6 +135,10 @@
 	{
 		"gid": 5,
 		"sprite_sheet": "Bat",
-	},		
+	},
+	{
+		"gid": 6,
+		"sprite_sheet": "PossessedVillager",
+	},			
 	]
 }

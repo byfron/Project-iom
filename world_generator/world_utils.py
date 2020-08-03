@@ -9,26 +9,8 @@ def create_doors(world):
     
     front_door_locations = np.vstack(np.where(world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.DOOR1))
     front_door_locations = front_door_locations.transpose().tolist()
-#    door_type_id = 252
     for loc in front_door_locations:
-        create_door(252, [loc[0], loc[1], world.level], False)
-
-    front_door_locations = np.vstack(np.where(world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.DOOR2))
-    front_door_locations = front_door_locations.transpose().tolist()
-    for loc in front_door_locations:
-        create_door(245, [loc[0], loc[1], world.level], False)        
-
-    front_door_locations = np.vstack(np.where(world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.DOOR2SIDE))
-    front_door_locations = front_door_locations.transpose().tolist()
-    for loc in front_door_locations:
-        create_door(244, [loc[0], loc[1], world.level], False)        
-        
-    #TODO: use template for doors!
-    side_door_locations = np.vstack(np.where(world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.DOOR1SIDE))
-    side_door_locations = side_door_locations.transpose().tolist()
-#    door_type_id = 252
-    for loc in side_door_locations:
-        create_door(250, [loc[0], loc[1], world.level], False)
+        create_door(graphics_db.DOOR1, [loc[0], loc[1], world.level], False)
                 
 def create_windows(world):
     window_locations = np.vstack(np.where(world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WINDOW1))
@@ -39,6 +21,12 @@ def create_windows(world):
 
 def object_has_volume(object_id):
     pass
+
+def look_for_neighbour_walls(wmap, loc):
+    if wmap[loc[0], loc[1]-1] > 0:
+        return 'N'
+    else:
+        return 'W'
 
 def look_for_neighbour_object(omap, loc):
     if omap[loc[0], loc[1]-1] > 0:
@@ -64,7 +52,10 @@ def create_objects(world):
         #If it has orientation... check around for any other object and orient it towards it
         direction = None
         if ObjectTemplate.object_has_component(object_id, 'orientation'):
-            direction = look_for_neighbour_object(world.layers[graphics_db.OBJECT_LAYER], location)
+            if ObjectTemplate.object_has_component(object_id, 'door'):
+                direction = look_for_neighbour_walls(world.layers[graphics_db.OVERGROUND_LAYER], location)
+            else:
+                direction = look_for_neighbour_object(world.layers[graphics_db.OBJECT_LAYER], location)
                 
         #how to handle areas/volumes? We should create only ONE object
         #if it defines a volume in the map. Keep a list of "locations" to fill.
@@ -141,7 +132,9 @@ def create_characters(world):
     #TODO: create character and create_player coords are inverted!!!
 #    create_character(10, location)
 
-    create_character(40, location)
+#    create_character(41, location)
+
+    create_character(41, [80, 62, 0])
 
     #Create Eric
     create_character(10, [55, 55, 0])

@@ -7,9 +7,9 @@ func start_impl(context):
 	var node = context._entity2node[entity.id]
 	node.orientCharacterTowards(from_tile)
 	
-	node.attacked(true)
+	#node.attacked(true)
 
 func execute_impl(action, context):
 	var node = context._entity2node[entity.id]
-	#node.attacked(true)
+	node.attacked(true)
 	context.world.camera.shakeCamera()

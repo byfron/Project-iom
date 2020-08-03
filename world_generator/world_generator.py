@@ -15,12 +15,10 @@ class WorldGenerator(Generator):
     def generate_meta_layer(self, world):        #TODO: work this out
         mask = (
             (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL1) +
+            (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL2) +
             (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.WINDOW1) +
             (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.WINDOW1SIDE) +            
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR1) +
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR1SIDE) + 
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR2) +
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR2SIDE))
+            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR1))
 
         #make tree obstacles
         mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE1)
@@ -68,6 +66,7 @@ if __name__ == "__main__":
     coord = [21, 92, 0]
 
     coord = [58, 43, 0]
+    coord = [63, 85, 0]
     
     #New kitchen window blowout
     #coord = [354, 457, 0]

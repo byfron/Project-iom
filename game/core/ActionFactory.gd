@@ -50,6 +50,9 @@ func create_surprised_action(entity, from_tile):
 func create_walk_action(entity, path = null, responsive=false):
 	var action_info = EntityPool.action_map[ActionTypes.WALK]
 	var run_action = load("res://game/actions/user_actions/Run.tscn").instance()
+	
+	run_action.num_states = len(path)
+	
 	run_action.init_action(action_info, entity)
 	run_action.path = path
 	run_action.responsive = responsive
@@ -123,13 +126,14 @@ func create_melee_attack_action(pentity, to_tile = null):
 	var wielded_weapon = Utils.get_entity_weilded_weapon(pentity)
 	
 	var melee_attack_action = null
+	wielded_weapon = null
 	if wielded_weapon:
 		melee_attack_action = load("res://game/actions/user_actions/Melee2Hands.tscn").instance()
 		melee_attack_action.init_action(action_info, pentity)
 		if to_tile:
 			melee_attack_action.attacked_tile = to_tile
 	else:
-		melee_attack_action = load("res://game/actions/user_actions/CrossPunch").instance()
+		melee_attack_action = load("res://game/actions/user_actions/CrossPunch.tscn").instance()
 		melee_attack_action.init_action(action_info, pentity)
 		if to_tile:
 			melee_attack_action.attacked_tile = to_tile
@@ -138,11 +142,17 @@ func create_melee_attack_action(pentity, to_tile = null):
 	
 func create_use_action(pentity, used_entity):
 	
+	
+	
 	#if entity has door comp
 	if 'door' in used_entity.components:
 		return create_open_close_action(pentity, used_entity)
 		
-	assert(false)
+	if 'stairs' in used_entity.components:
+		return create_open_close_action(pentity, used_entity)
+		
+	#assert(false)
+	
 	
 func create_open_close_action(pentity, to_entity):
 	var action = load("res://game/actions/user_actions/OpenClose.tscn").instance()
@@ -219,8 +229,10 @@ func create_default_action_id(tile):
 		if 'character' in entity.components and 'initiative' in entity.components:
 			return ActionTypes.ATTACK
 				
-		if 'door' in entity.components or 'container' in entity.components:
+		if 'stairs' in entity.components or 'door' in entity.components or 'container' in entity.components:
 			return ActionTypes.USE
+		
+		
 		
 		return null
 		

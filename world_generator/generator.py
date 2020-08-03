@@ -100,6 +100,7 @@ class Generator:
                 if key not in chunks:
                     chunks[key] = {graphics_db.GROUND_LAYER:[],
                                    graphics_db.OVERGROUND_LAYER: [],
+                                   graphics_db.DECORATION_LAYER: [],
                                    graphics_db.OBJECT_LAYER:[],
                                    graphics_db.META_LAYER:[]}
                     chunks[key][layer_type].append(chunk_tilemaps[key])

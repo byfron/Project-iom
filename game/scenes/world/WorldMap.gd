@@ -6,6 +6,9 @@ onready var overlay_layer = $MapNode/OverlayLayer
 onready var fov_layer = $FOVTilemapLayer 
 onready var tilemap_controller = $MapNode/TilemapController
 onready var path_manager = $PathManager
+
+onready var water_reflections = $MapNode/WaterReflections
+
 var node_factory = load('res://game/core/NodeFactory.gd').new()
 var NodeUtils = load('res://game/utils/NodeUtils.gd').new()
 
@@ -49,10 +52,21 @@ func worldTileFromScreenPos(spos):
 	
 #TODO: refactor here all functions that do not belong here
 func load_zlevel(zlevel):
+	#free actor nodes except player!
+	#unselect first any entity that may be selected
+	SignalManager.emit_signal('unselect_entity')
+	for actor in actor_layer.get_children():
+		if actor.entity_id != GameEngine.context.get_player_entity().id:
+			actor_layer.remove_child(actor)
+			actor.queue_free()
+		
+		
+	#NodeUtils.delete_children(actor_layer)
 	
-	#free actor nodes
-	NodeUtils.delete_children(actor_layer)
 	tilemap_controller.clear_map_chunks()
+	
+	#Add object nodes
+	GameEngine.create_entity_nodes(zlevel)
 	
 	#add new actor nodes from the entities in this level/area
 	var char_entities = EntityPool.filter('character')

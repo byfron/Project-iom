@@ -58,6 +58,17 @@
 		"initiative": [2],
 		"char_stats": [10, 50, 40, 30],
 		"location": [0,0,0]
-	}
+	},
+	{
+		"name": "Possessed Villager",
+		"character_id": 41,
+		"character": ["PossessedVillager", "M", 1, 0],
+		"graphics": [1, 1, 6, 3],
+		"description": ["Horrendous hairy beast"],
+		"behavior": ["friendly_test"],
+		"initiative": [2],
+		"char_stats": [100, 50, 40, 30],
+		"location": [0,0,0]
+	}		
 	]
 }

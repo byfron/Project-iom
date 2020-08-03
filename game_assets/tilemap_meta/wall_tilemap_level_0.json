@@ -3,8 +3,13 @@
 	"blob_autotiling":[
 	{
 		"atlas_id": 1,
+		"src_tile": 153,
+		"neighbor_tiles": [153, 154]
+	},		
+	{
+		"atlas_id": 3,
 		"src_tile": 154,
-		"neighbor_tiles": [154]
+		"neighbor_tiles": [154, 153]
 	}
 	],
 	"codes": [

@@ -86,7 +86,7 @@
         "name": "Door",
 		"object_id": 244,
         "description": ["Open Door."],
-        "door": [false, true],
+        "door": [false, truec],
 		"graphics": [1, 1, 244],
 		"orientation": ["N"],
         "location": [0,0]
@@ -247,13 +247,6 @@
 		"description": ["Hatch"],
 		"location": [0,0],
 		"stairs": [1]
-	},
-	{
-		"name": "Fence",
-		"object_id": 187,
-		"graphics": [1, 1, 187, 0, false],
-		"description": ["Fence"],
-		"location": [0,0]
-	}				
+	}			
     ]
 }   

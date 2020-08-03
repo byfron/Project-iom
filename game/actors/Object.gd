@@ -51,15 +51,16 @@ func select(flag):
 	
 func move_sprite_to_correct_location(volume = null):
 	var rect_size = $Sprite.region_rect.size
+	
 	if not volume:
-		$Sprite.position.y = -(rect_size.y/2)
-		$Sprite.position.x = -(rect_size.x/2 - 16)
-		$Shadow.position.x = -(rect_size.x/2 - 16)
+		$Sprite.position.y = -rect_size.y + 32
+		$Sprite.position.x = -(rect_size.x/2 - 16)# - rect_size.x/2)
+		$Shadow.position.x = -(rect_size.x/2 - 16)# - rect_size.x/2)
 		
 		#Move shadow slightly up
 		$Shadow.position.y = -rect_size.y/2
 	else:
-		$Sprite.position.y = -rect_size.y + 32
+		$Sprite.position.y = -rect_size.y/2
 		$Sprite.position.x = 0
 
 ##TODO: Refactor ACtor/OBject scenes and create an inheritance!
@@ -154,7 +155,19 @@ func update():
 	var entity = EntityPool.get(entity_id)
 	var gid = entity.components['graphics'].get_graphics_id()
 	var gtype = entity.components['graphics'].get_gtype()
-	set_graphics(gid, gtype)
+	var cast_shadows = entity.components['graphics'].get_cast_shadows()
+	
+	var direction = null
+	if 'orientation' in entity.components:
+		direction = entity.components['orientation'].get_direction()
+		
+	set_graphics(gid, gtype, cast_shadows, direction)
+	
+	var volume = null
+	if 'volume' in entity.components:
+		volume = entity.components['volume']
+		
+	move_sprite_to_correct_location(volume)
 	
 	
 	

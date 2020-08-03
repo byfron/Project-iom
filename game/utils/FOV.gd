@@ -76,7 +76,7 @@ func castLight(light_map, row, start, end,  xx,  xy,  yx,  yy):
 			
 			#check if it's within the lightable area and light if needed
 			var delta_radius = _rStrat.radius(deltaX, deltaY)
-			if (delta_radius <= radius):
+			if (delta_radius <= radius) and not Vector2(currentX, currentY) in _resistanceMap:
 				var bright = 1 - (delta_radius / radius)
 				#if not Vector2(currentX, currentY) in _resistanceMap: 
 				light_map.set_value_relative_to_tl(currentX, currentY, 0)

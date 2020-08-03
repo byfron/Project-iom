@@ -198,7 +198,7 @@ func moveTo(tile, pos, use_tween=true):
 	if use_tween:
 		non_tweened_position = pos
 		move_tween.interpolate_property(self, "position",
-		get_position(), pos, 0.1,
+		get_position(), pos, 0.2,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT);
 		move_tween.start()
 	else:
@@ -377,7 +377,7 @@ func explode():
 	#explosion.img()
 	
 	
-	var sprite = $ActorSpritew.get_children()[0]
+	var sprite = $ActorSprite.get_children()[0]
 	
 	var region_rect = $ActorSprite.get_current_frame_rect()
 	

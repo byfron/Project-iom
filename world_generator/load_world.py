@@ -78,11 +78,13 @@ def load_world_from_aseprite(world_aseprite_file, level):
         
     ground_layer = extract_layer(parsed_file, 'Ground')
     overground_layer = extract_layer(parsed_file, 'OverGround')
+    decoration_layer = extract_layer(parsed_file, 'Decorations')
     object_layer = extract_layer(parsed_file, 'Object')
 
     world = WorldLevel(level)
     world.layers = {graphics_db.GROUND_LAYER: np.array(ground_layer.data),
                     graphics_db.OVERGROUND_LAYER: np.array(overground_layer.data),
+                    graphics_db.DECORATION_LAYER: np.array(decoration_layer.data),
                     graphics_db.OBJECT_LAYER: np.array(object_layer.data)}
 
     return world

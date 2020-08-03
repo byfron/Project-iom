@@ -1,6 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://game/actions/sub_actions/RandomAnimSubAction.gd" type="Script" id=1]
+[ext_resource path="res://game/actions/sub_actions/AnimSubAction.gd" type="Script" id=1]
 
 [node name="AnimSubAction" type="Node"]
 script = ExtResource( 1 )
+animation = "CrossPunch"
+state_frames = [ 0, 1, 2 ]

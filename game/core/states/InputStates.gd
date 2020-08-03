@@ -4,7 +4,13 @@ class InputState extends "res://game/utils/FSM.gd".FSMState:
 	var _selected_entity = null
 	var _action = null
 	func _init():
+		SignalManager.connect("unselect_entity", self, "unselect_entity")
 		pass
+		
+	func unselect_entity():
+		if _selected_entity:
+			GameEngine.context.unselect_entity(_selected_entity)
+			_selected_entity = null
 		
 	func update_action_info(entity):
 		var action_name = ''
@@ -31,7 +37,8 @@ class InputState extends "res://game/utils/FSM.gd".FSMState:
 		var entities = GameEngine.context.get_entities_in_2Dtile_plevel(tile)
 		if entities:
 			if _selected_entity:
-				GameEngine.context.unselect_entity(_selected_entity)
+				unselect_entity()
+				
 			var first_ent = entities.front()
 			_selected_entity = first_ent
 			GameEngine.context.select_entity(first_ent)
@@ -42,7 +49,6 @@ class InputState extends "res://game/utils/FSM.gd".FSMState:
 			if default_action:
 				#TODO: highlight_action signal can refer to both the button and the overlay!
 				SignalManager.emit_signal('highlight_action_button', default_action)
-				GameEngine.state_manager._fsm.emit('attack_action')
 				
 			GameEngine.context.unselect_tile()
 
@@ -72,8 +78,35 @@ class DefaultInputState extends InputState:
 	func process_mouse_input(event):
 		.process_mouse_input(event)
 		
-		if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
+		if (event is InputEventMouseButton && event.pressed):
+			var pentity = null
+			if (event.button_index == BUTTON_LEFT):
+				pentity = GameEngine.context.get_player_entity()
+			elif (event.button_index == BUTTON_RIGHT):
+				pentity = GameEngine.context.get_companion_entity()
+			else:
+				assert(false)
+				
 			var tile = GameEngine.context.world.world_map.worldTileFromScreenPos(event.position)
+			
+			if not _selected_entity:
+				
+				
+				if event.button_index == BUTTON_RIGHT:
+					GameEngine.get_overlay_layer().place_floor_marker(tile)
+
+				#walk
+				var src = Utils.get_entity_location(pentity)
+				var path = GameEngine.context.compute_path(src, tile)
+				var action = ActionFactory.create_walk_action(pentity, path)
+				SignalManager.emit_signal('send_action', action)
+			else:
+
+				_action = ActionFactory.create_use_action(pentity, _selected_entity)
+				#if (event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT):
+				#var tile = GameEngine.context.world.world_map.worldTileFromScreenPos(event.position)
+				SignalManager.emit_signal('send_action', _action)
+				update_action_info(_selected_entity)
 		
 	func process_keyboard_input(event, input_manager):
 		if input_manager.is_movement_event(event):

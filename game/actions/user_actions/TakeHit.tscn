@@ -10,7 +10,6 @@
 script = ExtResource( 4 )
 action_name = "take_hit"
 priority = 9
-consumes_turn = false
 
 [node name="TakeHitAnim" parent="." index="0" instance=ExtResource( 3 )]
 animation = "HeadHit"

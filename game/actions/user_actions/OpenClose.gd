@@ -16,6 +16,15 @@ func execute_impl(action, context):
 		context.world.container_panel.fill_with_container(used_entity)
 		context.world.show_container()
 		$SoundSubAction.sound = "OPEN_02"
+		
+	if "stairs" in used_entity.components:
+		
+		#move character down
+		var stairs_location = Utils.get_entity_location(used_entity)
+		stairs_location.z += 1
+		context.move_player_to_tile(context.get_player_entity(), stairs_location)
+		
+		pass
 			
 	#Refactor somewhere?
 	if "door" in used_entity.components:
@@ -29,18 +38,9 @@ func execute_impl(action, context):
 					
 			#Change graphics in entity and node
 			#TODO. Refactor somehow. Maybe create a state machine in actors/objects?
-			if used_entity.components['graphics'].get_graphics_id() == 252:
-				used_entity.components['graphics'].set_graphics_id(254)
-				context.world.update_chunk_database(pos, 2, 254)
-			if used_entity.components['graphics'].get_graphics_id() == 250:
-				used_entity.components['graphics'].set_graphics_id(251)
-				context.world.update_chunk_database(pos, 2, 251)
-			if used_entity.components['graphics'].get_graphics_id() == 244:
-				used_entity.components['graphics'].set_graphics_id(242)
-				context.world.update_chunk_database(pos, 2, 242)
-			if used_entity.components['graphics'].get_graphics_id() == 245:
-				used_entity.components['graphics'].set_graphics_id(243)
-				context.world.update_chunk_database(pos, 2, 243)
+			if used_entity.components['graphics'].get_graphics_id() == 243:
+				used_entity.components['graphics'].set_graphics_id(244)
+				context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.OBJECT, 244)
 			###############################################################################################
 					
 			#Find entity node to play sound
@@ -48,15 +48,9 @@ func execute_impl(action, context):
 			if used_entity.id in context._entity2node:
 				var node = context._entity2node[used_entity.id]
 				node.update()
-				#node.play_sound("OPEN")
-					
-			#var tid = 254 #TODO this magic number can come from a json
-								
-			#2 is for OVERGROUND. WE should refactor the stack types somewhere
-					
-			#context.world.world_map.tilemap_controller.update_tilemap(pos, 2, tid)
+
 			#we should ALSO change the META layer!
-			context.world.update_chunk_database(pos, 4, 0)
+			context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.META, 0)
 
 			SignalManager.emit_signal("log_event", "You open the door")
 					
@@ -66,21 +60,14 @@ func execute_impl(action, context):
 			#TODO: make wlk and fov private and use a method instead that we pass the 3d vector
 			context.world.wlk_obstacles[Vector2(pos.x, pos.y)] = 1
 			context.world.fov_obstacles[Vector2(pos.x, pos.y)] = 1
-					
-			#TODO: this should all GO SOMEHWERE
-			#var tid = 252					
-					
-			#context.world.world_map.tilemap_controller.update_tilemap(pos, 2, tid)
+			
 			#we should ALSO change the META layer!
-			context.world.update_chunk_database(pos, 4, 1)
+			context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.META, 1)
 			#Change graphics in entity and node
 			#TODO. Refactor somehow. Maybe create a state machine in actors/objects?
-			if used_entity.components['graphics'].get_graphics_id() == 254:
-				used_entity.components['graphics'].set_graphics_id(252)
-				context.world.update_chunk_database(pos, 2, 252)
-			if used_entity.components['graphics'].get_graphics_id() == 251:
-				used_entity.components['graphics'].set_graphics_id(250)
-				context.world.update_chunk_database(pos, 2, 250)
+			if used_entity.components['graphics'].get_graphics_id() == 244:
+				used_entity.components['graphics'].set_graphics_id(243)
+				context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.OBJECT, 243)
 					
 			#Find entity node to play sound
 			if used_entity.id in context._entity2node:

@@ -81,6 +81,9 @@ func finish_action():
 
 func is_finished():
 	
+	if not has_started:
+		return false
+	
 	if continuous and get_normalized_action_time(GameEngine.current_turn_time) >= 1.0:
 		return true
 	elif current_state+1 == num_states:

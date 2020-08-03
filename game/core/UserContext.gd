@@ -17,6 +17,8 @@ var MAX_CONCURRENT_ACTIONS = 5
 var _current_actions = []
 
 var player_entity_id = null
+var companion_entity_id = null
+
 var action_map = {}
 var _entity2node = {}
 var _tile2entity = {}
@@ -63,9 +65,9 @@ class ActionQueue:
 			if action.priority > old_action.priority:
 				
 				#Send signal action interrupted
-				SignalManager.emit_signal('interrupt_action', action, old_action)
+				#SignalManager.emit_signal('interrupt_action', action, old_action)
 				
-				self.action_map[entity_id] = [action]
+				self.action_map[entity_id] = [action, old_action]
 		else:
 			self.action_map[entity_id] = [action]
 
@@ -134,6 +136,9 @@ func get_player_node():
 	
 func get_player_entity():
 	return EntityPool.get(player_entity_id)
+
+func get_companion_entity():
+	return EntityPool.get(companion_entity_id)
 	
 func get_entities_with_component(comp_id):
 	return EntityPool.filter(comp_id)
@@ -218,7 +223,6 @@ func get_item_nodes_in_tile(tile):
 			
 	return nodes
 		
-
 func create_character(entity):
 	var node = node_factory.createActorNode(entity)
 	world.set_actor_node(node)
@@ -241,6 +245,10 @@ func create_character(entity):
 		dialog_map[entity.id] = dialog
 		node.add_child(dialog)
 		
+func create_companion_character(entity):
+	companion_entity_id = entity.id
+	create_character(entity)
+	
 func create_player_character(entity):
 	player_entity_id = entity.id
 	var node = node_factory.createPlayerActorNode(entity)
@@ -269,9 +277,8 @@ func get_entities_in_tile(tile):
 	
 func get_path_manager():
 	return world.world_map.path_manager
-	
-func compute_player_path(dst):
-	var src = get_player_node().coords
+
+func compute_path(src, dst):
 	var path = world.world_map.path_manager.compute_path(src, dst)
 	#TODO: this is very ugly
 	for i in range(len(path)):
@@ -279,6 +286,10 @@ func compute_player_path(dst):
 		path[i] = Vector3(t.x, t.y, src.z)
 	path.pop_front()
 	return path
+	
+func compute_player_path(dst):
+	var src = get_player_node().coords
+	return compute_path(src, dst)
 	
 func kill_entity(entity):
 	_pending_entities_to_kill.append(entity)
@@ -347,6 +358,7 @@ func move_player_to_tile(entity, tile):
 	if get_current_chunk().z != current_chunk.z:
 		#clear and re-set collision map and FOV
 		world.load_zlevel(get_current_chunk().z)
+		pass
 		
 	elif get_current_chunk() != current_chunk:
 		world.update_map_chunks()

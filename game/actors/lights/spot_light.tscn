@@ -7,4 +7,5 @@ z_index = 9
 
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
+offset = Vector2( 16, 0 )
 range_height = 400.0

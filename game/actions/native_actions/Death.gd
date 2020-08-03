@@ -31,4 +31,4 @@ func execute_impl(action, context):
 	node.z_index -= 1
 	
 	#tmp if items in container?
-	node.loot_effect.show()
+	#node.loot_effect.show()

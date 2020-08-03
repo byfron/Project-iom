@@ -61,8 +61,8 @@ func execute_impl(action, context):
 			
 			#if the enemy is frozen destroy it
 			#if ent.status == 'frozen':
-			var attacked_node = context._entity2node[ent.id]
-			attacked_node.explode()
+			#var attacked_node = context._entity2node[ent.id]
+			#attacked_node.explode()
 			
 			
 			

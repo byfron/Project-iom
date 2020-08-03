@@ -1251,6 +1251,11 @@ class MainCharacterComponent:
 		service.field = _experience
 		data[_experience.tag] = service
 		
+		_is_companion = PBField.new("is_companion", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 5, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
+		service = PBServiceField.new()
+		service.field = _is_companion
+		data[_is_companion.tag] = service
+		
 	var data = {}
 	
 	var _name
@@ -1284,6 +1289,14 @@ class MainCharacterComponent:
 		_experience.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
 	func set_experience(value):
 		_experience.value = value
+	
+	var _is_companion
+	func get_is_companion():
+		return _is_companion.value
+	func clear_is_companion():
+		_is_companion.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
+	func set_is_companion(value):
+		_is_companion.value = value
 	
 	func to_string():
 		return PBPacker.message_to_string(data)

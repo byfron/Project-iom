@@ -10,7 +10,7 @@ script = ExtResource( 3 )
 action_name = "open_close"
 
 [node name="OpenCloseAnim" parent="." index="0" instance=ExtResource( 1 )]
-animation = "CrossPunch"
 state_frames = [ 1 ]
 
 [node name="SoundSubAction" parent="." index="1" instance=ExtResource( 4 )]
+sound = "OPEN_01"

@@ -141,7 +141,7 @@ func initialize_obstacles(chunk):
 	for tilemap in tilemap_array:
 		var rect = tilemap.get_rect()
 		var type = tilemap.get_type()
-		if type == 4: #META LAYER
+		if type == GameEngine.TILEMAPSTACK.META:
 			var br = rect.get_bottom_right()
 			var tl = rect.get_top_left()
 			var sizex = br.get_x() - tl.get_x()
@@ -154,10 +154,15 @@ func initialize_obstacles(chunk):
 					idx += 1
 					var location = Vector2((tl.get_x() + col), tl.get_y() + row)
 					if code & 0x1 == 1:
-						fov_obstacles[location] = 1
+						
+						#check the height of this tile, and move the fov up acoordingly
+						var height = (code >> 2)
+						var location_fov = Vector2(location.x, location.y - height + 1)
+						fov_obstacles[location_fov] = 1
 						
 					if (code >> 1) & 0x1:
 						wlk_obstacles[location] = 1
+						
 						
 	world_map.path_manager.set_obstacles(wlk_obstacles)
 
@@ -176,6 +181,7 @@ func initialize_from_chunk_components(entities, zlevel):
 	var chunk_coords = world_map.tilemap_controller.get_3x3_chunks_around_current()
 	world_map.tilemap_controller.add_chunks_from_map(chunk_map, chunk_coords)
 	world_map.tilemap_controller.refresh()
+	
 	
 func clear_map_chunks():
 	world_map.tilemap_controller.clear_map_chunks()

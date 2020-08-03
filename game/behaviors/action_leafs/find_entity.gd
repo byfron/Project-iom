@@ -4,7 +4,6 @@ var Utils = load('res://game/utils/Utils.gd').new()
 
 # Leaf Node
 func tick(tick: Tick) -> int:
-	return FAILED
 	
 	var context = tick.blackboard.get('context')
 	var actor = tick.actor
