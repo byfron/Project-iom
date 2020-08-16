@@ -73,6 +73,32 @@ class ActionFactory:
                 actions.append(action)
         EntityFactory.entity_pool.actions.extend(actions)
 
+class EntityQuery:
+
+    @staticmethod
+    def get_container_component(entity):
+        for comp in entity.components:
+            if comp.type == 'container':
+                cc = ecs_pb2.ContainerComponent()
+                cc.ParseFromString(base64.b64decode(comp.data))
+                return cc
+
+        return None
+                
+    @staticmethod
+    def get_entity_in_location(x, y, z):
+        for eid in EntityFactory.entity_pool.entities:
+            entity = EntityFactory.entity_pool.entities[eid]
+            
+            for comp in entity.components:
+                if comp.type == 'location':
+                    lc = ecs_pb2.LocationComponent()
+                    lc.ParseFromString(base64.b64decode(comp.data))
+                    if lc.coord.x == x and lc.coord.y == y and lc.coord.z == z:
+                        return entity
+
+        return None
+        
 class EntityFactory:
     entity_pool = ecs_pb2.PBEntityPool()
 
@@ -95,6 +121,15 @@ class EntityFactory:
         EntityFactory.entity_pool.entities[entity.entity_id].components.extend(components)
     
 class ComponentFactory:
+
+    @staticmethod
+    def delete_component(entity, ctype):
+        idx = 0
+        for comp in entity.components:
+            if comp.type == ctype:
+                del entity.components[idx]
+            idx += 1
+    
     @staticmethod
     def create_component(ctype, comp):
         data = base64.b64encode(comp.SerializeToString())
@@ -211,6 +246,18 @@ class ComponentFactory:
         return ComponentFactory.create_component('char_stats', comp)
 
     @staticmethod
+    def create_attributes(*args):
+        arglist = list(args)
+        stre = arglist[0]
+        dext = arglist[1]
+        cons = arglist[2]
+        inte = arglist[3]
+        educ = arglist[4]
+        char = arglist[5]
+        comp = ecs_pb2.AttributesComponent(stre=stre, dext=dext, cons=cons, inte=inte, educ=educ, char=char)
+        return ComponentFactory.create_component('attributes', comp)        
+    
+    @staticmethod
     def create_volume(*args):
         arglist = list(args)
         h_tiles = arglist[0]
@@ -223,10 +270,10 @@ class ComponentFactory:
     def create_char_status(*args):
         arglist = list(args)
         crouching = arglist[0]
-        running = arglist[1]
+        sprinting = arglist[1]
         bleeding = arglist[2]
         poisoned = arglist[3]
-        comp = ecs_pb2.CharStatusComponent(crouching=crouching, running=running, bleeding=bleeding, poisoned=poisoned)
+        comp = ecs_pb2.CharStatusComponent(crouching=crouching, sprinting=sprinting, bleeding=bleeding, poisoned=poisoned)
         return ComponentFactory.create_component('char_status', comp)
     
     @staticmethod
@@ -236,16 +283,18 @@ class ComponentFactory:
         gender = arglist[1]
         level = arglist[2]
         exp = arglist[3]
-        comp = ecs_pb2.MainCharacterComponent(name=name, gender=gender, level=level, experience=exp)
+        companion = arglist[4]        
+        comp = ecs_pb2.MainCharacterComponent(name=name, gender=gender, level=level, experience=exp, is_companion=companion)
         return ComponentFactory.create_component('main_character', comp)
-        
+
     @staticmethod
     def create_container(*args):
-        from entity_creators import fill_container
+#        from entity_creators import fill_container
         arglist = list(args)
         capacity = arglist[0]
         container_type = arglist[1]
-        entities = fill_container(capacity, container_type)        
+        entities = arglist[2]
+ #       entities = fill_container(capacity, container_type)        
         comp = ecs_pb2.ContainerComponent(capacity=capacity, type=container_type,
                                           entities=entities)
         return ComponentFactory.create_component("container", comp)
@@ -338,8 +387,12 @@ class ComponentFactory:
         shadows = True
         if len(arglist) >= 5:
             shadows = arglist[4]
+
+        fov_show = True
+        if len(arglist) >= 6:
+            fov_show = arglist[5]
             
-        comp = ecs_pb2.GraphicsComponent(size_x=sx, size_y=sy,graphics_id=gid,gtype=gtype,cast_shadows=shadows)
+        comp = ecs_pb2.GraphicsComponent(size_x=sx, size_y=sy,graphics_id=gid,gtype=gtype,cast_shadows=shadows, fov_show=fov_show)
         return ComponentFactory.create_component('graphics', comp)
         
     @staticmethod
@@ -350,6 +403,23 @@ class ComponentFactory:
         return ComponentFactory.create_component('chunk', comp)
 
     @staticmethod
-    def create_door(locked, open_closed):
-        comp = ecs_pb2.DoorComponent(locked=locked, open_closed=open_closed)
+    def create_door(*args):
+        arglist = list(args)
+        open_closed = arglist[0]
+        comp = ecs_pb2.DoorComponent(open_closed=open_closed)
         return ComponentFactory.create_component('door', comp)
+
+    @staticmethod
+    def create_lock(*args):
+        arglist = list(args)
+        key_code = arglist[0]
+        locked = arglist[1]
+        comp = ecs_pb2.LockComponent(key_code=key_code, locked=locked)
+        return ComponentFactory.create_component('lock', comp)
+
+    @staticmethod
+    def create_key(*args):
+        arglist = list(args)
+        key_code = arglist[0]
+        comp = ecs_pb2.KeyComponent(key_code=key_code)
+        return ComponentFactory.create_component('key', comp)

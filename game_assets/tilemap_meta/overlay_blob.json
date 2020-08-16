@@ -42,6 +42,12 @@
 		"src_1": 48,
 		"src_2": 73,
 		"comp_tiles": -1
+	},
+	{
+		"atlas_id": 10,
+		"src_1": 12,
+		"src_2": 13,
+		"comp_tiles": -1
 	}			
 	],
 	"blob_autotiling":[

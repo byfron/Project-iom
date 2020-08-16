@@ -11,12 +11,10 @@ func tick(tick: Tick) -> int:
 		#EXPLORED
 		memory.add_entity_memory(memory.remembered_entity.id, 1, GameEngine.DEFAULT_ENTMEM_CLEAN_TURNS)
 		
-		
-		
 		var criteria = []
 		var lower_name = memory.remembered_entity.name.to_lower()
 		criteria.append('object_' + lower_name)
-		SignalManager.emit_signal("query_dialog_system", actor_entity, "onSee", criteria)
+		SignalManager.emit_signal("query_dialog_system", actor_entity, "onSee", criteria, memory.remembered_entity)
 	
 	#forget inmediate memory
 		memory.remembered_entity = null

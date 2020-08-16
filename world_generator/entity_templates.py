@@ -188,7 +188,8 @@ class ObjectTemplate:
             else:
                 assert(False)
 
-        comp_list.append(ComponentFactory.create_location([location[1], location[0], location[2]]))
+        
+        comp_list.append(ComponentFactory.create_location(location))#[location[1], location[0], location[2]]))
 
         if orientation:
             comp_list.append(ComponentFactory.create_orientation(orientation))
@@ -241,6 +242,6 @@ class CharacterTemplate:
             else:
                 assert(False)
                 
-        comp_list.append(ComponentFactory.create_location([location[1], location[0], location[2]])) 
+        comp_list.append(ComponentFactory.create_location(location))#[location[0], location[0], location[2]])) 
         EntityFactory.attach_components(ent, comp_list)
         return ent

@@ -68,6 +68,30 @@ func getScreenCoords(tile):
 func screenToTile(xy):
 	return Vector3(int(xy.x / TILE_SIZE), int(xy.y / TILE_SIZE), GameEngine.context.get_current_tile().z)
 	
+func get_circle_coords(center, radius):
+	var y = 0
+	var x = radius
+	var coords = []
+	var err = 0
+	
+	while x >= y:
+		coords.append(Vector2(center.x + x, center.y + y))
+		coords.append(Vector2(center.x + y, center.y + x))
+		coords.append(Vector2(center.x - y, center.y + x))
+		coords.append(Vector2(center.x - x, center.y + y))
+		coords.append(Vector2(center.x - x, center.y - y))
+		coords.append(Vector2(center.x - y, center.y - x))
+		coords.append(Vector2(center.x + y, center.y - x))
+		coords.append(Vector2(center.x + x, center.y - y))
+		
+		y += 1
+		err += 1 + 2 * y
+		if 2 * (err - x) + 1 > 0:
+			x -= 1
+			err += 1 - 2 * x
+	
+	return coords
+	
 func get_line_coords(src, dst):
 	
 	assert(src.z == dst.z)
@@ -124,27 +148,37 @@ func is_player_crouching():
 	return entity.components['char_status'].get_crouching()
 
 func compute_fov_cones_from_orientation(orient_code):
-	var orient_arc = 2 * PI/8
-	var fov_cones = []
+	#TODO: pre-compute arcs for all orientations
+	var orient_arc = -PI/8
+	var angle = orient_arc * 4
+	var orientations = {}
+	orientations['N'] = [[-PI, -(7.0)*orient_arc], [(7.0)*orient_arc, PI]]
+	orientations['S'] = [[0, orient_arc], [-orient_arc, 0]]
 	
+	orientations['NE'] = [[(5.0)*orient_arc, (7.0)*orient_arc]]
+	orientations['E'] = [[(3.0)*orient_arc, (5.0)*orient_arc]]
+	orientations['SE'] = [[orient_arc, (3.0)*orient_arc]]
+	orientations['NW'] = [[-(7.0)*orient_arc, -(5.0)*orient_arc]]
+	orientations['W'] = [[-(5.0)*orient_arc, -(3.0)*orient_arc]]
+	orientations['SW'] = [[-(3.0/2)*orient_arc, -orient_arc/2, ]]
+	
+	var fov_cones = []
 	if orient_code == 'N':
-		fov_cones.append([-PI, -(7.0)*orient_arc])
-		fov_cones.append([(7.0)*orient_arc, PI])
+		fov_cones = [-PI + angle/2, PI - angle/2]
 	if orient_code == 'S':
-		fov_cones.append([0, orient_arc])
-		fov_cones.append([-orient_arc, 0])
+		fov_cones = [-angle/2, angle/2]
 	if orient_code == 'NE':
-		fov_cones.append([(5.0)*orient_arc, (7.0)*orient_arc])
+		fov_cones = [PI - angle, PI]
 	if orient_code == 'E':
-		fov_cones.append([(3.0)*orient_arc, (5.0)*orient_arc])
+		fov_cones = [PI - angle/2, angle/2]
 	if orient_code == 'SE':
-		fov_cones.append([orient_arc, (3.0)*orient_arc])
+		fov_cones = [0, angle]
 	if orient_code == 'NW':
-		fov_cones.append([-(7.0)*orient_arc, -(5.0)*orient_arc])
+		fov_cones = [-PI, -PI + angle]
 	if orient_code == 'W':
-		fov_cones.append([-(5.0)*orient_arc, -(3.0)*orient_arc])
+		fov_cones = [-PI + angle/2, -angle/2]
 	if orient_code == 'SW':
-		fov_cones.append([-(3.0/2)*orient_arc, -orient_arc/2, ])
+		fov_cones = [-angle, 0]
 
 	return fov_cones
 	
@@ -169,30 +203,46 @@ func get_entity_memory(entity):
 #TODO: refactor in a fov class
 func get_objects_in_fovcones(position, fov_cones, distance):
 	var tiles_in_fov = {}
-	for fcone in fov_cones:
-		
-		#TODO: this poligons are fixed per orientation and distance. 
-		#Compute and cache offset vectors!
-		
-		var fov_polygon = []
-		var min_arc = fcone[0]
-		var max_arc = fcone[1]
-		var min_y = int(distance * cos(min_arc))
-		var min_x = int(distance * sin(min_arc))
-		var max_y = int(distance * cos(max_arc))
-		var max_x = int(distance * sin(max_arc))
+#	for fcone in fov_cones:
+#
+#		#TODO: this poligons are fixed per orientation and distance. 
+#		#Compute and cache offset vectors!
+#
+#		var fov_polygon = []
+#		var min_arc = fcone[0]
+#		var max_arc = fcone[1]
+
+	var min_arc = min(fov_cones[0], fov_cones[1])
+	var max_arc = max(fov_cones[0], fov_cones[1])
+	var line1 = Vector2(0, distance).rotated(min_arc)
+	var line2 = Vector2(0, distance).rotated(max_arc)
+	
+	#var min_y = int(distance * cos(min_arc))
+	#var min_x = int(distance * sin(min_arc))
+	#var max_y = int(distance * cos(max_arc))
+	#var max_x = int(distance * sin(max_arc))
 		
 		#Get rect. iterate rows, cols of the rect
 		#add tile to map if it's IN the polygon
-		var fov1 = position + Vector2(min_x, min_y)
-		var fov2 = position + Vector2(max_x, max_y)
+	
+	var fov1 = position + line1
+	var fov2 = position + line2
 		
-		var bb = compute_bb([position, fov1, fov2])
-		
-		for col in range(bb[0].y, bb[1].y):
-			for row in range(bb[0].x, bb[1].x):
-				if Geometry.point_is_inside_triangle(Vector2(row, col), position, fov1, fov2):
-					tiles_in_fov[Vector2(row, col)] = true
+	var bb = compute_bb([position, fov1, fov2])
+	
+	#TODO: this should be cleared somewhere else
+	#GameEngine.get_overlay_layer().gui_tilemap.clear()
+	
+	for col in range(bb[0].y, bb[1].y):
+		for row in range(bb[0].x, bb[1].x):
+			if Geometry.point_is_inside_triangle(Vector2(row, col), position, fov1, fov2):
+				tiles_in_fov[Vector2(row, col)] = true
+				
+				#GameEngine.get_overlay_layer().gui_tilemap.set_cell(row, col, 2)
+				pass
+	
+	#if GameEngine.debug_mode:
+	#	GameEngine.get_overlay_layer().gui_tilemap.show()
 	
 	var entities = []
 	for tile in tiles_in_fov:
@@ -201,6 +251,12 @@ func get_objects_in_fovcones(position, fov_cones, distance):
 			entities += ents
 			
 	return entities
+
+func compute_punch_damage_roll(entity):
+	var attr = entity.components["attributes"]
+	var strength = attr.get_str()
+	var damage = BRP.damage_roll("1D" + str(strength/10))
+	return damage
 
 func get_fovline_second_last(start, stop):
 	var num = (stop - start).length()+1
@@ -299,11 +355,8 @@ static func apply_damage(entity, damage):
 		return 0
 	
 	var health = entity.components['char_stats'].get_health()
-	var health_left = health - damage
-	if health_left > 0:
-		entity.components['char_stats'].set_health(health_left)
-	else:
-		entity.components['char_stats'].set_health(0)
+	var health_left = max(0, health - damage)
+	entity.components['char_stats'].set_health(health_left)
 		
 	return health_left
 		

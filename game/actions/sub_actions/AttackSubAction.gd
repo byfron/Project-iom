@@ -20,7 +20,7 @@ func on_state_changed(action, context):
 			#TODO: chatting enemies: needs to be more sophisticatred
 			#node.chat_balloon.show()
 			
-			GameEngine.get_overlay_layer().display_motion_grid(action.attacked_tile)
+			#GameEngine.get_overlay_layer().display_motion_grid(action.attacked_tile)
 			
 			#Mark tile/entity as "attacked"
 			#TODO: maybe better in a status component
@@ -49,7 +49,8 @@ func execute_impl(action, context):
 	#Attack whatever "character" in the tile and whiff if there's nothing
 	if action.attacked_tile in context._tile2entity:
 		var entity_list = context._tile2entity[action.attacked_tile]
-		var damage = BRP.damage_roll("1D6")
+		var damage = Utils.compute_punch_damage_roll(action.entity)
+		#var damage = BRP.damage_roll("1D6")
 		for ent in entity_list:
 			
 			#TODO: ONLY if ent is a character right!!!?

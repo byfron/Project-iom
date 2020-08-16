@@ -1,7 +1,7 @@
 func astar(grid, start_idxv, end_idxv):
 	var pq = preload("pq.gd").new()
 	pq.make()
-	var traversed = {}	
+	var traversed = {}
 	var result = _evaluate_grid_samethread(pq, traversed, grid, start_idxv.x, start_idxv.y, 
 		start_idxv.x, start_idxv.y, end_idxv.x, end_idxv.y)
 	return result
@@ -36,7 +36,7 @@ func _grid_traverse_queue(pq, traversed, grid, curr, prev, to, curr_cost):
 	var curr_weight = -(gx+hx)
 	
 	## Weights could never be lower, because of priority_queue
-	var already_visited = traversed.has(curr) # || (traversed[curr] != null && traversed[curr].weight > curr_weight)
+	var already_visited = traversed.has(curr) #|| (traversed[curr] != null && traversed[curr].weight > curr_weight)
 	
 	if already_visited:
 		return
@@ -51,7 +51,7 @@ func _grid_traverse_queue(pq, traversed, grid, curr, prev, to, curr_cost):
 	pq.push({
 		curr = curr,
 		prev = prev,
-		pqval = -gx,
+		pqval = -(gx + hx),
 		accum_cost = gx
 	})
 	
@@ -80,7 +80,7 @@ func _evaluate_grid(userdata):
 	var start_j = userdata[0].start_j
 	
 	var current_probe = 0
-	var maximum_probe = 200
+	var maximum_probe = 1000
 	var end_i = userdata[0].end_i
 	var end_j = userdata[0].end_j
 		
@@ -132,7 +132,7 @@ func _evaluate_grid(userdata):
 			
 		elif current_probe > maximum_probe:
 			return []
-		else:			
+		else:
 			userdata[0].i = top.curr.x
 			userdata[0].j = top.curr.y
 			userdata[0].curr_cost = top.accum_cost

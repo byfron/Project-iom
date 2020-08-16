@@ -1,0 +1,3 @@
+ResponseID#ResponseText#Concept#Criteria#Trigger
+oninvestigate_doortrap#A doortrap!#OnInvestigate#object_doortrap #
+onopen_door#I need a key to open this#OnOpen#object_lock=true#

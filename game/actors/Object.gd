@@ -108,7 +108,6 @@ func set_graphics(gid, gtype, cast_shadows=true, direction=null):
 	var sprite_sheet = $Sprite
 	var shadow_sheet = $Shadow
 		
-		
 	if not cast_shadows:
 		shadow_sheet.hide()
 		

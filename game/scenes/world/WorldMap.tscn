@@ -1,20 +1,40 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/scenes/world/tilemaps/FOVTileMapLayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/scenes/world/WorldMap.gd" type="Script" id=2]
 [ext_resource path="res://game/scenes/world/OverlayLayer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game_assets/tilemaps/black_tile.png" type="Texture" id=4]
 [ext_resource path="res://game/scenes/world/tilemaps/TilemapController.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game_assets/tilemaps/transparent_tile.png" type="Texture" id=6]
 [ext_resource path="res://game/utils/PathManager.gd" type="Script" id=7]
 
+[sub_resource type="TileSet" id=1]
+0/name = "black_tile.png 0"
+0/texture = ExtResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 32, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+1/name = "transparent_tile.png 1"
+1/texture = ExtResource( 6 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shapes = [  ]
+1/z_index = 0
+
 [node name="WorldMap" type="Node2D"]
-position = Vector2( 0, -0.384724 )
+position = Vector2( -2.27206, -0.384724 )
 script = ExtResource( 2 )
 
 [node name="MapNode" type="Node2D" parent="."]
-
-[node name="ActorLayer" type="YSort" parent="MapNode"]
-z_index = 10
-z_as_relative = false
 
 [node name="TilemapController" parent="MapNode" instance=ExtResource( 5 )]
 
@@ -25,6 +45,13 @@ visible = false
 
 [node name="FOVTilemapLayer" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -1 )
+z_index = 50
+z_as_relative = false
+
+[node name="DarkFOV" type="TileMap" parent="."]
+visible = false
+tile_set = SubResource( 1 )
+format = 1
 
 [node name="PathManager" type="Node" parent="."]
 script = ExtResource( 7 )

@@ -45,6 +45,14 @@
         "location": [0,0]
     },
 	{
+        "name": "Neon",
+		"object_id": 102,
+        "graphics": [1, 2, 102, 0, false],
+        "description": ["Neon descr."],
+		"light": [1, 1, 2, 1],
+        "location": [0,0]
+    },		
+	{
         "name": "Bench",
 		"object_id": 60,
         "graphics": [1, 2, 60],
@@ -70,11 +78,11 @@
     },
 	{
         "name": "Door",
-		"object_id": 243,
+		"object_id": 244,
         "description": ["Closed Door."],
 		"interest": [6],
-        "door": [false, false],
-		"graphics": [1, 1, 243],
+        "door": [false],
+		"graphics": [1, 1, 244],
 		"orientation": ["N"],
 		"sound": {
 			"OPEN": 1,
@@ -84,10 +92,10 @@
     },
 	{
         "name": "Door",
-		"object_id": 244,
+		"object_id": 243,
         "description": ["Open Door."],
-        "door": [false, true],
-		"graphics": [1, 1, 244],
+        "door": [true],
+		"graphics": [1, 1, 243],
 		"orientation": ["N"],
         "location": [0,0]
     },       		
@@ -96,7 +104,7 @@
 		"object_id": 131,		
         "graphics": [1, 1, 131],
         "description": ["Fridge desc."],
-		"container": [5, 3],
+		"container": [5, 3, []],
         "location": [0,0]
      },
      {
@@ -126,18 +134,18 @@
          "location": [0,0]
      },
 	 {
-		 "name": "Manhole",
+		 "name": "DoorTrap",
 		 "object_id": 65,
-		 "graphics": [1, 1, 65],
-		 "description": ["manhole"],
-		 "location": [0,0],
-		 "stairs": [1]
-	 },
+		 "graphics": [1, 1, 65, 0, false, false],
+		 "description": ["Closed DoorTrap"],
+		 "door": [false],
+		 "stairs": [1],
+		 "location": [0,0]
+	 },	
 	 {
 		 "name": "Ladder",
 		 "object_id": 67,
-		 "graphics": [1, 1, 67, 0, false],
-		 "description": ["Wooden ladder"],
+		 "description": ["Stairs up"],
 		 "location": [0,0],
 		 "stairs": [-1]
 	 },
@@ -224,10 +232,10 @@
 	{
 		"name": "Coffin",
 		"object_id": 186,
-		"graphics": [1, 1, 186, 0, false],
+		"graphics": [1, 1, 186, 0, false, false],
 		"volume": [1, 2, 1],
 		"description": ["Coffin"],
-		"door": [false, false],
+		"door": [false],
 		"location": [0,0]
 	},			
 	{
@@ -254,6 +262,25 @@
 		"graphics": [1, 1, 187, 0, false],
 		"description": ["Fence"],
 		"location": [0,0]
-	}				
+	},
+	{
+		"name": "Column",
+		"object_id": 188,
+		"graphics": [1, 1, 188, 0, false],
+		"description": ["Column"],
+		"location": [0,0]
+	},
+	{
+		"name": "Chest",
+		"object_id": 241,
+        "graphics": [1, 1, 241, 0, false, false],         
+        "description": ["Chest description"],
+		"container": [5, 1, []],
+        "sound": {
+			"OPEN": 2
+		},
+		"volume": [1, 1, 1],
+        "location": [0,0]
+    }
     ]
 }   

@@ -15,11 +15,16 @@ enum ActionType {
 	TAKE_ITEM, #13
 	TALK, #14
 	THROW_ITEM, #15
+	SPRINT,
 	CROUCH,
 	USE,
 	REST,
 	INVESTIGATE,
-	STAND
+	STAND,
+	MAGIC_FIRE_ZONE,
+	DEAD,
+	ITEM_ACTION_1,
+	ITEM_ACTION_2
 }
 
 enum NativeActionTypes {

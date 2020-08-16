@@ -46,7 +46,6 @@ font_data = ExtResource( 25 )
 
 [node name="Actor" type="Node2D"]
 light_mask = 3
-position = Vector2( -2.4725, -1.5184 )
 script = ExtResource( 1 )
 color = Color( 0.74902, 0.74902, 0.74902, 1 )
 
@@ -181,15 +180,16 @@ position = Vector2( 1.9763, -10 )
 
 [node name="ActorWeapon" parent="." instance=ExtResource( 7 )]
 visible = false
+position = Vector2( 2, -17 )
 weapon_keypoints = {
-"E": Vector2( 24.02, -2.71 ),
-"N": Vector2( 2.13, -23.05 ),
-"NE": Vector2( 18.2, -13.94 ),
-"NW": Vector2( -12.78, -17.24 ),
-"S": Vector2( -1.55, 16.65 ),
-"SE": Vector2( 13.56, 7.55 ),
-"SW": Vector2( -16.65, 3.87 ),
-"W": Vector2( -23.24, -7.55 )
+"E": Vector2( 26, -14 ),
+"N": Vector2( 2, -28.2 ),
+"NE": Vector2( 16.81, -21.99 ),
+"NW": Vector2( -14.74, -24.28 ),
+"S": Vector2( -2.32, 4.73 ),
+"SE": Vector2( 14.1, 0.366 ),
+"SW": Vector2( -17.36, -0.33 ),
+"W": Vector2( -26, -14 )
 }
 
 [node name="WeaponFireNode" type="Node2D" parent="."]
@@ -229,4 +229,8 @@ z_as_relative = false
 dialog_text = "assss"
 
 [node name="Memory" parent="." instance=ExtResource( 9 )]
+
+[node name="debug_fov" type="Line2D" parent="."]
+visible = false
+width = 2.0
 [connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]

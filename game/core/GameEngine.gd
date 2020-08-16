@@ -6,6 +6,7 @@ onready var FuzzyPatternMatcher = preload('res://game/dialogs/FuzzyPatternMatche
 
 var state_manager = preload('res://game/core/states/StateManager.gd').new()
 
+var debug_mode = false
 var systems = []
 var context = null
 var turn_has_finished = true
@@ -34,6 +35,13 @@ enum TILEMAPSTACK {
 	META = 5
 }
 
+func set_debug_mode(mode):
+	debug_mode = mode
+	if mode:
+		context.world.debug_panel.show()
+	else:
+		context.world.debug_panel.hide()
+
 func _ready():
 	
 	_behavior_system = BehaviorSystem.new()
@@ -43,7 +51,8 @@ func _ready():
 	state_manager.init()
 	
 	#Create dialog database from cvs
-	_fuzzy_dialog_matcher.create_database('res://game_assets/dialogs/Eric.csv')
+	#_fuzzy_dialog_matcher.create_database('res://game_assets/dialogs/Eric.csv')
+	_fuzzy_dialog_matcher.create_database('res://game_assets/dialogs/Carla.csv')
 	SignalManager.connect("query_dialog_system", _fuzzy_dialog_matcher, "process_query")
 	
 	#Load metadata of ResourceManager
@@ -63,15 +72,19 @@ func _ready():
 	SignalManager.connect("action_button_pressed", state_manager, "process_action")
 	SignalManager.connect("status_button_pressed", state_manager, "process_status")
 	SignalManager.connect("status_button_released", state_manager, "process_status")
+	SignalManager.connect("status_event", state_manager, "process_status")
+	SignalManager.connect("activate_sin", state_manager, "process_activate_sin")
+	SignalManager.connect("deactivate_sin", state_manager, "process_deactivate_sin")
 	
 func get_current_state():
 	return state_manager.get_current_state()
 	
-func interrupt_action(new_action, old_action):
+func interrupt_action(entity_id, new_action, old_action):
 	
 	#TODO! Warning! The action_list is deprecated so the interruption
 	#code may be broken. Make sure it's still needed
 	
+	var action_list = context.action_queue.action_map[entity_id]
 	var idx = action_list.find(old_action)
 	if idx >= 0:
 		action_list.remove(idx)
@@ -79,7 +92,7 @@ func interrupt_action(new_action, old_action):
 	action_list.append(new_action)
 	
 	#re-sort
-	action_list.sort_custom(PrioritySorter, "sort_descending")
+	#action_list.sort_custom(PrioritySorter, "sort_descending")
 	
 class PrioritySorter:
 	static func sort_descending(a, b):
@@ -108,7 +121,7 @@ func get_overlay_layer():
 func run_next_turn():
 	
 	#TODO:!!! WTF is this doing here?
-	get_overlay_layer().hide_motion_grid()
+	#get_overlay_layer().hide_motion_grid()
 	
 	#active entities without player
 	var active_entities = get_active_entities(false)
@@ -170,8 +183,11 @@ func _process(delta):
 	var player_entity = context.get_player_entity()
 	var player_action = context.action_queue.get(player_entity.id)
 	
-	#If the player is waiting, do not run the next turn. 
-	if player_action != null:
+	if context.player_is_dead:
+		if is_time_to_run_turn():
+			run_next_turn()
+			
+	elif player_action != null:
 		
 #		if player_is_frozen: #ignore action and pop it
 #			context.action_queue.pop(player_action.entity.id)
@@ -183,7 +199,7 @@ func _process(delta):
 			
 		#Some actions may not consume any turn, so they just happen, and 
 		#player plays again
-		if not player_action.consumes_turn:
+		if not player_action.consumes_turn():
 			player_action.change_state(context)
 		else:
 			# Execute player action first
@@ -243,7 +259,7 @@ func initialize_world(world_scene):
 
 	#create main character
 	var main_char_entities = EntityPool.filter('main_character')
-	assert(len(main_char_entities) == 2)
+	#assert(len(main_char_entities) == 2)
 	
 	for main_char in main_char_entities:
 		var is_companion = main_char.components['main_character'].get_is_companion()
@@ -278,6 +294,8 @@ func create_entity_nodes(player_z_level):
 				
 			context.add_entity_to_tile(entity, Vector3(location_comp.get_x(), location_comp.get_y(), location_comp.get_z()))
 				
+		var tile = Utils.get_entity_location(entity)
+				
 		if 'character' in entity.components:
 			context.create_character(entity)
 		else:
@@ -291,19 +309,19 @@ func create_entity_nodes(player_z_level):
 				var htiles = entity.components['volume'].get_h_tiles()
 				var wtiles = entity.components['volume'].get_w_tiles()
 				
-				#add walk obstacle
-				var tile = Utils.get_entity_location(entity)
+				#add walk obstacle				
 				for h in range(htiles):
 					for w in range(wtiles):
 						context.world.wlk_obstacles[Vector2(tile.x+w, tile.y+h)] = 1
 				
 				#If the volume hight is more than one, we also add a fov obstacle
-				if entity.components['volume'].get_height() > 1:
+				var volume_height = entity.components['volume'].get_height()
+				if  volume_height > 1:
 					for h in range(htiles):
 						for w in range(wtiles):
-							context.world.fov_obstacles[Vector2(tile.x+w, tile.y+h)] = 1
+							context.world.fov_obstacles[Vector2(tile.x+w, tile.y+h)] = volume_height
 					
-			context.create_object(entity)
+			context.create_object(entity, tile)
 	
 	
 	

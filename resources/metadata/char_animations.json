@@ -73,8 +73,16 @@
 				"frames": 3,
 				"auto": false
 			},
+			"Agony": {
+				"frames": 3,
+				"auto": false
+			},
 			"MagicAttack": {
 				"frames": 3,
+				"auto": false
+			},
+			"Walking": {
+				"frames": 4,
 				"auto": false
 			}
 		}
@@ -112,7 +120,22 @@
 				"auto": true
 			}			
 		}
-	}		
+	},
+	{
+		"gtype": 4,
+		"descr": "Sins",
+		"anims":
+		{
+			"Running": {
+				"frames": 4,
+				"auto": false
+			},
+			"FloatIdle": {
+				"frames": 1,
+				"auto": false
+			}
+		}
+	}
 	],
 	"SpriteSheets":
 	[
@@ -138,7 +161,11 @@
 	},
 	{
 		"gid": 6,
-		"sprite_sheet": "PossessedVillager",
+		"sprite_sheet": "Zombie",
+	},
+	{
+		"gid": 7,
+		"sprite_sheet": "Carla",
 	},			
 	]
 }

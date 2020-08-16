@@ -8,31 +8,34 @@ import graphics_db
 def create_player(location):
     ent = EntityFactory.create_entity('player')
     loc = ComponentFactory.create_location(location)
-    char = ComponentFactory.create_main_character('Johnny', 'M', 1, 0)
+    char = ComponentFactory.create_main_character('Johnny', 'M', 1, 0, False)
     mov = ComponentFactory.create_movement(1.0)
     ini = ComponentFactory.create_initiative(5)
     gr = ComponentFactory.create_graphics(1, 1, 1, 1)
+    attr = ComponentFactory.create_attributes(40, 60, 60, 30, 20, 60)
     
     cstatus = ComponentFactory.create_char_status(False, False, False, False)
 
 
     #Let's create a weapon item and add it to the inventory of the main character
-    bat = create_weapon(3)
-    revolver = create_weapon(2)
-    spell_book = create_weapon(4)
-    food = create_random_food_item()
+    #bat = create_weapon(3)
+    #revolver = create_weapon(2)
+    #spell_book = create_weapon(4)
+    #food = create_random_food_item()
     
     #Let's put also a bottle in the inventory
     bottle = create_item(10)
 
-    inv = ComponentFactory.create_inventory_with_stuff(20, [bottle.entity_id, revolver.entity_id, bat.entity_id, food.entity_id, spell_book.entity_id], spell_book.entity_id)
+    #inv = ComponentFactory.create_inventory_with_stuff(20, [bottle.entity_id, revolver.entity_id, bat.entity_id, food.entity_id, spell_book.entity_id], spell_book.entity_id)
+    
+    inv = ComponentFactory.create_inventory_with_stuff(20, [], None)
     
     
     desc = ComponentFactory.create_description('Main character desc')
     skills = ComponentFactory.create_skills(**{'Brawler': 30, 'Stealth': 24, 'Firearms': 90, 'Magic': 30})
     stats = ComponentFactory.create_char_stats(100, 80, 90, 100)
     
-    EntityFactory.attach_components(ent, [loc, inv, char, mov, ini, gr, desc, skills, stats, cstatus])
+    EntityFactory.attach_components(ent, [loc, inv, char, mov, ini, gr, desc, skills, stats, cstatus, attr])
     
 def create_door(door_id, location, open_closed):
     ObjectTemplate.create_entity_with_location(door_id, location)
@@ -84,7 +87,7 @@ def create_light(location):
     loc = ComponentFactory.create_location(location)
     lig = ComponentFactory.create_light(1, 1, [1,2,3])
     EntityFactory.attach_components(ent, [loc, lig])
-    
+
 def fill_container(capacity, ctype):
     num_items = RandomEngine.number_in_range(0,capacity)
     items = []

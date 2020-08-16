@@ -12,6 +12,8 @@ var remembered_pos = null
 #entity in attention
 var remembered_entity = null
 
+var remembered_path = null
+
 #flag lost companion
 var companion_gone = false
 

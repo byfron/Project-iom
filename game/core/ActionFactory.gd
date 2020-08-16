@@ -33,11 +33,10 @@ func create_death_action(entity):
 	
 	var death_action = null
 	#TODO: Same ugly thing about distinguishing actions for containers and the rest!
-	if 'container' in entity.components:
-		death_action = load("res://game/actions/native_actions/DestroyObject.tscn").instance()
-	else:
-		death_action = load("res://game/actions/native_actions/Death.tscn").instance()
-		
+	#if 'container' in entity.components:
+	#	death_action = load("res://game/actions/native_actions/DestroyObject.tscn").instance()
+	#else:
+	death_action = load("res://game/actions/native_actions/Death.tscn").instance()
 	death_action.init(entity)
 	return death_action
 
@@ -47,13 +46,45 @@ func create_surprised_action(entity, from_tile):
 	surprised_action.from_tile = from_tile
 	return surprised_action
 
+func create_levitate_action(entity, path = null, responsive=false):
+	var levitate_action = load("res://game/actions/sin_actions/movement/Levitate.tscn").instance()
+	levitate_action.num_states = len(path)
+	levitate_action.init(entity)
+	levitate_action.path = path
+	levitate_action.responsive = responsive
+	return levitate_action
+	
 func create_walk_action(entity, path = null, responsive=false):
-	var action_info = EntityPool.action_map[ActionTypes.WALK]
+	var run_action = load("res://game/actions/user_actions/Walk.tscn").instance()
+	
+	run_action.num_states = len(path)
+	
+	run_action.init(entity)
+	run_action.path = path
+	run_action.responsive = responsive
+	return run_action
+
+func create_movement_action(entity, path = null):
+	#query the status of the entity
+	var char_status = Utils.get_component(entity, "char_status")
+	assert(not (char_status.get_crouching() and char_status.get_sprinting()))
+	if char_status.get_crouching():
+		return create_sneak_action(entity, path)
+	elif char_status.get_sprinting():
+		var action = create_run_action(entity, path)
+		action.sprinting = true
+		return action
+	else:
+		return create_run_action(entity, path)
+		
+
+func create_run_action(entity, path = null, responsive=false):
+#	var action_info = EntityPool.action_map[ActionTypes.RUN]
 	var run_action = load("res://game/actions/user_actions/Run.tscn").instance()
 	
 	run_action.num_states = len(path)
 	
-	run_action.init_action(action_info, entity)
+	run_action.init(entity)
 	run_action.path = path
 	run_action.responsive = responsive
 	return run_action
@@ -73,10 +104,10 @@ func create_takehit_action(entity, from_tile, damage):
 	take_hit.from_tile = from_tile
 	return take_hit
 
-func create_aim_action(attacking_entity, attacked_entity):
+func create_aim_action(attacking_entity, to_tile):
 	var aim_action = load("res://game/actions/user_actions/Aim.tscn").instance()
 	aim_action.init(attacking_entity)
-	aim_action.aimed_entity = attacked_entity
+	aim_action.aimed_tile = to_tile
 	return aim_action
 
 func create_magic_aim_action(attacking_entity, attacked_entity):
@@ -193,6 +224,7 @@ func create_sneak_action(pentity, path = null, responsive=false):
 	action.init(pentity)
 	action.path = path
 	action.responsive = responsive
+	action.num_states = len(path)
 	return action
 	
 func create_pick_item_action(pentity, container_entity, item_entity):
@@ -200,6 +232,11 @@ func create_pick_item_action(pentity, container_entity, item_entity):
 	action.init(pentity)
 	action.item_entity = item_entity
 	action.container_entity = container_entity
+	return action
+	
+func create_agony_action(pentity):
+	var action = load("res://game/actions/user_actions/Agony.tscn").instance()
+	action.init(pentity)
 	return action
 	
 func create_equip_action(pentity, item_entity):
@@ -237,13 +274,12 @@ func create_default_action_id(tile):
 		return null
 		
 	else:
-		return ActionTypes.WALK
+		return ActionTypes.RUN
 		
 func create_default_movement_actions(pentity, coords):
 	
 	var to_entities = GameEngine.context.get_entities_in_tile(coords)
 	var actions = []
-	var crouching = pentity.components['char_status'].get_crouching()
 	
 	if to_entities:
 		var distance = 0
@@ -261,19 +297,19 @@ func create_default_movement_actions(pentity, coords):
 			if 'container' in to_entity.components:
 				actions.append(create_open_close_action(pentity, to_entity))
 				break
+				
+			if 'stairs' in to_entity.components:
+				actions.append(create_open_close_action(pentity, to_entity))
+				break
 		
 		return actions
 		
-	if len(actions) == 0:
-		var path = GameEngine.context.compute_player_path(coords)
-		#Remove first element which is the same as the players
-		#path.pop_front()
-		if len(path) > 0:
-			#TODO: refactor this when we add running
-			if crouching:
-				actions.append(create_sneak_action(pentity, path, true))
-			else:
-				actions.append(create_walk_action(pentity, path, true))
+#	if len(actions) == 0:
+#		var path = GameEngine.context.compute_player_path(coords)
+#		#Remove first element which is the same as the players
+#		#path.pop_front()
+#		if len(path) > 0:
+#			actions.append(ActionFactory.create_movement_action(pentity, path))
 		
 	return actions
 	

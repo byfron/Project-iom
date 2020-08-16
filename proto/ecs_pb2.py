@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\tecs.proto\x1a\x0bworld.proto\"4\n\x11LocationComponent\x12\x1f\n\x05\x63oord\x18\x01 \x02(\x0b\x32\x10.PBMapCoordinate\"\"\n\x11MovementComponent\x12\r\n\x05speed\x18\x01 \x02(\x02\"m\n\x11GraphicsComponent\x12\x0e\n\x06size_x\x18\x01 \x02(\r\x12\x0e\n\x06size_y\x18\x02 \x02(\r\x12\x13\n\x0bgraphics_id\x18\x03 \x02(\r\x12\r\n\x05gtype\x18\x04 \x02(\r\x12\x14\n\x0c\x63\x61st_shadows\x18\x05 \x02(\x08\"%\n\x11InterestComponent\x12\x10\n\x08interest\x18\x01 \x02(\r\"#\n\x11\x42\x65haviorComponent\x12\x0e\n\x06script\x18\x01 \x02(\t\")\n\x0b\x44ialogState\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0e\n\x06script\x18\x02 \x02(\t\"6\n\x0f\x44ialogComponent\x12#\n\rdialog_states\x18\x01 \x03(\x0b\x32\x0c.DialogState\"U\n\x12\x43haracterComponent\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0e\n\x06gender\x18\x02 \x02(\t\x12\r\n\x05level\x18\x03 \x02(\r\x12\x12\n\nexperience\x18\x04 \x02(\r\"s\n\x0eSoundComponent\x12\x30\n\tsound_map\x18\x01 \x03(\x0b\x32\x1d.SoundComponent.SoundMapEntry\x1a/\n\rSoundMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"Y\n\x16MainCharacterComponent\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0e\n\x06gender\x18\x02 \x02(\t\x12\r\n\x05level\x18\x03 \x02(\r\x12\x12\n\nexperience\x18\x04 \x02(\r\"]\n\x13\x43harStatusComponent\x12\x11\n\tcrouching\x18\x01 \x02(\x08\x12\x0f\n\x07running\x18\x02 \x02(\x08\x12\x10\n\x08\x62leeding\x18\x03 \x02(\x08\x12\x10\n\x08poisoned\x18\x04 \x02(\x08\"S\n\x12\x43harStatsComponent\x12\x0e\n\x06health\x18\x01 \x02(\r\x12\x0f\n\x07stamina\x18\x02 \x02(\r\x12\x0c\n\x04mana\x18\x03 \x02(\r\x12\x0e\n\x06sanity\x18\x04 \x02(\r\"C\n\x0fVolumeComponent\x12\x0f\n\x07h_tiles\x18\x01 \x02(\r\x12\x0f\n\x07w_tiles\x18\x02 \x02(\r\x12\x0e\n\x06height\x18\x03 \x02(\r\"c\n\x13\x41ttributesComponent\x12\x0b\n\x03str\x18\x01 \x02(\r\x12\x0b\n\x03\x64\x65x\x18\x02 \x02(\r\x12\x0b\n\x03\x63on\x18\x03 \x02(\r\x12\x0b\n\x03int\x18\x04 \x02(\r\x12\x0b\n\x03\x65\x64u\x18\x05 \x02(\r\x12\x0b\n\x03\x63ha\x18\x06 \x02(\r\"+\n\x12ThrowableComponent\x12\x15\n\rweight_factor\x18\x01 \x02(\x02\"u\n\x0fSkillsComponent\x12\x31\n\tskill_map\x18\x01 \x03(\x0b\x32\x1e.SkillsComponent.SkillMapEntry\x1a/\n\rSkillMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"{\n\x12\x42odyPartsComponent\x12\x0c\n\x04head\x18\x01 \x02(\r\x12\r\n\x05\x63hest\x18\x02 \x02(\r\x12\x10\n\x08left_arm\x18\x03 \x02(\r\x12\x11\n\tright_arm\x18\x04 \x02(\r\x12\x10\n\x08left_leg\x18\x05 \x02(\r\x12\x11\n\tright_leg\x18\x06 \x02(\r\")\n\x13InitiativeComponent\x12\x12\n\ninitiative\x18\x01 \x02(\r\"4\n\rDoorComponent\x12\x0e\n\x06locked\x18\x01 \x02(\x08\x12\x13\n\x0bopen_closed\x18\x02 \x02(\x08\".\n\rItemComponent\x12\x0e\n\x06weight\x18\x01 \x02(\x02\x12\r\n\x05itype\x18\x02 \x02(\r\"N\n\x0eLightComponent\x12\x11\n\tintensity\x18\x01 \x02(\r\x12\x0c\n\x04size\x18\x02 \x02(\r\x12\r\n\x05\x63olor\x18\x03 \x02(\r\x12\x0c\n\x04type\x18\x04 \x02(\r\")\n\x14OrientationComponent\x12\x11\n\tdirection\x18\x01 \x02(\t\"+\n\x14\x44\x65scriptionComponent\x12\x13\n\x0b\x64\x65scription\x18\x01 \x02(\t\"\xfc\x01\n\x12InventoryComponent\x12\x10\n\x08\x63\x61pacity\x18\x01 \x02(\r\x12\x17\n\x0fstored_entities\x18\x02 \x03(\t\x12\x1c\n\x14weilded_in_main_hand\x18\x03 \x01(\t\x12!\n\x19weilded_in_secondary_hand\x18\x04 \x01(\t\x12\x17\n\x0f\x65quiped_in_head\x18\x05 \x01(\t\x12\x18\n\x10\x65quiped_in_chest\x18\x06 \x01(\t\x12\x18\n\x10\x65quiped_in_hands\x18\x07 \x01(\t\x12\x17\n\x0f\x65quiped_in_legs\x18\x08 \x01(\t\x12\x14\n\x0c\x65quiped_misc\x18\t \x01(\t\"F\n\x12\x43ontainerComponent\x12\x10\n\x08\x63\x61pacity\x18\x01 \x02(\r\x12\x0c\n\x04type\x18\x02 \x02(\r\x12\x10\n\x08\x65ntities\x18\x03 \x03(\t\"#\n\x0fStairsComponent\x12\x10\n\x08to_level\x18\x01 \x02(\x05\"\"\n\rFoodComponent\x12\x11\n\tnutrition\x18\x01 \x02(\r\":\n\rFireComponent\x12\x12\n\nfire_power\x18\x01 \x02(\r\x12\x15\n\rfire_duration\x18\x02 \x01(\r\"\x8c\x01\n\x0fWeaponComponent\x12\x13\n\x0bweapon_type\x18\x01 \x02(\r\x12\x13\n\x0b\x64\x61mage_roll\x18\x02 \x02(\t\x12\r\n\x05range\x18\x03 \x02(\r\x12\x10\n\x08use_cost\x18\x04 \x02(\r\x12\x19\n\x11\x61ttacks_per_round\x18\x05 \x02(\r\x12\x13\n\x0breload_cost\x18\x06 \x01(\r\".\n\x0e\x43hunkComponent\x12\x1c\n\x05\x63hunk\x18\x01 \x02(\x0b\x32\r.PBWorldChunk\"\x95\x01\n\x0cPBEntityPool\x12-\n\x08\x65ntities\x18\x01 \x03(\x0b\x32\x1b.PBEntityPool.EntitiesEntry\x12\x1a\n\x07\x61\x63tions\x18\x02 \x03(\x0b\x32\t.PBAction\x1a:\n\rEntitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x18\n\x05value\x18\x02 \x01(\x0b\x32\t.PBEntity:\x02\x38\x01\")\n\x0bPBComponent\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x0c\n\x04\x64\x61ta\x18\x02 \x02(\x0c\"\xdc\x01\n\x08PBAction\x12\x11\n\taction_id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x16\n\x0e\x63omponent_type\x18\x03 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x0c\n\x04type\x18\x05 \x03(\t\x12\r\n\x05range\x18\x06 \x01(\r\x12\x0e\n\x06states\x18\x07 \x03(\r\x12\x0f\n\x07\x65xecute\x18\x08 \x01(\r\x12\x11\n\tanimation\x18\t \x01(\t\x12\x10\n\x08priority\x18\n \x02(\r\x12\x0c\n\x04\x61uto\x18\x0b \x02(\x08\x12\x11\n\tturn_time\x18\x0c \x02(\x02\"M\n\x08PBEntity\x12\x11\n\tentity_id\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x02(\t\x12 \n\ncomponents\x18\x03 \x03(\x0b\x32\x0c.PBComponent')
+  serialized_pb=_b('\n\tecs.proto\x1a\x0bworld.proto\"4\n\x11LocationComponent\x12\x1f\n\x05\x63oord\x18\x01 \x02(\x0b\x32\x10.PBMapCoordinate\"\"\n\x11MovementComponent\x12\r\n\x05speed\x18\x01 \x02(\x02\"\x7f\n\x11GraphicsComponent\x12\x0e\n\x06size_x\x18\x01 \x02(\r\x12\x0e\n\x06size_y\x18\x02 \x02(\r\x12\x13\n\x0bgraphics_id\x18\x03 \x02(\r\x12\r\n\x05gtype\x18\x04 \x02(\r\x12\x14\n\x0c\x63\x61st_shadows\x18\x05 \x02(\x08\x12\x10\n\x08\x66ov_show\x18\x06 \x02(\x08\"%\n\x11InterestComponent\x12\x10\n\x08interest\x18\x01 \x02(\r\"#\n\x11\x42\x65haviorComponent\x12\x0e\n\x06script\x18\x01 \x02(\t\")\n\x0b\x44ialogState\x12\n\n\x02id\x18\x01 \x02(\r\x12\x0e\n\x06script\x18\x02 \x02(\t\"6\n\x0f\x44ialogComponent\x12#\n\rdialog_states\x18\x01 \x03(\x0b\x32\x0c.DialogState\"U\n\x12\x43haracterComponent\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0e\n\x06gender\x18\x02 \x02(\t\x12\r\n\x05level\x18\x03 \x02(\r\x12\x12\n\nexperience\x18\x04 \x02(\r\"s\n\x0eSoundComponent\x12\x30\n\tsound_map\x18\x01 \x03(\x0b\x32\x1d.SoundComponent.SoundMapEntry\x1a/\n\rSoundMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"o\n\x16MainCharacterComponent\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x0e\n\x06gender\x18\x02 \x02(\t\x12\r\n\x05level\x18\x03 \x02(\r\x12\x12\n\nexperience\x18\x04 \x02(\r\x12\x14\n\x0cis_companion\x18\x05 \x02(\x08\"_\n\x13\x43harStatusComponent\x12\x11\n\tcrouching\x18\x01 \x02(\x08\x12\x11\n\tsprinting\x18\x02 \x02(\x08\x12\x10\n\x08\x62leeding\x18\x03 \x02(\x08\x12\x10\n\x08poisoned\x18\x04 \x02(\x08\"S\n\x12\x43harStatsComponent\x12\x0e\n\x06health\x18\x01 \x02(\r\x12\x0f\n\x07stamina\x18\x02 \x02(\r\x12\x0c\n\x04mana\x18\x03 \x02(\r\x12\x0e\n\x06sanity\x18\x04 \x02(\r\"C\n\x0fVolumeComponent\x12\x0f\n\x07h_tiles\x18\x01 \x02(\r\x12\x0f\n\x07w_tiles\x18\x02 \x02(\r\x12\x0e\n\x06height\x18\x03 \x02(\r\"i\n\x13\x41ttributesComponent\x12\x0c\n\x04stre\x18\x01 \x02(\r\x12\x0c\n\x04\x64\x65xt\x18\x02 \x02(\r\x12\x0c\n\x04\x63ons\x18\x03 \x02(\r\x12\x0c\n\x04inte\x18\x04 \x02(\r\x12\x0c\n\x04\x65\x64uc\x18\x05 \x02(\r\x12\x0c\n\x04\x63har\x18\x06 \x02(\r\"+\n\x12ThrowableComponent\x12\x15\n\rweight_factor\x18\x01 \x02(\x02\"u\n\x0fSkillsComponent\x12\x31\n\tskill_map\x18\x01 \x03(\x0b\x32\x1e.SkillsComponent.SkillMapEntry\x1a/\n\rSkillMapEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\r:\x02\x38\x01\"{\n\x12\x42odyPartsComponent\x12\x0c\n\x04head\x18\x01 \x02(\r\x12\r\n\x05\x63hest\x18\x02 \x02(\r\x12\x10\n\x08left_arm\x18\x03 \x02(\r\x12\x11\n\tright_arm\x18\x04 \x02(\r\x12\x10\n\x08left_leg\x18\x05 \x02(\r\x12\x11\n\tright_leg\x18\x06 \x02(\r\")\n\x13InitiativeComponent\x12\x12\n\ninitiative\x18\x01 \x02(\r\" \n\x0cKeyComponent\x12\x10\n\x08key_code\x18\x01 \x02(\r\"1\n\rLockComponent\x12\x10\n\x08key_code\x18\x01 \x02(\r\x12\x0e\n\x06locked\x18\x02 \x02(\x08\"$\n\rDoorComponent\x12\x13\n\x0bopen_closed\x18\x02 \x02(\x08\".\n\rItemComponent\x12\x0e\n\x06weight\x18\x01 \x02(\x02\x12\r\n\x05itype\x18\x02 \x02(\r\"N\n\x0eLightComponent\x12\x11\n\tintensity\x18\x01 \x02(\r\x12\x0c\n\x04size\x18\x02 \x02(\r\x12\r\n\x05\x63olor\x18\x03 \x02(\r\x12\x0c\n\x04type\x18\x04 \x02(\r\")\n\x14OrientationComponent\x12\x11\n\tdirection\x18\x01 \x02(\t\"+\n\x14\x44\x65scriptionComponent\x12\x13\n\x0b\x64\x65scription\x18\x01 \x02(\t\"\xfc\x01\n\x12InventoryComponent\x12\x10\n\x08\x63\x61pacity\x18\x01 \x02(\r\x12\x17\n\x0fstored_entities\x18\x02 \x03(\t\x12\x1c\n\x14weilded_in_main_hand\x18\x03 \x01(\t\x12!\n\x19weilded_in_secondary_hand\x18\x04 \x01(\t\x12\x17\n\x0f\x65quiped_in_head\x18\x05 \x01(\t\x12\x18\n\x10\x65quiped_in_chest\x18\x06 \x01(\t\x12\x18\n\x10\x65quiped_in_hands\x18\x07 \x01(\t\x12\x17\n\x0f\x65quiped_in_legs\x18\x08 \x01(\t\x12\x14\n\x0c\x65quiped_misc\x18\t \x01(\t\"F\n\x12\x43ontainerComponent\x12\x10\n\x08\x63\x61pacity\x18\x01 \x02(\r\x12\x0c\n\x04type\x18\x02 \x02(\r\x12\x10\n\x08\x65ntities\x18\x03 \x03(\t\"#\n\x0fStairsComponent\x12\x10\n\x08to_level\x18\x01 \x02(\x05\"\"\n\rFoodComponent\x12\x11\n\tnutrition\x18\x01 \x02(\r\":\n\rFireComponent\x12\x12\n\nfire_power\x18\x01 \x02(\r\x12\x15\n\rfire_duration\x18\x02 \x01(\r\"\x8c\x01\n\x0fWeaponComponent\x12\x13\n\x0bweapon_type\x18\x01 \x02(\r\x12\x13\n\x0b\x64\x61mage_roll\x18\x02 \x02(\t\x12\r\n\x05range\x18\x03 \x02(\r\x12\x10\n\x08use_cost\x18\x04 \x02(\r\x12\x19\n\x11\x61ttacks_per_round\x18\x05 \x02(\r\x12\x13\n\x0breload_cost\x18\x06 \x01(\r\".\n\x0e\x43hunkComponent\x12\x1c\n\x05\x63hunk\x18\x01 \x02(\x0b\x32\r.PBWorldChunk\"\x95\x01\n\x0cPBEntityPool\x12-\n\x08\x65ntities\x18\x01 \x03(\x0b\x32\x1b.PBEntityPool.EntitiesEntry\x12\x1a\n\x07\x61\x63tions\x18\x02 \x03(\x0b\x32\t.PBAction\x1a:\n\rEntitiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x18\n\x05value\x18\x02 \x01(\x0b\x32\t.PBEntity:\x02\x38\x01\")\n\x0bPBComponent\x12\x0c\n\x04type\x18\x01 \x02(\t\x12\x0c\n\x04\x64\x61ta\x18\x02 \x02(\x0c\"\xdc\x01\n\x08PBAction\x12\x11\n\taction_id\x18\x01 \x02(\r\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x16\n\x0e\x63omponent_type\x18\x03 \x03(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x0c\n\x04type\x18\x05 \x03(\t\x12\r\n\x05range\x18\x06 \x01(\r\x12\x0e\n\x06states\x18\x07 \x03(\r\x12\x0f\n\x07\x65xecute\x18\x08 \x01(\r\x12\x11\n\tanimation\x18\t \x01(\t\x12\x10\n\x08priority\x18\n \x02(\r\x12\x0c\n\x04\x61uto\x18\x0b \x02(\x08\x12\x11\n\tturn_time\x18\x0c \x02(\x02\"M\n\x08PBEntity\x12\x11\n\tentity_id\x18\x01 \x02(\t\x12\x0c\n\x04name\x18\x02 \x02(\t\x12 \n\ncomponents\x18\x03 \x03(\x0b\x32\x0c.PBComponent')
   ,
   dependencies=[world__pb2.DESCRIPTOR,])
 
@@ -131,6 +131,13 @@ _GRAPHICSCOMPONENT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fov_show', full_name='GraphicsComponent.fov_show', index=5,
+      number=6, type=8, cpp_type=7, label=2,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -144,7 +151,7 @@ _GRAPHICSCOMPONENT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=116,
-  serialized_end=225,
+  serialized_end=243,
 )
 
 
@@ -174,8 +181,8 @@ _INTERESTCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=227,
-  serialized_end=264,
+  serialized_start=245,
+  serialized_end=282,
 )
 
 
@@ -205,8 +212,8 @@ _BEHAVIORCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=266,
-  serialized_end=301,
+  serialized_start=284,
+  serialized_end=319,
 )
 
 
@@ -243,8 +250,8 @@ _DIALOGSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=303,
-  serialized_end=344,
+  serialized_start=321,
+  serialized_end=362,
 )
 
 
@@ -274,8 +281,8 @@ _DIALOGCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=346,
-  serialized_end=400,
+  serialized_start=364,
+  serialized_end=418,
 )
 
 
@@ -326,8 +333,8 @@ _CHARACTERCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=402,
-  serialized_end=487,
+  serialized_start=420,
+  serialized_end=505,
 )
 
 
@@ -364,8 +371,8 @@ _SOUNDCOMPONENT_SOUNDMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=557,
-  serialized_end=604,
+  serialized_start=575,
+  serialized_end=622,
 )
 
 _SOUNDCOMPONENT = _descriptor.Descriptor(
@@ -394,8 +401,8 @@ _SOUNDCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=489,
-  serialized_end=604,
+  serialized_start=507,
+  serialized_end=622,
 )
 
 
@@ -434,6 +441,13 @@ _MAINCHARACTERCOMPONENT = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='is_companion', full_name='MainCharacterComponent.is_companion', index=4,
+      number=5, type=8, cpp_type=7, label=2,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -446,8 +460,8 @@ _MAINCHARACTERCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=606,
-  serialized_end=695,
+  serialized_start=624,
+  serialized_end=735,
 )
 
 
@@ -466,7 +480,7 @@ _CHARSTATUSCOMPONENT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='running', full_name='CharStatusComponent.running', index=1,
+      name='sprinting', full_name='CharStatusComponent.sprinting', index=1,
       number=2, type=8, cpp_type=7, label=2,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -498,8 +512,8 @@ _CHARSTATUSCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=697,
-  serialized_end=790,
+  serialized_start=737,
+  serialized_end=832,
 )
 
 
@@ -550,8 +564,8 @@ _CHARSTATSCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=792,
-  serialized_end=875,
+  serialized_start=834,
+  serialized_end=917,
 )
 
 
@@ -595,8 +609,8 @@ _VOLUMECOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=877,
-  serialized_end=944,
+  serialized_start=919,
+  serialized_end=986,
 )
 
 
@@ -608,42 +622,42 @@ _ATTRIBUTESCOMPONENT = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='str', full_name='AttributesComponent.str', index=0,
+      name='stre', full_name='AttributesComponent.stre', index=0,
       number=1, type=13, cpp_type=3, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='dex', full_name='AttributesComponent.dex', index=1,
+      name='dext', full_name='AttributesComponent.dext', index=1,
       number=2, type=13, cpp_type=3, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='con', full_name='AttributesComponent.con', index=2,
+      name='cons', full_name='AttributesComponent.cons', index=2,
       number=3, type=13, cpp_type=3, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='int', full_name='AttributesComponent.int', index=3,
+      name='inte', full_name='AttributesComponent.inte', index=3,
       number=4, type=13, cpp_type=3, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='edu', full_name='AttributesComponent.edu', index=4,
+      name='educ', full_name='AttributesComponent.educ', index=4,
       number=5, type=13, cpp_type=3, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='cha', full_name='AttributesComponent.cha', index=5,
+      name='char', full_name='AttributesComponent.char', index=5,
       number=6, type=13, cpp_type=3, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -661,8 +675,8 @@ _ATTRIBUTESCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=946,
-  serialized_end=1045,
+  serialized_start=988,
+  serialized_end=1093,
 )
 
 
@@ -692,8 +706,8 @@ _THROWABLECOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1047,
-  serialized_end=1090,
+  serialized_start=1095,
+  serialized_end=1138,
 )
 
 
@@ -730,8 +744,8 @@ _SKILLSCOMPONENT_SKILLMAPENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1162,
-  serialized_end=1209,
+  serialized_start=1210,
+  serialized_end=1257,
 )
 
 _SKILLSCOMPONENT = _descriptor.Descriptor(
@@ -760,8 +774,8 @@ _SKILLSCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1092,
-  serialized_end=1209,
+  serialized_start=1140,
+  serialized_end=1257,
 )
 
 
@@ -826,8 +840,8 @@ _BODYPARTSCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1211,
-  serialized_end=1334,
+  serialized_start=1259,
+  serialized_end=1382,
 )
 
 
@@ -857,27 +871,58 @@ _INITIATIVECOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1336,
-  serialized_end=1377,
+  serialized_start=1384,
+  serialized_end=1425,
 )
 
 
-_DOORCOMPONENT = _descriptor.Descriptor(
-  name='DoorComponent',
-  full_name='DoorComponent',
+_KEYCOMPONENT = _descriptor.Descriptor(
+  name='KeyComponent',
+  full_name='KeyComponent',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='locked', full_name='DoorComponent.locked', index=0,
-      number=1, type=8, cpp_type=7, label=2,
-      has_default_value=False, default_value=False,
+      name='key_code', full_name='KeyComponent.key_code', index=0,
+      number=1, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1427,
+  serialized_end=1459,
+)
+
+
+_LOCKCOMPONENT = _descriptor.Descriptor(
+  name='LockComponent',
+  full_name='LockComponent',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key_code', full_name='LockComponent.key_code', index=0,
+      number=1, type=13, cpp_type=3, label=2,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='open_closed', full_name='DoorComponent.open_closed', index=1,
+      name='locked', full_name='LockComponent.locked', index=1,
       number=2, type=8, cpp_type=7, label=2,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -895,8 +940,39 @@ _DOORCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1379,
-  serialized_end=1431,
+  serialized_start=1461,
+  serialized_end=1510,
+)
+
+
+_DOORCOMPONENT = _descriptor.Descriptor(
+  name='DoorComponent',
+  full_name='DoorComponent',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='open_closed', full_name='DoorComponent.open_closed', index=0,
+      number=2, type=8, cpp_type=7, label=2,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1512,
+  serialized_end=1548,
 )
 
 
@@ -933,8 +1009,8 @@ _ITEMCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1433,
-  serialized_end=1479,
+  serialized_start=1550,
+  serialized_end=1596,
 )
 
 
@@ -985,8 +1061,8 @@ _LIGHTCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1481,
-  serialized_end=1559,
+  serialized_start=1598,
+  serialized_end=1676,
 )
 
 
@@ -1016,8 +1092,8 @@ _ORIENTATIONCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1561,
-  serialized_end=1602,
+  serialized_start=1678,
+  serialized_end=1719,
 )
 
 
@@ -1047,8 +1123,8 @@ _DESCRIPTIONCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1604,
-  serialized_end=1647,
+  serialized_start=1721,
+  serialized_end=1764,
 )
 
 
@@ -1134,8 +1210,8 @@ _INVENTORYCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1650,
-  serialized_end=1902,
+  serialized_start=1767,
+  serialized_end=2019,
 )
 
 
@@ -1179,8 +1255,8 @@ _CONTAINERCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1904,
-  serialized_end=1974,
+  serialized_start=2021,
+  serialized_end=2091,
 )
 
 
@@ -1210,8 +1286,8 @@ _STAIRSCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1976,
-  serialized_end=2011,
+  serialized_start=2093,
+  serialized_end=2128,
 )
 
 
@@ -1241,8 +1317,8 @@ _FOODCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2013,
-  serialized_end=2047,
+  serialized_start=2130,
+  serialized_end=2164,
 )
 
 
@@ -1279,8 +1355,8 @@ _FIRECOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2049,
-  serialized_end=2107,
+  serialized_start=2166,
+  serialized_end=2224,
 )
 
 
@@ -1345,8 +1421,8 @@ _WEAPONCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2110,
-  serialized_end=2250,
+  serialized_start=2227,
+  serialized_end=2367,
 )
 
 
@@ -1376,8 +1452,8 @@ _CHUNKCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2252,
-  serialized_end=2298,
+  serialized_start=2369,
+  serialized_end=2415,
 )
 
 
@@ -1414,8 +1490,8 @@ _PBENTITYPOOL_ENTITIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2392,
-  serialized_end=2450,
+  serialized_start=2509,
+  serialized_end=2567,
 )
 
 _PBENTITYPOOL = _descriptor.Descriptor(
@@ -1451,8 +1527,8 @@ _PBENTITYPOOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2301,
-  serialized_end=2450,
+  serialized_start=2418,
+  serialized_end=2567,
 )
 
 
@@ -1489,8 +1565,8 @@ _PBCOMPONENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2452,
-  serialized_end=2493,
+  serialized_start=2569,
+  serialized_end=2610,
 )
 
 
@@ -1597,8 +1673,8 @@ _PBACTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2496,
-  serialized_end=2716,
+  serialized_start=2613,
+  serialized_end=2833,
 )
 
 
@@ -1642,8 +1718,8 @@ _PBENTITY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2718,
-  serialized_end=2795,
+  serialized_start=2835,
+  serialized_end=2912,
 )
 
 _LOCATIONCOMPONENT.fields_by_name['coord'].message_type = world__pb2._PBMAPCOORDINATE
@@ -1676,6 +1752,8 @@ DESCRIPTOR.message_types_by_name['ThrowableComponent'] = _THROWABLECOMPONENT
 DESCRIPTOR.message_types_by_name['SkillsComponent'] = _SKILLSCOMPONENT
 DESCRIPTOR.message_types_by_name['BodyPartsComponent'] = _BODYPARTSCOMPONENT
 DESCRIPTOR.message_types_by_name['InitiativeComponent'] = _INITIATIVECOMPONENT
+DESCRIPTOR.message_types_by_name['KeyComponent'] = _KEYCOMPONENT
+DESCRIPTOR.message_types_by_name['LockComponent'] = _LOCKCOMPONENT
 DESCRIPTOR.message_types_by_name['DoorComponent'] = _DOORCOMPONENT
 DESCRIPTOR.message_types_by_name['ItemComponent'] = _ITEMCOMPONENT
 DESCRIPTOR.message_types_by_name['LightComponent'] = _LIGHTCOMPONENT
@@ -1835,6 +1913,20 @@ InitiativeComponent = _reflection.GeneratedProtocolMessageType('InitiativeCompon
   # @@protoc_insertion_point(class_scope:InitiativeComponent)
   ))
 _sym_db.RegisterMessage(InitiativeComponent)
+
+KeyComponent = _reflection.GeneratedProtocolMessageType('KeyComponent', (_message.Message,), dict(
+  DESCRIPTOR = _KEYCOMPONENT,
+  __module__ = 'ecs_pb2'
+  # @@protoc_insertion_point(class_scope:KeyComponent)
+  ))
+_sym_db.RegisterMessage(KeyComponent)
+
+LockComponent = _reflection.GeneratedProtocolMessageType('LockComponent', (_message.Message,), dict(
+  DESCRIPTOR = _LOCKCOMPONENT,
+  __module__ = 'ecs_pb2'
+  # @@protoc_insertion_point(class_scope:LockComponent)
+  ))
+_sym_db.RegisterMessage(LockComponent)
 
 DoorComponent = _reflection.GeneratedProtocolMessageType('DoorComponent', (_message.Message,), dict(
   DESCRIPTOR = _DOORCOMPONENT,

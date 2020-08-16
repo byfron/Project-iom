@@ -7,18 +7,24 @@ func tick(tick: Tick) -> int:
 	#TODO: get rid of the blackboard memory, 
 	#or copy the actor memory in the blacboard
 	var memory = tick.blackboard.get('memory')
-	var player_tile = null
+	
 	if memory:
-		player_tile = memory.remembered_pos
+		var path = memory.remembered_path
+	
+	var goal_tile = null
+	if memory:
+		goal_tile = memory.remembered_pos
 	else:
 		return FAILED
 	
-	if player_tile == null:
+	if goal_tile == null:
 		return FAILED
+	
+	return OK
 	
 	var actor = tick.actor
 	var path_manager = context.get_path_manager()
-	var path = path_manager.compute_path(actor.coords, player_tile)
+	var path = path_manager.compute_path(actor.coords, goal_tile)
 	if len(path) == 0:
 		return FAILED
 		
@@ -27,8 +33,9 @@ func tick(tick: Tick) -> int:
 	#	memory.remembered_pos = null
 		return OK
 		
+	
 	var move_to_tile = path[1]
 	var actor_entity = EntityPool.get(actor.entity_id)
-	SignalManager.emit_signal('send_action', ActionFactory.create_walk_action(actor_entity, [move_to_tile]))
+	SignalManager.emit_signal('send_action', ActionFactory.create_run_action(actor_entity, [move_to_tile]))
 	
 	return ERR_BUSY

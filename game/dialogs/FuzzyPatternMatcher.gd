@@ -13,9 +13,17 @@ class IneqCriterion extends Criterion:
 		if '=' in query_key:
 			var qksplit = query_key.split('=')
 			var encoding_key = qksplit[0]
-			var value = float(qksplit[1])
+			
+			var value = null
+			if qksplit[1].is_valid_float():
+				value = float(qksplit[1])
+			elif qksplit[1] == "true":
+				value = true
+			elif qksplit[1] == "false":
+				value = false
+				
 			if query.has_key(encoding_key):
-				if query.encoding[encoding_key].value == value:
+				if query.encoding[encoding_key] == value:
 					return true
 			else:
 				return false
@@ -49,7 +57,6 @@ class Database:
 	var responses = {}
 	
 	func create_criterion(crit):
-		print(crit)
 		if 'Not' in crit:
 			return NotCriterion.new()
 		if '=' in crit or '>' in crit or '<' in crit:
@@ -134,6 +141,10 @@ class Rule:
 	var response = null
 	
 	func match_rule(query):
+		
+		if query.encoding['concept'] != concept:
+			return false
+		
 		for criterion in criterions:
 			if not criterion.test(query):
 				return false
@@ -161,6 +172,10 @@ class Query:
 		var testb = encoding.has(key)
 		return encoding.has(key)
 	
+	func load_object_components(entity):
+		for comp in entity.components:
+			encoding['object_' + comp] = true
+			
 	func load_entity_components(entity):
 		for comp in entity.components:
 			encoding[comp] = true
@@ -199,6 +214,9 @@ class Query:
 		entity = entity_
 		object_entity = object_entity_
 		
+		if object_entity:
+			load_object_components(object_entity)
+			
 		load_entity_components(entity)
 		load_entity_status(entity)
 		load_entity_memory(entity)

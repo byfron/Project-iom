@@ -11,6 +11,16 @@ func on_finish(context):
 	
 	#node.stop_ghosting()
 
+#TODO: Refactor this as a sub-action node
+func consume_stamina(context):
+	var stamina_used = DiceGenerator.roll_dices(1, 2)
+	var stamina = entity.components['char_stats'].get_stamina()
+	var current_stamina = max(0, stamina - stamina_used)
+	entity.components['char_stats'].set_stamina(current_stamina)
+	
+	if entity.id == context.player_entity_id:
+		SignalManager.emit_signal("update_stamina", current_stamina)
+
 func on_state_changed(action, context):
 #func execute_impl(action, context):
 	var tile = path.pop_front()
@@ -45,6 +55,8 @@ func on_state_changed(action, context):
 
 	#var entities = context.get_entities_in_tile(tile)
 	if tile and context.is_walkable(tile):
+		consume_stamina(context)
+		
 		context.move_entity_to_tile(entity, tile)
 		entity.components['location'].get_coord().set_x(tile.x)
 		entity.components['location'].get_coord().set_y(tile.y)

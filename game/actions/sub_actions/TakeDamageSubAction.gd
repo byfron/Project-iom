@@ -30,7 +30,7 @@ func start(action, context):
 	
 	if action.entity == context.get_player_entity():
 		var health = action.entity.components['char_stats'].get_health()
-		SignalManager.emit_signal("update_player_health", health)
+		SignalManager.emit_signal("update_health", health)
 		SignalManager.emit_signal("log_event", "Hit enemy!")
 			
 			

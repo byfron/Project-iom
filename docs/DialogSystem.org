@@ -1,0 +1,8 @@
+* Use protobuf?
+* how to represent the data? JSON/Excel to protobuf
+* Data processing: scripts? How to do flexible predicates? Do we need them?
+* Query components with json keys as "predicates" and component elements as values
+* Action data: action type and params, Character status: components, World status: raining, daylight, etc...
+* This form Lots of key-value pairs:
+*  (health_component->5, has_component->'container', ...)
+* 

@@ -1,0 +1,58 @@
+{
+	"base_tile": 0,
+	"id_to_atlas": [
+	{
+		"src_tile": 154,
+		"atlas": 1,
+		"tile": 1
+	},
+	{
+		"src_tile": 156,
+		"atlas": 4,
+		"tile": 4
+	}		
+	],
+	"semi_random_autotiling": [
+	{
+		"src_tile": 155,
+		"atlas": 2,
+		"atlas_size": [4, 4],
+		"neighbor_tiles": [155],
+		"codes":
+		[
+		{
+			"code": 80,
+			"ids": [1, 2]
+		},
+		{
+			"code": 20,
+			"ids": [6]
+		},
+		{
+			"code": 17,
+			"ids": [1, 2]
+		},
+		{
+			"code": 1,
+			"ids": [0]
+		},
+		{
+			"code": 16,
+			"ids": [0]
+		},			
+		{
+			"code": 68,
+			"ids": [3, 4, 6, 7, 8]
+		},
+		{
+			"code": 64,
+			"ids": [5]
+		},
+		{
+			"code": 4,
+			"ids": [5]
+		}						
+		]
+	}
+	]
+}

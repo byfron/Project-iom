@@ -6,4 +6,3 @@
 [node name="SaySomething" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 action_name = "SaySomething"
-consumes_turn = false

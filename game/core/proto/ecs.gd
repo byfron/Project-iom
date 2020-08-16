@@ -798,6 +798,11 @@ class GraphicsComponent:
 		service.field = _cast_shadows
 		data[_cast_shadows.tag] = service
 		
+		_fov_show = PBField.new("fov_show", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 6, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
+		service = PBServiceField.new()
+		service.field = _fov_show
+		data[_fov_show.tag] = service
+		
 	var data = {}
 	
 	var _size_x
@@ -839,6 +844,14 @@ class GraphicsComponent:
 		_cast_shadows.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
 	func set_cast_shadows(value):
 		_cast_shadows.value = value
+	
+	var _fov_show
+	func get_fov_show():
+		return _fov_show.value
+	func clear_fov_show():
+		_fov_show.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
+	func set_fov_show(value):
+		_fov_show.value = value
 	
 	func to_string():
 		return PBPacker.message_to_string(data)
@@ -1328,10 +1341,10 @@ class CharStatusComponent:
 		service.field = _crouching
 		data[_crouching.tag] = service
 		
-		_running = PBField.new("running", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 2, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
+		_sprinting = PBField.new("sprinting", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 2, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
 		service = PBServiceField.new()
-		service.field = _running
-		data[_running.tag] = service
+		service.field = _sprinting
+		data[_sprinting.tag] = service
 		
 		_bleeding = PBField.new("bleeding", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 3, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
 		service = PBServiceField.new()
@@ -1353,13 +1366,13 @@ class CharStatusComponent:
 	func set_crouching(value):
 		_crouching.value = value
 	
-	var _running
-	func get_running():
-		return _running.value
-	func clear_running():
-		_running.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
-	func set_running(value):
-		_running.value = value
+	var _sprinting
+	func get_sprinting():
+		return _sprinting.value
+	func clear_sprinting():
+		_sprinting.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
+	func set_sprinting(value):
+		_sprinting.value = value
 	
 	var _bleeding
 	func get_bleeding():
@@ -1944,21 +1957,69 @@ class InitiativeComponent:
 			return PB_ERR.PARSE_INCOMPLETE
 		return result
 	
-class DoorComponent:
+class KeyComponent:
 	func _init():
 		var service
 		
-		_locked = PBField.new("locked", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
+		_key_code = PBField.new("key_code", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		service = PBServiceField.new()
+		service.field = _key_code
+		data[_key_code.tag] = service
+		
+	var data = {}
+	
+	var _key_code
+	func get_key_code():
+		return _key_code.value
+	func clear_key_code():
+		_key_code.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
+	func set_key_code(value):
+		_key_code.value = value
+	
+	func to_string():
+		return PBPacker.message_to_string(data)
+		
+	func to_bytes():
+		return PBPacker.pack_message(data)
+		
+	func from_bytes(bytes, offset = 0, limit = -1):
+		var cur_limit = bytes.size()
+		if limit != -1:
+			cur_limit = limit
+		var result = PBPacker.unpack_message(data, bytes, offset, cur_limit)
+		if result == cur_limit:
+			if PBPacker.check_required(data):
+				if limit == -1:
+					return PB_ERR.NO_ERRORS
+			else:
+				return PB_ERR.REQUIRED_FIELDS
+		elif limit == -1 && result > 0:
+			return PB_ERR.PARSE_INCOMPLETE
+		return result
+	
+class LockComponent:
+	func _init():
+		var service
+		
+		_key_code = PBField.new("key_code", PB_DATA_TYPE.UINT32, PB_RULE.REQUIRED, 1, false, DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32])
+		service = PBServiceField.new()
+		service.field = _key_code
+		data[_key_code.tag] = service
+		
+		_locked = PBField.new("locked", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 2, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
 		service = PBServiceField.new()
 		service.field = _locked
 		data[_locked.tag] = service
 		
-		_open_closed = PBField.new("open_closed", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 2, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
-		service = PBServiceField.new()
-		service.field = _open_closed
-		data[_open_closed.tag] = service
-		
 	var data = {}
+	
+	var _key_code
+	func get_key_code():
+		return _key_code.value
+	func clear_key_code():
+		_key_code.value = DEFAULT_VALUES_2[PB_DATA_TYPE.UINT32]
+	func set_key_code(value):
+		_key_code.value = value
 	
 	var _locked
 	func get_locked():
@@ -1967,6 +2028,38 @@ class DoorComponent:
 		_locked.value = DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL]
 	func set_locked(value):
 		_locked.value = value
+	
+	func to_string():
+		return PBPacker.message_to_string(data)
+		
+	func to_bytes():
+		return PBPacker.pack_message(data)
+		
+	func from_bytes(bytes, offset = 0, limit = -1):
+		var cur_limit = bytes.size()
+		if limit != -1:
+			cur_limit = limit
+		var result = PBPacker.unpack_message(data, bytes, offset, cur_limit)
+		if result == cur_limit:
+			if PBPacker.check_required(data):
+				if limit == -1:
+					return PB_ERR.NO_ERRORS
+			else:
+				return PB_ERR.REQUIRED_FIELDS
+		elif limit == -1 && result > 0:
+			return PB_ERR.PARSE_INCOMPLETE
+		return result
+	
+class DoorComponent:
+	func _init():
+		var service
+		
+		_open_closed = PBField.new("open_closed", PB_DATA_TYPE.BOOL, PB_RULE.REQUIRED, 2, false, DEFAULT_VALUES_2[PB_DATA_TYPE.BOOL])
+		service = PBServiceField.new()
+		service.field = _open_closed
+		data[_open_closed.tag] = service
+		
+	var data = {}
 	
 	var _open_closed
 	func get_open_closed():

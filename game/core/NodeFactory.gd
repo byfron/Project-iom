@@ -117,7 +117,8 @@ func createObjectNode(entity):
 			if 'orientation' in entity.components:
 				direction = entity.components['orientation'].get_direction()
 			node.set_graphics(gid, gtype, cast_shadows, direction)
-	
+	else:
+		node.hide()
 	
 	#TODO: make windows and other objects hanging on walls be displayed
 	#on top of the upper wall tilemap
@@ -127,7 +128,7 @@ func createObjectNode(entity):
 		
 		#This is the ugliest: remove top-wall tilemap cell in window location!
 		var tmap_controller = GameEngine.context.world.world_map.tilemap_controller
-		tmap_controller.dwelling_layer.tilemap_0.set_cell(tile_location[0], tile_location[1], 0, false, false, false, Vector2(6,0))
+		tmap_controller.dwelling_layer.tilemap_bottom.set_cell(tile_location[0], tile_location[1], 0, false, false, false, Vector2(6,0))
 		
 		pass
 	

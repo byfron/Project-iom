@@ -15,14 +15,15 @@ var direction_vectors = {
 }
 	
 #GUN
-#var values = [Vector2(2, -28.2), Vector2(16.81, -21.99), Vector2(22.22, -10.17), Vector2(14.1,0.366), Vector2(-2.32, 4.73), Vector2(-17.36, -0.33), Vector2(-22.25, -12.39), Vector2(-14.74, -24.28)]
+var values = [Vector2(2.0, -28.2), Vector2(16.81, -21.99), Vector2(26, -14), Vector2(14.1,0.366), Vector2(-2.32, 4.73), Vector2(-17.36, -0.33), Vector2(-26.0, -14.0), Vector2(-14.74, -24.28)]
 
 #SHOTGUN
-var values = [Vector2(2.13, -23.05), Vector2(18.20, -13.94), Vector2(24.02, -2.71), Vector2(13.56, 7.55), Vector2(-1.55, 16.65), Vector2(-16.65, 3.87), Vector2(-23.24, -7.55), Vector2(-12.78, -17.24)]
+#var values = [Vector2(2.13, -23.05), Vector2(18.20, -13.94), Vector2(24.02, -2.71), Vector2(13.56, 7.55), Vector2(-1.55, 16.65), Vector2(-16.65, 3.87), Vector2(-23.24, -7.55), Vector2(-12.78, -17.24)]
 
 export(Dictionary) var weapon_keypoints = {}
 
 func _ready():
+	
 	var idx = 0
 	for dir in directions:
 		weapon_keypoints[dir] = values[idx]

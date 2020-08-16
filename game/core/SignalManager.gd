@@ -22,11 +22,11 @@ signal highlight_tile
 signal unhighlight_tile
 signal highlight_action_button
 signal unhighlight_all_buttons
+signal update_health
+signal update_stamina
 
 signal show_inventory
 signal hide_inventory
-
-signal update_player_health
 
 signal mouse_on_action
 signal mouse_off_action
@@ -45,7 +45,7 @@ signal log_event
 signal action_button_pressed
 signal status_button_pressed
 signal status_button_released
-
+signal status_event
 
 #signals related to verb panel
 signal select_prev_verb
@@ -55,6 +55,9 @@ signal activate_current_action
 #signals related to equip panel
 signal weapon_button_pressed
 
+#signals related to sin activation
+signal activate_sin
+signal deactivate_sin
 
 #Attempts to create a query and match against the rules
 signal query_dialog_system

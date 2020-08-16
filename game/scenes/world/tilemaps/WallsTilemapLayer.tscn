@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://game/scenes/world/tilemaps/WallsTilemapLayer.gd" type="Script" id=1]
+[ext_resource path="res://game_assets/shaders/wall_occlusion.shader" type="Shader" id=2]
+[ext_resource path="res://resources/overlay_tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://resources/walls_tall.tres" type="TileSet" id=4]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+    vec4 color = texture(TEXTURE, UV);
+	COLOR.a = min(0.5, color.a);
+	COLOR.rgb = vec3(0,0,0);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 2 )
+
+[node name="WallsTilemapLayer" type="Node2D"]
+light_mask = 1024
+script = ExtResource( 1 )
+tileset = ExtResource( 4 )
+autotiler_cfg_bottom = "res://game_assets/tilemap_meta/blue_paper_tilemap_bottom.json"
+autotiler_cfg_top = "res://game_assets/tilemap_meta/blue_paper_tilemap_top.json"
+
+[node name="Tilemap_bottom" type="TileMap" parent="."]
+z_index = 9
+z_as_relative = false
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 2
+cell_y_sort = true
+occluder_light_mask = 2
+format = 1
+tile_data = PoolIntArray( 65548, 0, 0, 196610, 6, 0, 262147, 0, 0, 262152, 0, 0, 262154, 0, 0, 327689, 0, 0, 327690, 0, 0 )
+
+[node name="Tilemap_bottom_transparent" type="TileMap" parent="."]
+modulate = Color( 1, 1, 1, 0.588235 )
+z_index = 9
+z_as_relative = false
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 2
+cell_y_sort = true
+occluder_light_mask = 2
+format = 1
+tile_data = PoolIntArray( 65548, 0, 0, 196610, 6, 0, 262147, 0, 0, 262152, 0, 0, 262154, 0, 0, 327689, 0, 0, 327690, 0, 0 )
+
+[node name="Shadows" type="TileMap" parent="."]
+visible = false
+material = SubResource( 2 )
+position = Vector2( 0, 16 )
+z_index = 3
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+format = 1
+
+[node name="Tilemap_top" type="TileMap" parent="."]
+material = SubResource( 3 )
+z_index = 10
+z_as_relative = false
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 2
+occluder_light_mask = 2
+format = 1
+tile_data = PoolIntArray( 65548, 0, 0, 262152, 1, 0, 327690, 0, 0, 589830, 0, 0 )
+
+[node name="Tilemap_top_transparent" type="TileMap" parent="."]
+modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 3 )
+z_index = 10
+z_as_relative = false
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 2
+occluder_light_mask = 2
+format = 1
+tile_data = PoolIntArray( 65548, 0, 0, 262152, 1, 0, 327690, 0, 0, 589830, 0, 0 )

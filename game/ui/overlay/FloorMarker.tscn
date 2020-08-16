@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://game_assets/gui/floor_marker.png" type="Texture" id=1]
+[ext_resource path="res://game/ui/overlay/FloorMarker.gd" type="Script" id=2]
+
+[node name="FloorMarker" type="Sprite"]
+modulate = Color( 1, 1, 1, 0.494118 )
+position = Vector2( 15.5, 15.5 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
+repeat = true
+playback/repeat = true

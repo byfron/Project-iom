@@ -15,20 +15,8 @@ script = ExtResource( 1 )
 light_mask = 524288
 material = SubResource( 1 )
 position = Vector2( 0, -32 )
-z_index = 50
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 15, 0, 0, 131081, 0, 0, 196619, 0, 0, 262153, 0, 1 )
-
-[node name="TileMap_2" type="TileMap" parent="."]
-visible = false
-light_mask = 524288
-material = SubResource( 1 )
-z_index = 20
-tile_set = ExtResource( 2 )
-cell_size = Vector2( 32, 32 )
-cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
-format = 1
-tile_data = PoolIntArray( 196619, 0, 0, 589838, 0, 1, 589839, 0, 1, 720882, 0, 0 )
+tile_data = PoolIntArray( 15, 0, 0, 131081, 0, 0, 196619, 0, 0 )

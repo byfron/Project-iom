@@ -7,9 +7,6 @@
 
 [node name="RunAction" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
-action_name = "run"
-priority = 1
-action_duration = 0.5
 
 [node name="Anim" parent="." index="0" instance=ExtResource( 1 )]
 animation = "Running"

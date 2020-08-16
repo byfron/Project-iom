@@ -1,0 +1,30 @@
+{
+	"base_tile": 0,
+	"id_to_atlas": [
+	{	
+		"src_tile": 1,
+		"atlas": 0,
+		"tile": 0
+	},
+	{	
+		"src_tile": 2,
+		"atlas": 0,
+		"tile": 1
+	},
+	{	
+		"src_tile": 3,
+		"atlas": 0,
+		"tile": 2
+	},
+	{	
+		"src_tile": 4,
+		"atlas": 0,
+		"tile": 3
+	},
+	{	
+		"src_tile": 5,
+		"atlas": 0,
+		"tile": 4
+	}			
+	]
+}

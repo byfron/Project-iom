@@ -1,12 +1,13 @@
 extends Node2D
 
 onready var map_node = $MapNode
-onready var actor_layer = $MapNode/ActorLayer
+onready var actor_layer = $MapNode/TilemapController
 onready var overlay_layer = $MapNode/OverlayLayer
-onready var fov_layer = $FOVTilemapLayer 
+onready var fov_layer = $FOVTilemapLayer
+onready var dark_fov_layer = $DarkFOVTilemapLayer
 onready var tilemap_controller = $MapNode/TilemapController
 onready var path_manager = $PathManager
-
+onready var dark_fov = $DarkFOV
 onready var water_reflections = $MapNode/WaterReflections
 
 var node_factory = load('res://game/core/NodeFactory.gd').new()
@@ -55,9 +56,9 @@ func load_zlevel(zlevel):
 	#free actor nodes except player!
 	#unselect first any entity that may be selected
 	SignalManager.emit_signal('unselect_entity')
-	for actor in actor_layer.get_children():
+	for actor in actor_layer.get_actor_children():
 		if actor.entity_id != GameEngine.context.get_player_entity().id:
-			actor_layer.remove_child(actor)
+			actor_layer.remove_actor_child(actor)
 			actor.queue_free()
 		
 		
@@ -69,7 +70,15 @@ func load_zlevel(zlevel):
 	GameEngine.create_entity_nodes(zlevel)
 	
 	#add new actor nodes from the entities in this level/area
-	var char_entities = EntityPool.filter('character')
-	for char_ent in char_entities:
-		if char_ent.components['location'].get_coord().get_z() == zlevel:
-			GameEngine.context.create_character(char_ent)
+#	var char_entities = EntityPool.filter('character')
+#	for char_ent in char_entities:
+#		if char_ent.components['location'].get_coord().get_z() == zlevel:
+#			GameEngine.context.create_character(char_ent)
+			
+			
+	#Load music for this level?
+	if zlevel == 1:
+		GameEngine.context.world.music_controller.play("res://game_assets/music/underground_music.ogg")
+	else:
+		GameEngine.context.world.music_controller.play("res://game_assets/music/background_music_01.ogg")
+	

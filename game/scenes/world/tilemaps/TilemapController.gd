@@ -10,7 +10,7 @@ signal tilemaps_generated
 onready var ground_layer = $FgNode/GroundLayer
 onready var decoration_layer = $FgNode/DecorationLayer
 onready var overground_layer = $FgNode/OvergroundLayer
-onready var dwelling_layer = $FgNode/WallsTilemap
+onready var dwelling_layer = $FgNode/WallsTilemapLayer
 onready var water_reflections = $FgNode/ReflectionTilemapLayer
 
 var tilemap_stack = {}
@@ -42,6 +42,8 @@ func clear_map_chunks():
 	for tmap in tilemap_stack:
 		for tnode in tilemap_stack[tmap]:
 			tnode.clear_tilemap()
+			
+	dwelling_layer.clear_transparent_walls()
 		
 func get_3x3_chunks_around_current():
 	var current_chunk = GameEngine.context.get_current_chunk()
@@ -103,6 +105,7 @@ func add_chunk(chunk):
 	pass
 
 func refresh():
+	
 	for tnode in fg_node.get_children():
 		tnode.refresh()
 		
@@ -142,4 +145,18 @@ func postprocess_water_reflections():
 			var autotile_c = tilemap.get_cell_autotile_coord(cell.x, cell.y)
 			#change to the third atlas
 			tilemap.set_cell(cell.x, cell.y, 2, false, false, false, autotile_c)
+	pass
+
+
+#We need to add actors as children of the walls tilemap, so that the Y order works!!
+
+func remove_actor_child(actor):
+	dwelling_layer.actor_node.remove_child(actor)
+	pass
+	
+func get_actor_children():
+	return dwelling_layer.actor_node.get_children()
+	
+func add_actor_child(actor):
+	dwelling_layer.actor_node.add_child(actor)
 	pass

@@ -16,6 +16,7 @@ message GraphicsComponent {
   required uint32 graphics_id = 3;
   required uint32 gtype = 4;
   required bool cast_shadows = 5;
+  required bool fov_show = 6;
 }
 
 message InterestComponent {
@@ -50,12 +51,13 @@ message MainCharacterComponent {
   required string name = 1;
   required string gender = 2;
   required uint32 level = 3;
-  required uint32 experience = 4;  
+  required uint32 experience = 4;
+  required bool is_companion = 5;
 }
 
 message CharStatusComponent {
   required bool crouching = 1;
-  required bool running = 2;
+  required bool sprinting = 2;
   required bool bleeding = 3;
   required bool poisoned = 4;
 }
@@ -74,12 +76,12 @@ message VolumeComponent {
 }
 
 message AttributesComponent {
-  required uint32 str = 1;
-  required uint32 dex = 2;
-  required uint32 con = 3;
-  required uint32 int = 4;
-  required uint32 edu = 5;
-  required uint32 cha = 6;
+  required uint32 stre = 1;
+  required uint32 dext = 2;
+  required uint32 cons = 3;
+  required uint32 inte = 4;
+  required uint32 educ = 5;
+  required uint32 char = 6;
 }
 
 message ThrowableComponent {
@@ -103,8 +105,16 @@ message InitiativeComponent {
   required uint32 initiative = 1;
 }
 
+message KeyComponent {
+  required uint32 key_code = 1;
+}
+
+message LockComponent {
+  required uint32 key_code = 1;
+  required bool locked = 2;
+}
+
 message DoorComponent {
-  required bool locked = 1;
   required bool open_closed = 2;
 }
 

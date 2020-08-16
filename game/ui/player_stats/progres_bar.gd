@@ -73,7 +73,7 @@ func refresh():
 		
 func set_bar_value(v):
 	value = v
-
+	
 	_percentage = float(value)/max_value
 	if Engine.editor_hint:
 		var bar = $MarginContainer/Bar

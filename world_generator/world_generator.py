@@ -13,27 +13,48 @@ class WorldGenerator(Generator):
         super().__init__()
 
     def generate_meta_layer(self, world):        #TODO: work this out
-        mask = (
-            (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL1) +
-            (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL2) +
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.WINDOW1) +
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.WINDOW1SIDE) +            
-            (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR1))
+
+        #encoding:
+        #8 bits:
+        #0 bit: fov
+        #1 bit: obstacle
+        #2-8: heightbent
+        
+        
+        #mask = (
+        #    (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL1) +
+        #    (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL2) +
+        #    (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.WINDOW1) +
+        #    (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.WINDOW1SIDE) +            
+        #    (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.DOOR1))
 
         #make tree obstacles
-        mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE1)
+        mask = (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE1)
         mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE2)
         mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE3)
         mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE4)
         mask += (world.layers[graphics_db.OBJECT_LAYER] == graphics_db.TREE5)
-        return (mask > 0).astype('uint8')*3
+
+        mask2 = world.layers[graphics_db.GROUND_LAYER] == graphics_db.WATER2
+        
+        height_mask_2 = (
+            (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL1) +
+            (world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.WALL2))
+
+        height_mask_1 = world.layers[graphics_db.OVERGROUND_LAYER] == graphics_db.RUINS
+
+        height_meta = (height_mask_2 > 0).astype('uint8') * 14 #1110 (height = 3m)
+        height_meta += (height_mask_1 > 0).astype('uint8') * 6 #0110 (height = 1m)
+        
+        return height_meta + (mask > 0).astype('uint8')*3 + (mask2 > 0).astype('uint8')*2
 
     def create_entities(self, world):
         #maybe refactor doors and windows as objects too?
-        create_doors(world)
+#        create_doors(world)
         create_windows(world)               
         create_objects(world)
         create_lights(world)
+        create_locks_and_keys(world)
     
     def generate(self):
         levels = self.settings['world']                      
@@ -67,6 +88,18 @@ if __name__ == "__main__":
 
     coord = [58, 43, 0]
     coord = [63, 85, 0]
+    coord = [7, 30, 0]
+    coord = [42, 22, 0]    #north ruins
+    coord = [67, 24, 1]    #underground door
+    coord = [36, 74, 0]    #south ruins
+    coord = [56, 8, 1]    #underground chest
+
+    coord = [7, 31, 0]    #top initial pos
+    
+#    coord = [31, 84, 1]
+#    coord = [73, 17, 1]
+#    coord = [92, 26, 0]
+
     
     #New kitchen window blowout
     #coord = [354, 457, 0]

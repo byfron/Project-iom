@@ -9,3 +9,6 @@ func execute_impl(action, context):
 	
 	var node = action.get_map_node(context)
 	node.initialize_char_object_animations()
+	
+	
+	#TODO: update weapons skill button images

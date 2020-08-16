@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/behaviors/trees/abstract_behavior.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/godot-behavior-tree-plugin/sequence.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/selector.gd" type="Script" id=2]
 [ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=3]
-[ext_resource path="res://addons/godot-behavior-tree-plugin/condition.gd" type="Script" id=5]
+[ext_resource path="res://game/behaviors/trees/generic/Patrol.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/behaviors/trees/monster.tscn" type="PackedScene" id=6]
 
 [node name="friendly" instance=ExtResource( 1 )]
@@ -11,10 +11,9 @@
 [node name="BehaviorTree" type="Node" parent="." index="1"]
 script = ExtResource( 3 )
 
-[node name="BehaviorSequence" type="Node" parent="BehaviorTree" index="0"]
+[node name="BehaviorSelector" type="Node" parent="BehaviorTree" index="0"]
 script = ExtResource( 2 )
 
-[node name="CheckForEnemies" type="Node" parent="BehaviorTree/BehaviorSequence" index="0"]
-script = ExtResource( 5 )
+[node name="Attack" parent="BehaviorTree/BehaviorSelector" index="0" instance=ExtResource( 6 )]
 
-[node name="Attack" parent="BehaviorTree/BehaviorSequence" index="1" instance=ExtResource( 6 )]
+[node name="Patrol" parent="BehaviorTree/BehaviorSelector" index="1" instance=ExtResource( 4 )]

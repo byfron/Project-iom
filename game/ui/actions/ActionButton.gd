@@ -37,4 +37,5 @@ func _on_Control_mouse_entered():
 func _on_Control_gui_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed() && event.button_index == BUTTON_LEFT:
+			highlight()
 			SignalManager.emit_signal('action_button_pressed', action_type)

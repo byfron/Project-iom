@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=11 format=2]
+[gd_resource type="TileSet" load_steps=12 format=2]
 
 [ext_resource path="res://game_assets/tilemaps/sand_blob_tilemap.png" type="Texture" id=1]
 [ext_resource path="res://game_assets/tilemaps/water_blob_tilemap.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://game_assets/tilemaps/stone_grass2_tilemap.png" type="Texture" id=8]
 [ext_resource path="res://game_assets/tilemaps/grass1_grass2_tilemap.png" type="Texture" id=9]
 [ext_resource path="res://game_assets/tilemaps/grass_water_tilemap.png" type="Texture" id=10]
+[ext_resource path="res://game_assets/tilemaps/sidewalk_mask.png" type="Texture" id=11]
 
 [resource]
 0/name = "road_blob_tilemap.png 0"
@@ -182,3 +183,20 @@
 9/navigation_offset = Vector2( 0, 0 )
 9/shapes = [  ]
 9/z_index = 0
+10/name = "sidewalk_mask.png 10"
+10/texture = ExtResource( 11 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 0, 224, 224 )
+10/tile_mode = 2
+10/autotile/icon_coordinate = Vector2( 0, 0 )
+10/autotile/tile_size = Vector2( 32, 32 )
+10/autotile/spacing = 0
+10/autotile/occluder_map = [  ]
+10/autotile/navpoly_map = [  ]
+10/autotile/priority_map = [  ]
+10/autotile/z_index_map = [  ]
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shapes = [  ]
+10/z_index = 0

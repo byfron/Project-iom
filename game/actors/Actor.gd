@@ -57,10 +57,17 @@ func set_image(im):
 func initialize_char_object_animations():
 	var entity = Utils.get_entity_weilded_weapon(EntityPool.get(entity_id))
 	
+	if not entity:
+		return
+	
 	if 'graphics' in entity.components:
 		var gid = entity.components['graphics'].get_graphics_id()
 		var gtype = entity.components['graphics'].get_gtype()
 		load_weapon_animation(gid, gtype)
+		
+		#TODO: now we hide them by default. Does this work in all cases?
+		if entity.components['graphics'].get_fov_show() == false:
+			hide()
 		
 func start_fx(fx_name):
 	var actor_fx = $ActorFX
@@ -237,6 +244,9 @@ func back_to_idle():
 func set_animation(animation):
 	$ActorSprite.switch_anim(animation)
 	
+func get_frame_idx():
+	return $ActorSprite.get_current_frame().frame_idx
+	
 func anim_frame_forward():
 	$ActorSprite.frame_forward()
 	
@@ -343,6 +353,10 @@ func reset_life_tweens():
 	life_label.modulate = lifelabel_starting_color
 	life_label.rect_position = lifelabel_starting_pos
 
+func enable_glow_color(color):
+	self.modulate = color
+	pass
+
 func enable_light():
 	$Light2D.enabled = true
 	
@@ -368,6 +382,31 @@ func _on_GhostTimer_timeout():
 	ghost.hframes = $ActorSprite.get_current_frame().hframes
 	ghost.frame = $ActorSprite.get_current_frame().frame
 	
+func show_fov_cone(pos, fov_cones):
+	var debug_fov = $debug_fov
+	var points = PoolVector2Array()
+	
+#	var min_angle = PI*2
+#	var max_angle = -PI*2
+#	for cone in fov_cones:
+#		if cone[1] < min_angle:
+#			min_angle = cone[1]
+#		if cone[0] > max_angle:
+#			max_angle = cone[0]
+	
+	var min_arc = min(fov_cones[0], fov_cones[1])
+	var max_arc = max(fov_cones[0], fov_cones[1])
+	var line1 = Vector2(0, 250).rotated(min_arc)
+	var line2 = Vector2(0, 250).rotated(max_arc)
+	
+	#points.append(pos)
+	points.append(Vector2(0,0))
+	points.append(line1)
+	points.append(line2)
+	points.append(Vector2(0,0))
+	debug_fov.points = points
+		
+	debug_fov.show()
 
 func explode():
 	#We have the sprite as a region rect. We'll have to create 

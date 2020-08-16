@@ -12,9 +12,14 @@ func _ready():
 	
 func process_ranged_attack_mouse_input(event):
 	change_to_aim()
-	
 	pass
 	
+#func show_fov_cone(position, fov_cones):
+#	if not GameEngine.debug_mode:
+#		return
+#	Polygon2D.new()
+#	pass
+#
 func display_action(tile, action):
 	var scoords = Utils.getScreenCoords(tile)
 	var overlay_action = $Action
@@ -37,6 +42,12 @@ func change_to_normal():
 	
 func show_path():
 	pass
+	
+func display_range(center, radius):
+	var coords = Utils.get_circle_coords(center, radius)
+	for c in coords:
+		gui_tilemap.set_cell(c.x, c.y, 2)
+	gui_tilemap.show()
 	
 func draw_smooth_curve(tile_path):
 	var scurve = $SmoothPath

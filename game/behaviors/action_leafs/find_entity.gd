@@ -4,7 +4,7 @@ var Utils = load('res://game/utils/Utils.gd').new()
 
 # Leaf Node
 func tick(tick: Tick) -> int:
-	
+
 	var context = tick.blackboard.get('context')
 	var actor = tick.actor
 	var entity = EntityPool.get(actor.entity_id)
@@ -18,22 +18,36 @@ func tick(tick: Tick) -> int:
 	#TODO: kind of shameful that we do this here instead of from a aproper action
 	actor.surprised(false)
 	
+	if context.player_is_dead:
+		return FAILED
+	
 	#check if user is in the same level AND at a distance threshold
 	if not (player_tile.z == actor_tile.z and (player_tile - actor_tile).length() < max_distance):
 		return FAILED
-	
-	#check if there's a line of sight to entity
-	var tiles = Utils.get_obstacles_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
-	var values = Utils.get_values_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
-	if len(values) > 0:
-		#path is blocked
-		return FAILED
 		
+	#Given actor orientation, draw a visibility cone
+	var fov_cones = Utils.compute_fov_cones_from_orientation(actor.current_orientation)
+	var position = Vector2(actor.coords.x, actor.coords.y)
+	var entities = Utils.get_objects_in_fovcones(position, fov_cones, max_distance)
+	
+	if GameEngine.debug_mode:
+		actor.show_fov_cone(position, fov_cones)
+		
+	#check if there's a line of sight to entity
+	#var tiles = Utils.get_obstacles_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
+	var values = Utils.get_values_in_fovline(context.world.fov_obstacles, actor_tile, player_tile)
+	for v in values:
+		#path is blocked by height 1, and player] is crouching
+		if v == 1 and Utils.is_player_crouching():
+			return FAILED
+		if v > 1:
+			return FAILED
+
 	#TODO: at this point we should probably cache the tilepath, as it may be used in other
 	#actions like jump attack (now we have duplicated code)
 	
 	#if the entity is crouching (or small) check if the tile right before is a volume,
-	#so that we don't see it either
+	#or if it has height
 	if Utils.is_player_crouching():
 		var end_point = Utils.get_fovline_second_last(actor_tile, player_tile)
 		var pvolumes = context.get_entities_in_2Dtile_plevel(end_point)
@@ -52,5 +66,8 @@ func tick(tick: Tick) -> int:
 	
 	
 	#add 
+	
+	#If we found an entity, delete any possible path from memory
+	actor.memory.remembered_path = null
 	
 	return OK

@@ -6,6 +6,7 @@
 
 [node name="RandomIdle" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+action_name = "RandomIdle"
 
 [node name="RandomAnimSubAction" parent="." index="0" instance=ExtResource( 3 )]
 animations = [ "Idle" ]

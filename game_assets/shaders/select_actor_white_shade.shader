@@ -4,8 +4,14 @@ uniform bool selected;
 uniform bool attacked;
 uniform bool magic;
 uniform bool frozen;
+uniform bool glow;
 uniform vec4 outline_color; 
 uniform float width : hint_range(0.0, 30.0);
+
+vec4 sample_glow_pixel(sampler2D tex, vec2 uv) {
+    float hdr_threshold = 1.0; // Pixels with higher color than 1 will glow
+    return max(texture(tex, uv) - hdr_threshold, vec4(0.0));
+}
 
 
 void fragment() {
@@ -47,4 +53,16 @@ void fragment() {
 	else if (attacked) {
 		COLOR = vec4(1.0, 1.0, 1.0, col.a);
 	}
+	
+	if (glow) {
+		vec2 ps = SCREEN_PIXEL_SIZE;
+		vec4 col0 = sample_glow_pixel(TEXTURE, UV + vec2(-ps.x, 0));
+    	vec4 col1 = sample_glow_pixel(TEXTURE, UV + vec2(ps.x, 0));
+    	vec4 col2 = sample_glow_pixel(TEXTURE, UV + vec2(0, -ps.y));
+    	vec4 col3 = sample_glow_pixel(TEXTURE, UV + vec2(0, ps.y));
+    	vec4 color = texture(TEXTURE, UV);
+    	vec4 glowing_col = 0.25 * (col0 + col1 + col2 + col3);
+    	COLOR = vec4(color.rgb + glowing_col.rgb, color.a);
+	}
+	
 }

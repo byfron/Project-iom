@@ -8,6 +8,7 @@ var action_queue = ActionQueue.new()
 var node_factory = load('res://game/core/NodeFactory.gd').new()
 var ActionFactory = load('res://game/core/ActionFactory.gd').new()
 var DialogManager = load('res://game/dialogs/DialogManager.gd').new()
+const ActionTypes = preload("res://game/actions/ActionTypes.gd")
 
 var _selected_entity = null
 var _is_entity_highlighted = false
@@ -17,11 +18,13 @@ var MAX_CONCURRENT_ACTIONS = 5
 var _current_actions = []
 
 var player_entity_id = null
+var player_is_dead = false
 var companion_entity_id = null
 
 var action_map = {}
 var _entity2node = {}
 var _tile2entity = {}
+var _height_sight = 2
 
 enum {
 	MOVEMENT_MODE,
@@ -133,7 +136,14 @@ func update_actor_memory(entity_id):
 	
 func get_player_node():
 	return _entity2node[player_entity_id]
-	
+
+func get_companion_node():
+	return _entity2node[companion_entity_id]
+		
+func player_died():
+	player_is_dead = true
+	SignalManager.emit_signal("status_event", ActionTypes.ActionType.DEAD)
+		
 func get_player_entity():
 	return EntityPool.get(player_entity_id)
 
@@ -180,7 +190,7 @@ func select_entity(entity):
 	
 func unselect_entity(entity):
 	SignalManager.emit_signal('unhighlight_entity', entity)
-	SignalManager.emit_signal('unhighlight_all_buttons')
+	#SignalManager.emit_signal('unhighlight_all_buttons')
 	
 func unselect_tile():
 	SignalManager.emit_signal('unhighlight_tile')
@@ -188,12 +198,13 @@ func unselect_tile():
 func select_tile(tile):
 	var ActionTypes = load('res://game/actions/ActionTypes.gd')
 	SignalManager.emit_signal('highlight_tile', tile)
-	SignalManager.emit_signal('highlight_action_button', ActionTypes.ActionType.WALK)
+	#SignalManager.emit_signal('highlight_action_button', ActionTypes.ActionType.WALK)
 	
-func create_object(entity):
+func create_object(entity, tile):
 	var node = node_factory.createObjectNode(entity)
 	world.set_object_node(node)
 	_entity2node[node.entity_id] = node
+	add_entity_to_tile(entity, tile)
 
 func create_ground_item(entity, tile):
 	var node = node_factory.createGroundItemNode(entity, tile)
@@ -222,7 +233,25 @@ func get_item_nodes_in_tile(tile):
 			nodes.append(_entity2node[ent.id])
 			
 	return nodes
-		
+
+#TODO: Make an action to show sin (probably takes turns)
+func show_sin_character(location):
+	var sin_node = _entity2node[companion_entity_id]
+	world.set_actor_node(sin_node)
+	move_entity_to_tile(EntityPool.get(companion_entity_id), location, false)
+
+func hide_sin_character():
+	var sin_node = _entity2node[companion_entity_id]
+	world.remove_actor_node(sin_node)
+
+func create_sin_character(entity):
+	var node = node_factory.createActorNode(entity)
+	
+	#Do not set the actor in the world until we don't activate the sin
+	#world.set_actor_node(node)
+	
+	_entity2node[node.entity_id] = node
+	
 func create_character(entity):
 	var node = node_factory.createActorNode(entity)
 	world.set_actor_node(node)
@@ -247,7 +276,7 @@ func create_character(entity):
 		
 func create_companion_character(entity):
 	companion_entity_id = entity.id
-	create_character(entity)
+	create_sin_character(entity)
 	
 func create_player_character(entity):
 	player_entity_id = entity.id
@@ -258,6 +287,7 @@ func create_player_character(entity):
 	
 	_entity2node[node.entity_id] = node
 	world.set_player_node(node)
+	
 	#add node to juicyCamera
 	world.camera.player_actor = node
 	
@@ -293,6 +323,9 @@ func compute_player_path(dst):
 	
 func kill_entity(entity):
 	_pending_entities_to_kill.append(entity)
+	
+func get_height_sight():
+	return _height_sight;
 	
 func clear_dead_entities():
 	for entity in _pending_entities_to_kill:
@@ -338,7 +371,7 @@ func add_entity_to_tile(entity, tile):
 	else:
 		_tile2entity[tile] = [entity]
 
-func move_player_to_tile(entity, tile):
+func _move_player_to_tile(entity, tile):
 	
 	var node = _entity2node[entity.id]
 	
@@ -374,17 +407,25 @@ func move_entity_to_tile(entity, tile, use_tweeen=true):
 	
 	assert(typeof(tile)==7)
 	
+	entity.components['location'].get_coord().set_x(tile.x)
+	entity.components['location'].get_coord().set_y(tile.y)
+	entity.components['location'].get_coord().set_z(tile.z)
 	
 	if entity.id == player_entity_id:
-		move_player_to_tile(entity, tile)
+		_move_player_to_tile(entity, tile)
 		return
 		
 	var node = _entity2node[entity.id]
 	remove_entity_from_tile(entity, node.coords)
 	add_entity_to_tile(entity, tile)
 	
+	#Hide nodes outside of the light_map
+	if Vector2(tile.x, tile.y) in world.current_light_map:
+		node.show()
+	else:
+		node.hide()
+	
 	var screen_pos = Utils.getScreenCoordsTileCenter(tile)
 	node.moveTo(tile, screen_pos, use_tweeen)
 	
-	entity.components['location'].get_coord().set_x(tile.x)
-	entity.components['location'].get_coord().set_y(tile.y)
+	

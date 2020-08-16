@@ -9,8 +9,7 @@ script = ExtResource( 1 )
 action_name = "Death"
 num_states = 3
 execution_state = 2
-priority = 11
+priority = 17
 
 [node name="AnimSubAction" parent="." index="0" instance=ExtResource( 3 )]
 animation = "Death"
-state_frames = [ 0, 1, 2 ]

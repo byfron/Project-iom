@@ -1,9 +1,13 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=22 format=2]
 
+[ext_resource path="res://game/core/sound/MusicController.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/scenes/world/WorldScene.gd" type="Script" id=2]
 [ext_resource path="res://game/core/InputManager.gd" type="Script" id=3]
 [ext_resource path="res://game/ui/character_dialogs/DialogPanel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://game/scenes/world/SceneColorCanvas.tscn" type="PackedScene" id=5]
 [ext_resource path="res://game/core/JuicyCamera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://game/fx/LightBeam.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game_assets/fonts/Martel-Regular.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://game/ui/actions/MainPanel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://game/ui/top_bar/TopBar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://game/scenes/world/WorldMap.tscn" type="PackedScene" id=12]
@@ -20,6 +24,19 @@ extents = Vector2( 70.3166, 442.62 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 122.0
 
+[sub_resource type="DynamicFont" id=3]
+size = 100
+font_data = ExtResource( 8 )
+
+[sub_resource type="Environment" id=4]
+background_mode = 4
+glow_enabled = true
+glow_intensity = 5.8
+glow_strength = 0.39
+glow_blend_mode = 0
+glow_hdr_luminance_cap = 27.78
+glow_hdr_scale = 0.0
+
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -27,6 +44,8 @@ script = ExtResource( 2 )
 position = Vector2( 0, 0 )
 
 [node name="JuicyCamera" parent="." instance=ExtResource( 6 )]
+z_index = 50
+z_as_relative = false
 zoom = Vector2( 0.95, 0.95 )
 
 [node name="InputArea" type="Area2D" parent="JuicyCamera"]
@@ -34,7 +53,7 @@ scale = Vector2( 18.1946, 1.84239 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JuicyCamera/InputArea"]
-position = Vector2( 26.6058, 112.271 )
+position = Vector2( 26.5103, 103.892 )
 shape = SubResource( 1 )
 
 [node name="MoveTween" type="Tween" parent="JuicyCamera"]
@@ -47,13 +66,16 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JuicyCamera/CharArea2D"]
 shape = SubResource( 2 )
 
-[node name="GUILayer" type="CanvasLayer" parent="."]
-
-[node name="DialogPanel" parent="GUILayer" instance=ExtResource( 4 )]
+[node name="LightBeam" parent="JuicyCamera" instance=ExtResource( 7 )]
 visible = false
-position = Vector2( 0, 440 )
-scale = Vector2( 0.8, 0.8 )
-z_index = 50
+
+[node name="Chain" parent="JuicyCamera/LightBeam" index="1"]
+_smooth = false
+_straighten = false
+point_a = Vector2( 0, 0 )
+point_b = Vector2( 132.45, -187.464 )
+
+[node name="GUILayer" type="CanvasLayer" parent="."]
 
 [node name="DebugPanel" parent="GUILayer" instance=ExtResource( 14 )]
 offset = Vector2( 1600, 900 )
@@ -83,8 +105,35 @@ position = Vector2( 1027.88, 629.996 )
 [node name="ItemActionList" parent="GUILayer" instance=ExtResource( 15 )]
 visible = false
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-position = Vector2( 0, -4 )
+[node name="YouDiedLabel" type="Label" parent="GUILayer"]
+modulate = Color( 1, 1, 1, 0 )
+light_mask = 2
+margin_left = 423.431
+margin_top = 305.264
+margin_right = 1578.43
+margin_bottom = 670.264
+custom_fonts/font = SubResource( 3 )
+text = "You Died"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogPanel" parent="GUILayer" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 440 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 50
 
 [node name="WeatherTween" type="Tween" parent="."]
+
+[node name="CanvasModulate" parent="." instance=ExtResource( 5 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 4 )
+
+[node name="MusicController" parent="." instance=ExtResource( 1 )]
 [connection signal="tween_completed" from="WeatherTween" to="." method="_on_WeatherTween_tween_completed"]
+
+[editable path="JuicyCamera/LightBeam"]

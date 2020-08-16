@@ -22,6 +22,26 @@ func update_tileset(tset):
 	tileset = tset
 	if Engine.editor_hint:
 		tilemap.tile_set = tileset
+
+func add_empty_chunk(chunk_coord, rect):
+	var autotiler = Autotilemap.new()
+
+	var br = rect.get_bottom_right()
+	var tl = rect.get_top_left()
+	var sizex = br.get_x() - tl.get_x()
+	var sizey = br.get_y() - tl.get_y()
+
+	#TODO: avoid this loop (do it in the module)
+	autotiler.init(Vector2(chunk_coord.get_x(), chunk_coord.get_y()), Vector2(tl.get_x(), tl.get_y()), Vector2(br.get_x(), br.get_y()), autotiler_cfg)
+	
+#	var idx = 0
+#	for row in range(sizey):
+#		for col in range(sizex):
+#			var code = data[idx]
+#			autotiler.set_value(col, row, code)
+#			idx += 1
+	
+	map_chunks[Vector3(chunk_coord.get_x(), chunk_coord.get_y(), chunk_coord.get_z())] = autotiler
 	
 func add_chunk(chunk_coord, rect, data):
 	
@@ -33,7 +53,7 @@ func add_chunk(chunk_coord, rect, data):
 	var sizey = br.get_y() - tl.get_y()
 
 	#TODO: avoid this loop (do it in the module)
-	autotiler.init(Vector2(tl.get_x(), tl.get_y()), Vector2(br.get_x(), br.get_y()), autotiler_cfg)
+	autotiler.init(Vector2(chunk_coord.get_x(), chunk_coord.get_y()), Vector2(tl.get_x(), tl.get_y()), Vector2(br.get_x(), br.get_y()), autotiler_cfg)
 	var idx = 0
 
 	for row in range(sizey):
@@ -74,7 +94,7 @@ func merge_maps(chunks):
 	height = bottom_right.y - top_left.y
 		
 	var full_map = Autotilemap.new()
-	full_map.init(top_left, bottom_right, autotiler_cfg)
+	full_map.init(Vector2(0,0), top_left, bottom_right, autotiler_cfg)
 			
 	for autotiler in chunks:
 		if autotiler:

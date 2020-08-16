@@ -1,5 +1,40 @@
 {
 	"base_tile": 0,
+	"semi_random_autotiling": [
+	{
+		"src_tile": 155,
+		"atlas": 2,
+		"atlas_size": [4, 4],
+		"neighbor_tiles": [155],
+		"codes":
+		[
+		{
+			"code": 17,
+			"ids": [1, 2]
+		},
+		{
+			"code": 1,
+			"ids": [0]
+		},
+		{
+			"code": 16,
+			"ids": [0]
+		},			
+		{
+			"code": 68,
+			"ids": [3, 4, 6, 7, 8]
+		},
+		{
+			"code": 64,
+			"ids": [5]
+		},
+		{
+			"code": 4,
+			"ids": [5]
+		}						
+		]
+	}
+	],
 	"blob_autotiling":[
 	{
 		"atlas_id": 1,
@@ -7,9 +42,9 @@
 		"neighbor_tiles": [153, 154]
 	},		
 	{
-		"atlas_id": 3,
-		"src_tile": 154,
-		"neighbor_tiles": [154, 153]
+		"atlas_id": 5,
+		"src_tile": 156,
+		"neighbor_tiles": [156]
 	}
 	],
 	"codes": [

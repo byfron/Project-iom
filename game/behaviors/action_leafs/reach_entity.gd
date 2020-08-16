@@ -17,7 +17,7 @@ func tick(tick: Tick) -> int:
 	var step = (player_tile - actor.coords) / (distance)
 	var move_to_tile = actor.coords + Vector3(round(step.x), round(step.y), round(step.z))
 	var actor_entity = EntityPool.get(actor.entity_id)
-	SignalManager.emit_signal('send_action', ActionFactory.create_walk_action(actor_entity, [move_to_tile]))
+	SignalManager.emit_signal('send_action', ActionFactory.create_run_action(actor_entity, [move_to_tile]))
 	#var path = path_manager.compute_path(actor.coords, player_tile)
 	#if len(path) > 0:
 	#SignalManager.emit_signal('send_action', ActionFactory.create_follow_action(actor.entity_id, path, context.player_entity_id))

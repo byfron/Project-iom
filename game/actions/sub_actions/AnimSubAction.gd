@@ -18,10 +18,13 @@ func start(action, context):
 	#node.set_frame(state_frames[-1])
 
 func on_state_changed(action, context):
-	if action.current_state < len(state_frames):
-		var node = context._entity2node[action.entity.id]
-		node.set_animation(animation)
-		node.set_frame(state_frames[action.current_state])
+	if action.current_state >= len(state_frames):
+		action.current_state = 0
+		
+	var node = context._entity2node[action.entity.id]
+	node.set_animation(animation)
+	node.set_frame(state_frames[action.current_state])
+	
 
 func execute_impl(action, context):
 	pass

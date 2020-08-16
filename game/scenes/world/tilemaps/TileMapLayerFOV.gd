@@ -13,6 +13,9 @@ onready var FOV = load("res://game/utils/FOV.gd")
 func _ready():
 	tilemap = tilemap1
 	_fov = FOV.new()
+	
+	
+	#$DarkTileMap.set
 
 func set_tilemap(data_array):
 	#Darken the sides too

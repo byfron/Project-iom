@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot-behavior-tree-plugin/mem_sequence.gd" type="Script" id=1]
+[ext_resource path="res://game/behaviors/trees/generic/DecidePatrolingPosition.gd" type="Script" id=2]
+[ext_resource path="res://game/behaviors/trees/generic/WalkMemoryPath.gd" type="Script" id=3]
+
+[node name="PatrolSequence" type="Node"]
+script = ExtResource( 1 )
+
+[node name="DecidePatrolingPosition" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="WalkMemoryPath" type="Node" parent="."]
+script = ExtResource( 3 )

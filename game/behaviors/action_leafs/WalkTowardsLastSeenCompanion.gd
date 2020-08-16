@@ -27,6 +27,6 @@ func tick(tick: Tick) -> int:
 		
 	var move_to_tile = path[1]
 	var actor_entity = EntityPool.get(actor.entity_id)
-	SignalManager.emit_signal('send_action', ActionFactory.create_walk_action(actor_entity, [move_to_tile]))
+	SignalManager.emit_signal('send_action', ActionFactory.create_run_action(actor_entity, [move_to_tile]))
 	
 	return ERR_BUSY

@@ -40,14 +40,14 @@ func switch_anim(anim_name):
 		
 	current_animation = anim_name
 		
-	var old_children = get_children()
+	var old_children = $Animations.get_children()
 	
 	if anim_name in anim_dictionary:
-		add_child(anim_dictionary[anim_name])
+		$Animations.add_child(anim_dictionary[anim_name])
 		anim_dictionary[anim_name].update_orientation(_orient_code)
 		
 	if anim_name in anim_weapon_dictionary:
-		add_child(anim_weapon_dictionary[anim_name])
+		$Animations.add_child(anim_weapon_dictionary[anim_name])
 		anim_weapon_dictionary[anim_name].update_orientation(_orient_code)
 		
 #	if anim_name in anim_fx_dictionary:
@@ -56,7 +56,7 @@ func switch_anim(anim_name):
 	
 	#Free old children
 	for children in old_children:
-		remove_child(children)
+		$Animations.remove_child(children)
 		
 #	for current_sprite in get_children():
 #		remove_child(current_sprite)
@@ -65,7 +65,7 @@ func switch_anim(anim_name):
 		
 func set_frame(fidx):
 #	assert(fidx < num_frames_per_orient)
-	for current_sprite in get_children():
+	for current_sprite in $Animations.get_children():
 		current_sprite.set_frame_index(fidx, _orient_code)
 	
 func set_selected(flag):
@@ -97,17 +97,17 @@ func set_attacked(flag):
 		anim.material = mat
 		
 func frame_forward():
-	for current_sprite in get_children():
+	for current_sprite in $Animations.get_children():
 		current_sprite.frame_forward(_orient_code)
 	
 func get_current_frame():
 	#the first child should always be the current actor anim. The 
 	#second child is the weapon anim (if any)
-	return get_children()[0]
+	return $Animations.get_children()[0]
 	
 func get_current_frame_rect():
 	var anim = anim_dictionary[current_animation]
-	var current_sprite = get_children()[0]
+	var current_sprite = $Animations.get_children()[0]
 	var frame_idx = current_sprite.frame_idx
 	var sprect = current_sprite.get_rect()
 	var size_w = sprect.size[0]
@@ -118,7 +118,7 @@ func get_current_frame_rect():
 	
 func orientCharacterTowards(code):
 	_orient_code = code
-	for current_sprite in get_children():
+	for current_sprite in $Animations.get_children():
 		current_sprite.update_orientation(_orient_code)
 	
 # Called when the node enters the scene tree for the first time.

@@ -1,9 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets_OLD/fonts/SourceCodePro.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://game_assets/fonts/SourceCodePro.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://game/ui/log/LogEntry.gd" type="Script" id=2]
 [ext_resource path="res://game_assets/gui/bullet_point.png" type="Texture" id=3]
-
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -25,7 +24,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-log_text = "dsadas"
+log_text = "dsadass"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 822.0
@@ -60,7 +59,7 @@ margin_right = 822.0
 margin_bottom = 34.0
 rect_min_size = Vector2( 800, 0 )
 custom_fonts/font = SubResource( 1 )
-text = "dsadas"
+text = "asdasd"
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false

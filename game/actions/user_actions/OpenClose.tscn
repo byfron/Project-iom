@@ -11,6 +11,7 @@ action_name = "open_close"
 
 [node name="OpenCloseAnim" parent="." index="0" instance=ExtResource( 1 )]
 state_frames = [ 1 ]
+anim_curve = null
 
 [node name="SoundSubAction" parent="." index="1" instance=ExtResource( 4 )]
 sound = "OPEN_01"

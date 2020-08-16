@@ -93,7 +93,13 @@ func decode_component(ctype, comp_data):
 	elif ctype == 'orientation':
 		comp = ECS.OrientationComponent.new()
 	elif ctype == 'interest':
-		comp = ECS.InterestComponent.new()		
+		comp = ECS.InterestComponent.new()
+	elif ctype == 'lock':
+		comp = ECS.LockComponent.new()
+	elif ctype == 'key':
+		comp = ECS.KeyComponent.new()
+	elif ctype == 'attributes':
+		comp = ECS.AttributesComponent.new()		
 	if comp:
 		comp.from_bytes(Marshalls.base64_to_raw(comp_data.get_string_from_utf8()))
 	else:

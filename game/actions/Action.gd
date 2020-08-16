@@ -7,7 +7,7 @@ export var num_states = 1
 export var current_state = -1
 export var execution_state = 0
 export var priority = 0
-export var consumes_turn = true
+export var _consumes_turn = true
 export var action_duration = 0.1
 export var infinite = false
 export var responsive = false
@@ -52,6 +52,9 @@ func execute_impl(action, context):
 	
 func start_impl(context):
 	pass
+	
+func consumes_turn():
+	return _consumes_turn
 	
 func start(action, context):
 	start_impl(context)

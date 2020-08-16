@@ -7,8 +7,31 @@ func start_impl(context):
 
 func execute_impl(action, context):
 	
+	if "lock" in used_entity.components:
+		#Check if we have the right key in the inventory
+		#TODO: refactor
+		var has_correct_key = false
+		var stored_entities = entity.components['inventory'].get_stored_entities()
+		for ent_id in stored_entities:
+			var ent = EntityPool.get(ent_id)
+			if ent.components.has('key'):
+				var lock_key_code = used_entity.components['lock'].get_key_code()
+				var key_code = ent.components['key'].get_key_code()
+				if lock_key_code == key_code:
+					has_correct_key = true
+	
+		if not has_correct_key:
+			var criteria = []
+			var lower_name = used_entity.name.to_lower()
+			criteria.append('object_' + lower_name)
+			SignalManager.emit_signal("query_dialog_system", entity, "OnOpen", criteria, used_entity)
+		
+			#If it's locked we shouldn't run the animation (or the sound)
+			Utils.delete_children(self)
+			return
+	
 	if "container" in used_entity.components:
-		context.world.info_panel.update()
+		#context.world.info_panel.update()
 		SignalManager.emit_signal("log_event", "You look into the " + used_entity.name)
 		$SoundSubAction.sound = "OPEN_02"
 		
@@ -18,14 +41,13 @@ func execute_impl(action, context):
 		$SoundSubAction.sound = "OPEN_02"
 		
 	if "stairs" in used_entity.components:
-		
 		#move character down
 		var stairs_location = Utils.get_entity_location(used_entity)
-		stairs_location.z += 1
-		context.move_player_to_tile(context.get_player_entity(), stairs_location)
+		var z_offset = used_entity.components['stairs'].get_to_level()
+		stairs_location.z += z_offset
+		context.move_entity_to_tile(context.get_player_entity(), stairs_location)
+		return
 		
-		pass
-			
 	#Refactor somewhere?
 	if "door" in used_entity.components:
 		$SoundSubAction.sound = "OPEN_01"
@@ -38,10 +60,12 @@ func execute_impl(action, context):
 					
 			#Change graphics in entity and node
 			#TODO. Refactor somehow. Maybe create a state machine in actors/objects?
-			if used_entity.components['graphics'].get_graphics_id() == 243:
-				used_entity.components['graphics'].set_graphics_id(244)
-				context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.OBJECT, 244)
-			###############################################################################################
+			#For the time being, we support just two states. Graphics IDs are always consecutive
+			#if the door is closed, we increase 1. If it's open we decrease 1.
+			
+			var gid = used_entity.components['graphics'].get_graphics_id()
+			used_entity.components['graphics'].set_graphics_id(gid-1)
+			context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.OBJECT, gid-1)
 					
 			#Find entity node to play sound
 			#We could abstract this more? TODO: maybe move sound to Resource/SoundManager?
@@ -59,15 +83,13 @@ func execute_impl(action, context):
 			$SoundSubAction.sound = "OPEN_01"
 			#TODO: make wlk and fov private and use a method instead that we pass the 3d vector
 			context.world.wlk_obstacles[Vector2(pos.x, pos.y)] = 1
-			context.world.fov_obstacles[Vector2(pos.x, pos.y)] = 1
+			context.world.fov_obstacles[Vector2(pos.x, pos.y)] = 2
 			
 			#we should ALSO change the META layer!
 			context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.META, 1)
-			#Change graphics in entity and node
-			#TODO. Refactor somehow. Maybe create a state machine in actors/objects?
-			if used_entity.components['graphics'].get_graphics_id() == 244:
-				used_entity.components['graphics'].set_graphics_id(243)
-				context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.OBJECT, 243)
+			var gid = used_entity.components['graphics'].get_graphics_id()
+			used_entity.components['graphics'].set_graphics_id(gid+1)
+			context.world.update_chunk_database(pos, GameEngine.TILEMAPSTACK.OBJECT, gid+1)
 					
 			#Find entity node to play sound
 			if used_entity.id in context._entity2node:

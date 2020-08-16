@@ -27,10 +27,7 @@ func process_movement_event(event):
 		for action in default_actions:
 			SignalManager.emit_signal('send_action', action)
 	else:
-		if crouching:
-			SignalManager.emit_signal('send_action', ActionFactory.create_sneak_action(entity, [coords], true))
-		else:
-			SignalManager.emit_signal('send_action', ActionFactory.create_walk_action(entity, [coords], true))
+		SignalManager.emit_signal('send_action', ActionFactory.create_movement_action(entity, [coords]))
 
 func is_movement_event(event):
 	if event.control or event.shift or event.alt:
@@ -100,7 +97,7 @@ func _input(event):
 		
 		#Reddit rain DEMO
 		if event.scancode == KEY_R:
-			GameEngine.context.world.start_rain()
+			GameEngine.context.world.scene_color_canvas.start_rain()
 			
 			pass
 			

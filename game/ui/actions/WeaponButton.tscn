@@ -4,7 +4,7 @@
 [ext_resource path="res://game/ui/actions/WeaponButton.gd" type="Script" id=2]
 [ext_resource path="res://game_assets/fonts/Silver.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.866667, 0.25098, 0.25098, 1 )
 
 [sub_resource type="DynamicFont" id=2]
@@ -17,7 +17,7 @@ action_type = 1
 color = Color( 0.866667, 0.25098, 0.25098, 1 )
 
 [node name="Panel" parent="MarginContainer" index="0"]
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="Node2D" type="Node2D" parent="." index="3"]
 

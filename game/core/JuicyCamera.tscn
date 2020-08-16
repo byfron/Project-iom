@@ -3,4 +3,5 @@
 [ext_resource path="res://game/core/JuicyCamera.gd" type="Script" id=1]
 
 [node name="JuicyCamera" type="Camera2D"]
+current = true
 script = ExtResource( 1 )

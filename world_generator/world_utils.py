@@ -2,6 +2,7 @@ import pdb
 from entity_creators import *
 import graphics_db
 import numpy as np
+from ecs_utils import EntityQuery, EntityFactory, ComponentFactory
 
 def create_doors(world):
 
@@ -43,25 +44,25 @@ def create_objects(world):
     object_locations = np.vstack(np.where(world.layers[graphics_db.OBJECT_LAYER] > 0)).transpose().tolist()
 
     volume_list = []
-    
+
     #TODO: Take into account elements that take two tiles so that we don't create two entities    
     for loc in object_locations:
-        location = [loc[0], loc[1], world.level]
+        location = [loc[1], loc[0], world.level]
         object_id = world.layers[graphics_db.OBJECT_LAYER][loc[0], loc[1]]
 
         #If it has orientation... check around for any other object and orient it towards it
         direction = None
         if ObjectTemplate.object_has_component(object_id, 'orientation'):
-            if ObjectTemplate.object_has_component(object_id, 'door'):
-                direction = look_for_neighbour_walls(world.layers[graphics_db.OVERGROUND_LAYER], location)
-            else:
-                direction = look_for_neighbour_object(world.layers[graphics_db.OBJECT_LAYER], location)
+            #if ObjectTemplate.object_has_component(object_id, 'door'):
+            #    direction = look_for_neighbour_walls(world.layers[graphics_db.OVERGROUND_LAYER], location)
+            #else:
+            direction = look_for_neighbour_object(world.layers[graphics_db.OBJECT_LAYER], location)
                 
         #how to handle areas/volumes? We should create only ONE object
         #if it defines a volume in the map. Keep a list of "locations" to fill.
         #Create the object once all the locations are filled. Otherwise throw an error
         #put location and id in a list?
-        
+
         #if has volume, add to list of "id, position, volume"
         if ObjectTemplate.object_has_component(object_id, 'volume'):
             volume_comp = ObjectTemplate.object_get_volume(object_id)
@@ -134,9 +135,18 @@ def create_characters(world):
 
 #    create_character(41, location)
 
-    create_character(41, [80, 62, 0])
+    #Zombie top level
+    create_character(41, [25, 71, 0])
+    create_character(41, [39, 18, 0])
 
-    #Create Eric
+
+    create_character(41, [45, 30, 1])
+    create_character(41, [53, 44, 1])
+    create_character(41, [66, 33, 1])
+
+
+    
+    #Create Envy
     create_character(10, [55, 55, 0])
 
     #TODO: this locations seem to not match exactly with the tiles in
@@ -163,3 +173,69 @@ def create_lights(world):
     fire_locations = np.vstack(np.where(world.layers[graphics_db.OBJECT_LAYER] == graphics_db.CAMP_FIRE)).transpose()
     for loc in fire_locations:
         create_fire([loc[1], loc[0], world.level])
+
+
+def create_locks_and_keys(world):
+
+    #add a lock in the floor trap
+    entity = EntityQuery.get_entity_in_location(37, 19, 0)
+
+    key_code = 1234
+    lock_comp = ComponentFactory.create_lock(key_code, True)
+    EntityFactory.attach_components(entity, [lock_comp])
+        
+    key_entity = create_item(11)
+    key_comp =  ComponentFactory.create_key(key_code)
+    EntityFactory.attach_components(key_entity, [key_comp])
+
+    #add the key in the chest
+    chest_entity = EntityQuery.get_entity_in_location(24, 74, 0)
+    cc = EntityQuery.get_container_component(chest_entity)
+    cc.entities.append(key_entity.entity_id)
+
+    #Delete component and re-generate it (TODO: we can probably do better than this)
+    ComponentFactory.delete_component(chest_entity, 'container')
+    new_c = ComponentFactory.create_container(cc.capacity, cc.type, [key_entity.entity_id])
+    EntityFactory.attach_components(chest_entity, [new_c])
+
+
+    #TODO: all this is super ugly 
+    #Add lock in door
+    #-------------------------------------------------------------------------------------
+    door_entity = EntityQuery.get_entity_in_location(67, 21, 1)
+    if not door_entity:
+        return
+    
+    key_code = 5678
+    lock_comp = ComponentFactory.create_lock(key_code, True)
+
+    EntityFactory.attach_components(door_entity, [lock_comp])
+    key_entity = create_item(11)
+    key_comp =  ComponentFactory.create_key(key_code)
+    EntityFactory.attach_components(key_entity, [key_comp])
+    #add the key in the chest downstairs
+    chest_entity = EntityQuery.get_entity_in_location(73, 52, 1)
+    cc = EntityQuery.get_container_component(chest_entity)
+    cc.entities.append(key_entity.entity_id)
+
+    #Delete component and re-generate it (TODO: we can probably do better than this)
+    ComponentFactory.delete_component(chest_entity, 'container')
+    new_c = ComponentFactory.create_container(cc.capacity, cc.type, [key_entity.entity_id])
+    EntityFactory.attach_components(chest_entity, [new_c])
+
+
+    #Put revolver in chest
+    chest_entity = EntityQuery.get_entity_in_location(70, 8, 1)
+    if not chest_entity:
+        return
+
+    revolver_entity = create_weapon(2)
+    cc = EntityQuery.get_container_component(chest_entity)
+    cc.entities.append(revolver_entity.entity_id)
+
+    #Delete component and re-generate it (TODO: we can probably do better than this)
+    ComponentFactory.delete_component(chest_entity, 'container')
+    new_c = ComponentFactory.create_container(cc.capacity, cc.type, [revolver_entity.entity_id])
+    EntityFactory.attach_components(chest_entity, [new_c])
+
+    

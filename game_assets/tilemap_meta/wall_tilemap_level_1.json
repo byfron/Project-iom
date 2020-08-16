@@ -7,10 +7,10 @@
 		"neighbor_tiles": [153, 154]
 	},		
 	{
-		"atlas_id": 2,
-		"src_tile": 154,
-		"neighbor_tiles": [154, 153]
-	}	
+		"atlas_id": 4,
+		"src_tile": 156,
+		"neighbor_tiles": [156]
+	}
 	],
 	"codes": [
     {

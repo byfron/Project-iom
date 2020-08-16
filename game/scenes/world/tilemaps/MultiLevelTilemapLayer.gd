@@ -3,7 +3,7 @@ extends Node2D
 
 onready var tilemap_a = $TilemapA
 onready var tilemap_b = $TilemapB
-onready var tilemap_1 = $Tilemap_1
+onready var tilemap_top = $tilemap_top
 onready var shadows = $Shadows
 
 #Keep tilematrix array as a dictionary
@@ -15,8 +15,8 @@ var map_data = {}
 var tile_metadata_map = {}
 
 export(TileSet) var tileset setget update_tileset
-export(String) var autotiler_cfg_0 setget set_autotiler_cfg_0
-export(String) var autotiler_cfg_1 setget set_autotiler_cfg_1
+export(String) var autotiler_cfg_bottom setget set_autotiler_cfg_bottom
+export(String) var autotiler_cfg_top setget set_autotiler_cfg_top
 export(bool) var is_objectmap
 
 func _ready():
@@ -25,21 +25,21 @@ func _ready():
 func init():
 	tilemap_a.tile_set = tileset
 	tilemap_b.tile_set = tileset
-	tilemap_1.tile_set = tileset
+	tilemap_top.tile_set = tileset
 	shadows.tile_set = tileset
 
-func set_autotiler_cfg_0(cfg):
-	autotiler_cfg_0 = cfg
+func set_autotiler_cfg_bottom(cfg):
+	autotiler_cfg_bottom = cfg
 	
-func set_autotiler_cfg_1(cfg):
-	autotiler_cfg_1 = cfg	
+func set_autotiler_cfg_top(cfg):
+	autotiler_cfg_top = cfg	
 	
 func update_tileset(tset):
 	tileset = tset
 	if Engine.editor_hint:
 		tilemap_a.tile_set = tileset
 		tilemap_b.tile_set = tileset
-		tilemap_1.tile_set = tileset
+		tilemap_top.tile_set = tileset
 		shadows.tile_set = tileset
 	
 func add_chunk(chunk_coord, rect, data):
@@ -54,11 +54,11 @@ func add_chunk(chunk_coord, rect, data):
 	var sizey = br.get_y() - tl.get_y()
 	
 	#TODO: avoid this loop (do it in the module)
-	autotiler_01.init(Vector2(tl.get_x(), tl.get_y()), Vector2(br.get_x(), br.get_y()), autotiler_cfg_0)
-	autotiler_02.init(Vector2(tl.get_x(), tl.get_y()-1), Vector2(br.get_x(), br.get_y()-1), autotiler_cfg_0)
+	autotiler_01.init(Vector2(chunk_coord.get_x(), chunk_coord.get_y()), Vector2(tl.get_x(), tl.get_y()), Vector2(br.get_x(), br.get_y()), autotiler_cfg_bottom)
+	autotiler_02.init(Vector2(chunk_coord.get_x(), chunk_coord.get_y()), Vector2(tl.get_x(), tl.get_y()-1), Vector2(br.get_x(), br.get_y()-1), autotiler_cfg_bottom)
 	
 	#set data in a higher row for the top level map
-	autotiler_1.init(Vector2(tl.get_x(), tl.get_y()-2), Vector2(br.get_x(), br.get_y()-2), autotiler_cfg_1)
+	autotiler_1.init(Vector2(chunk_coord.get_x(), chunk_coord.get_y()), Vector2(tl.get_x(), tl.get_y()-2), Vector2(br.get_x(), br.get_y()-2), autotiler_cfg_top)
 	
 	var idx = 0
 	for row in range(sizey):
@@ -134,7 +134,7 @@ func get_3x3_autotilers(player_chunk, tilemap_matrix):
 func clear_tilemap():
 	tilemap_a.set('tile_data', [])
 	tilemap_b.set('tile_data', [])
-	tilemap_1.set('tile_data', [])
+	tilemap_top.set('tile_data', [])
 	shadows.set('tile_data', [])
 
 func refresh():
@@ -142,9 +142,9 @@ func refresh():
 	var chunks_02 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_02)
 	var chunks_1 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_1)
 	
-	var full_wallmap_01 = merge_maps(chunks_01, autotiler_cfg_0)
-	var full_wallmap_02 = merge_maps(chunks_02, autotiler_cfg_0)
-	var full_wallmap_1 = merge_maps(chunks_1, autotiler_cfg_1)
+	var full_wallmap_01 = merge_maps(chunks_01, autotiler_cfg_bottom)
+	var full_wallmap_02 = merge_maps(chunks_02, autotiler_cfg_bottom)
+	var full_wallmap_1 = merge_maps(chunks_1, autotiler_cfg_top)
 	if full_wallmap_01:
 		full_wallmap_01.apply(tilemap_a)
 		full_wallmap_01.apply(shadows)
@@ -154,7 +154,7 @@ func refresh():
 		#full_wallmap_02.apply(shadows)
 		
 	if full_wallmap_1:
-		full_wallmap_1.apply(tilemap_1)
+		full_wallmap_1.apply(tilemap_top)
 	
 func update_tilemap(pos, tid):
 	var chunk_coord = GameEngine.context.tile_to_chunk(pos)
@@ -171,20 +171,20 @@ func update_tilemap(pos, tid):
 	#TODO: if too slow. Keep a map of tiles that changes so that we 
 	#only go through those (and neighbors)
 	var chunks_01 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_01)
-	var full_wallmap_01 = merge_maps(chunks_01, autotiler_cfg_0)
+	var full_wallmap_01 = merge_maps(chunks_01, autotiler_cfg_bottom)
 	if full_wallmap_01:
 		full_wallmap_01.apply(tilemap_a)
 		full_wallmap_01.apply(shadows)
 		
 	var chunks_02 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_02)
-	var full_wallmap_02 = merge_maps(chunks_02, autotiler_cfg_0)
+	var full_wallmap_02 = merge_maps(chunks_02, autotiler_cfg_bottom)
 	if full_wallmap_02:
 		full_wallmap_02.apply(tilemap_b)
 		
 	var chunks_1 = get_3x3_autotilers(GameEngine.context.get_current_chunk(), map_chunks_1)
-	var full_wallmap_1 = merge_maps(chunks_1, autotiler_cfg_1)
+	var full_wallmap_1 = merge_maps(chunks_1, autotiler_cfg_top)
 	if full_wallmap_1:
-		full_wallmap_1.apply(tilemap_1)
+		full_wallmap_1.apply(tilemap_top)
 
 func select_object(tile):
 	var cell = tilemap_a.get_cell(tile.x, tile.y)
@@ -197,5 +197,5 @@ func clear():
 	map_data = {}
 	tilemap_a.clear()
 	tilemap_b.clear()
-	tilemap_1.clear()
+	tilemap_top.clear()
 	shadows.clear()

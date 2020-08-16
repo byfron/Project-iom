@@ -37,7 +37,7 @@ func on_state_changed(action, context):
 		
 		#Attach bolt to actor_layer
 		var actor_layer = context.world.world_map.actor_layer
-		actor_layer.add_child(bolt_node)
+		actor_layer.add_actor_child(bolt_node)
 	
 func on_finish(context):
 	bolt_node.explode()

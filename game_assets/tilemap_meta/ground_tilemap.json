@@ -12,9 +12,14 @@
 		"tile": 6
 	},
 	{
+		"src_tile": 76,
+		"atlas": 0,		
+		"tile": 18
+	},		
+	{
 		"src_tile": 185,
 		"atlas": 0,		
-		"tile": 0
+		"tile": 5
 	},
 	{
 		"src_tile": 186,
@@ -107,6 +112,10 @@
 	{	
 		"src_tile": 12,
 		"atlas_id": 14
-	}		
+	},
+	{	
+		"src_tile": 13,
+		"atlas_id": 17
+	}			
 	]
 }

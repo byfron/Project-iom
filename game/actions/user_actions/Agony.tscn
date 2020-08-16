@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game/actions/user_actions/Agony.gd" type="Script" id=1]
+[ext_resource path="res://game/actions/user_actions/UserAction.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/actions/sub_actions/AnimSubAction.tscn" type="PackedScene" id=4]
+
+[node name="Agony" instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+action_name = "Agony"
+num_states = 6
+infinite = true
+
+[node name="AgonyAnim" parent="." index="0" instance=ExtResource( 4 )]
+animation = "Agony"
+state_frames = [ 0, 0, 1, 1, 2, 2 ]

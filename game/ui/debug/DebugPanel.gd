@@ -8,6 +8,12 @@ func toggle_visibility():
 var stats = []
 var map_entries = {}
 
+func show():
+	$Panel.show()
+	
+func hide():
+	$Panel.hide()
+
 func add_stat(stat_name, object, stat_ref, is_method):
 	stats.append([stat_name, object, stat_ref, is_method])
 
@@ -41,8 +47,8 @@ func _process(delta):
 		label_text += str(s[0], ": ", value)
 		label_text += "\n"
 		
-	for e in map_entries:
-		label_text += str(e, ": ", map_entries[e])
-		label_text += "\n"
+	#for e in map_entries:
+	#	label_text += str(e, ": ", map_entries[e])
+	#	label_text += "\n"
 	
 	$Panel/Label.text = label_text
